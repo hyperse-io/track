@@ -3,10 +3,10 @@ export type TrackAdapterOptions = {
 };
 
 export interface TrackAdapter {
-  init(options: TrackAdapterOptions): void;
-  before(options: TrackAdapterOptions): void;
-  transform(options: TrackAdapterOptions): void;
-  track(options: TrackAdapterOptions): void;
+  init<Context>(ctx: Context): void;
+  before<Context, V>(ctx: Context, options: V): void;
+  transform<Context, V>(ctx: Context, options: V): Promise<unknown> | unknown;
   isTrackable(): boolean;
-  after(options: TrackAdapterOptions): void;
+  after<Context>(ctx: Context, result: unknown): void;
+  report(result: unknown): void;
 }

@@ -1,50 +1,59 @@
 import { pipe } from '@hyperse/pipeline';
+import { BaseAdapter } from '../adapter/adapter-base.js';
+import {
+  defaultGlobalTransform,
+  defaultSelect,
+} from '../constant/default-track-fns.js';
 import { weakSetAdd } from '../helpers/helper-weak-set-add.js';
 import {
-  TrackAdapter,
-  TrackContext,
-  TrackContextFunction,
   TrackFunctionVoid,
+  TrackSelectFunction,
   TrackTransformFunction,
 } from '../types/index.js';
 
-export class Track<Context extends TrackContext, V extends object> {
+export class Track<Context, V> {
   private ctx: Context;
-  private adapterList: Array<TrackAdapter>;
-  private ctxFun: TrackContextFunction<Context>;
-  private selectFun: TrackContextFunction<Context>;
-  private afterFns: WeakSet<TrackFunctionVoid<Context>>;
-  private beforeFns: WeakSet<TrackFunctionVoid<Context>>;
+  private adapterList: Array<BaseAdapter>;
+  private selectFun: TrackSelectFunction<Context, Array<BaseAdapter>>;
+  private afterFns: Set<TrackFunctionVoid>;
+  private beforeFns: Set<TrackFunctionVoid>;
   private globalTransform: TrackTransformFunction<Context, V>;
 
   constructor(ctx: Context) {
-    this.ctx = ctx;
     this.adapterList = [];
-    this.afterFns = new WeakSet<TrackFunctionVoid<Context>>();
-    this.beforeFns = new WeakSet<TrackFunctionVoid<Context>>();
+    this.afterFns = new Set<TrackFunctionVoid>();
+    this.beforeFns = new Set<TrackFunctionVoid>();
+    this.ctx = ctx;
   }
 
-  createCtx(fun: TrackContextFunction<Context>) {
-    this.ctxFun = fun;
+  getCtx(): Context {
+    return this.ctx;
+  }
+
+  before(fns: TrackFunctionVoid | TrackFunctionVoid[]) {
+    weakSetAdd<TrackFunctionVoid>(this.beforeFns, fns);
     return this;
   }
 
-  before(fns: TrackFunctionVoid<Context> | TrackFunctionVoid<Context>[]) {
-    weakSetAdd<TrackFunctionVoid<Context>>(this.beforeFns, fns);
+  after(fns: TrackFunctionVoid | TrackFunctionVoid[]) {
+    weakSetAdd<TrackFunctionVoid>(this.afterFns, fns);
     return this;
   }
 
-  after(fns: TrackFunctionVoid<Context> | TrackFunctionVoid<Context>[]) {
-    weakSetAdd<TrackFunctionVoid<Context>>(this.afterFns, fns);
-    return this;
-  }
-
-  addAdapter(adapter: TrackAdapter) {
+  addAdapter<T>(adapter: BaseAdapter) {
     this.adapterList.push(adapter);
     return this;
   }
 
-  select() {
+  addAdapterList(adapterList: Array<BaseAdapter>) {
+    for (const adapter of adapterList) {
+      this.adapterList.push(adapter);
+    }
+    return this;
+  }
+
+  select(fun: TrackSelectFunction<Context, Array<BaseAdapter>>) {
+    this.selectFun = fun;
     return this;
   }
 
@@ -53,16 +62,58 @@ export class Track<Context extends TrackContext, V extends object> {
     return this;
   }
 
+  private async executeSelect(): Promise<{
+    adapterList: Array<BaseAdapter>;
+  }> {
+    const fun = this.selectFun || defaultSelect;
+    const adapterList = await pipe(
+      () => {
+        return this.adapterList.filter((adapter) => adapter.isTrackable());
+      },
+      (adapterList) => fun(this.ctx, adapterList)
+    )();
+    return {
+      adapterList,
+    };
+  }
+
+  private async executeTransform(options: V): Promise<{ result: V }> {
+    const fun = this.globalTransform || defaultGlobalTransform;
+    const result = await pipe(() => fun(this.ctx, options))();
+    return { result };
+  }
+
+  private async executeBeforeFns() {
+    await Promise.all(Array.from(this.beforeFns).map((f) => f()));
+  }
+
+  private async executeAfterFns() {
+    await Promise.all(Array.from(this.afterFns).map((f) => f()));
+  }
+
+  private async executeAdapterList(adapterList: Array<BaseAdapter>, result: V) {
+    for (const adapter of adapterList) {
+      await this.executeAdapter(adapter, result);
+    }
+  }
+
+  private async executeAdapter(adapter: BaseAdapter, result: V) {
+    return await pipe(() => adapter.track(this.ctx, result))();
+  }
+
   async track(options: V) {
-    try {
-      await pipe(
-        () => this.ctxFun(this.ctx),
-        () => this.selectFun(this.ctx),
-        (ctx) => this.globalTransform(ctx, options),
-        (options) => {
-          //execute adapter
-        }
-      )();
-    } catch (error) {}
+    await pipe(
+      () => this.executeBeforeFns(),
+      async () => await this.executeSelect(),
+      async ({ adapterList }) => {
+        const { result } = await this.executeTransform(options);
+        return {
+          result,
+          adapterList,
+        };
+      },
+      ({ adapterList, result }) => this.executeAdapterList(adapterList, result),
+      () => this.executeAfterFns()
+    )(options);
   }
 }

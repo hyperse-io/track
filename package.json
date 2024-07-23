@@ -48,7 +48,8 @@
     }
   },
   "dependencies": {
-    "@hyperse/pipeline": "^1.0.3"
+    "@hyperse/pipeline": "^1.0.3",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.0",

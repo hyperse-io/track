@@ -1,17 +1,17 @@
-export type TrackContextFunction<T> = (ctx: T) => T | Promise<T>;
+import { TrackAdapter } from './types-adapter.js';
 
-export type TrackTransformFunction<T, V> = (ctx: T, args: V) => V | Promise<V>;
+export type TrackContextFunction<T> = (ctx?: T) => T | Promise<T>;
 
-export type TrackFunctionVoid<T> = (args: T) => void | Promise<void>;
+export type TrackTransformFunction<T, V> = (
+  ctx: T,
+  options: V
+) => V | Promise<V>;
 
-export type TrackContext = {
-  name?: string;
-};
+export type TrackFunctionVoid = () => void | Promise<void>;
 
-export type TrackOptions =
-  | string
-  | number
-  | boolean
-  | symbol
-  | Record<string, unknown>
-  | Array<unknown>;
+export type TrackSelectFunction<T, A extends Array<TrackAdapter>> = (
+  ctx: T,
+  adapterList: A
+) => A;
+
+export type TrackContext<T> = T | TrackContextFunction<T>;
