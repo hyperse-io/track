@@ -48,7 +48,7 @@
     }
   },
   "dependencies": {
-    "@hyperse/pipeline": "^1.0.3",
+    "@hyperse/pipeline": "^1.0.4",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
@@ -71,7 +71,6 @@
     "npm-run-all": "^4.1.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "rocket-pipes-slim": "^0.11.0",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2",
     "vite": "^5.3.2",

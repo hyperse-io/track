@@ -803,10 +803,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hyperse/pipeline@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "@hyperse/pipeline@npm:1.0.3"
-  checksum: 10/d6a58713764ca80a5fe7bce1b1376bbfea6d873a06af8e6e0ae955746d013ca60e554f59d6a36c3115ac3c7a0aa495ffa19f364fe7fdd000e1b34f32a4b994d3
+"@hyperse/pipeline@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "@hyperse/pipeline@npm:1.0.4"
+  dependencies:
+    monet: "npm:^0.9.3"
+  checksum: 10/14c0acee0c1062b6cc4209c1fa0d003fc819f865cf68e0aae2e64a829a5638cc10847705f661494e4a00e6312553c65673828f957e7aff0decd60d0be5ac5575
   languageName: node
   linkType: hard
 
@@ -820,7 +822,7 @@ __metadata:
     "@commitlint/config-conventional": "npm:19.2.2"
     "@hyperse/eslint-config-hyperse": "npm:^1.0.10"
     "@hyperse/exec-program": "npm:^1.0.6"
-    "@hyperse/pipeline": "npm:^1.0.3"
+    "@hyperse/pipeline": "npm:^1.0.4"
     "@types/lodash": "npm:^4"
     "@types/node": "npm:^20.14.9"
     "@types/react": "npm:^18.3.3"
@@ -835,7 +837,6 @@ __metadata:
     npm-run-all: "npm:^4.1.5"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    rocket-pipes-slim: "npm:^0.11.0"
     tsup: "npm:^8.1.0"
     typescript: "npm:^5.5.2"
     vite: "npm:^5.3.2"
@@ -1131,13 +1132,6 @@ __metadata:
   version: 0.1.1
   resolution: "@pkgr/core@npm:0.1.1"
   checksum: 10/6f25fd2e3008f259c77207ac9915b02f1628420403b2630c92a07ff963129238c9262afc9e84344c7a23b5cc1f3965e2cd17e3798219f5fd78a63d144d3cceba
-  languageName: node
-  linkType: hard
-
-"@ramda/pipewith@npm:^0.26.1":
-  version: 0.26.1
-  resolution: "@ramda/pipewith@npm:0.26.1"
-  checksum: 10/83aca3c343b69d429bdfbe58b5a5ee52e27e73f3e06cfd16a163675ee1dcc925f8425dcec5cfc46ba76aa0fb941b154278507c66db814fccc12b3b124e6f425e
   languageName: node
   linkType: hard
 
@@ -6283,6 +6277,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"monet@npm:^0.9.3":
+  version: 0.9.3
+  resolution: "monet@npm:0.9.3"
+  checksum: 10/c01b0fa0c7473a55a7febad19e9d3dd9f9a9f37d4622720b5eed8151c080e5a0501db7931f4211090e214f23472858a76977f5aaa045dc593b3b3fc730643ce3
+  languageName: node
+  linkType: hard
+
 "mri@npm:^1.1.0, mri@npm:^1.2.0":
   version: 1.2.0
   resolution: "mri@npm:1.2.0"
@@ -6676,13 +6677,6 @@ __metadata:
   dependencies:
     p-map: "npm:^2.0.0"
   checksum: 10/76e552ca624ce2233448d68b19eec9de42b695208121998f7e011edce71d1079a83096ee6a2078fb2a59cfa8a5c999f046edf00ebf16a8e780022010b4693234
-  languageName: node
-  linkType: hard
-
-"p-is-promise@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "p-is-promise@npm:3.0.0"
-  checksum: 10/161e526ce5ba4f053afce094110fdf6cae250d28002b874b30d5f7525d1abb18911ae040d7f0ed3d202af6df87c84acb04109f39e34d7072af6088b3fc6a27fa
   languageName: node
   linkType: hard
 
@@ -7576,17 +7570,6 @@ __metadata:
   version: 1.3.1
   resolution: "rfdc@npm:1.3.1"
   checksum: 10/44cc6a82e2fe1db13b7d3c54e9ffd0b40ef070cbde69ffbfbb38dab8cee46bd68ba686784b96365ff08d04798bc121c3465663a0c91f2c421c90546c4366f4a6
-  languageName: node
-  linkType: hard
-
-"rocket-pipes-slim@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "rocket-pipes-slim@npm:0.11.0"
-  dependencies:
-    "@ramda/pipewith": "npm:^0.26.1"
-    p-is-promise: "npm:^3.0.0"
-    ts-toolbelt: "npm:9.1.7"
-  checksum: 10/fc405d8665f9cb672f0c51bfa3079c7281a8b6a89644f9021c27bab2a914bff087aa5196d77393b727a4708ba71bf0eea8fade1dd0404e82f2fad35e2509a3af
   languageName: node
   linkType: hard
 
@@ -8539,13 +8522,6 @@ __metadata:
     ts-node-script: dist/bin-script.js
     ts-node-transpile-only: dist/bin-transpile.js
   checksum: 10/c879e0eec61dac25e1024527123a2cd105a4f85ee4e16f8c38f56aa1c901aa138aa36ff7dff270b0aaa1711cf63b5da6742bee6c5735044f3f9d22536f2b983b
-  languageName: node
-  linkType: hard
-
-"ts-toolbelt@npm:9.1.7":
-  version: 9.1.7
-  resolution: "ts-toolbelt@npm:9.1.7"
-  checksum: 10/147aba66eae5053804b0d14c53c8e69dc4797092b4e510c0cf4bb094b97f31d69b020ac9573a6fca06553ed4bed81c6b55f6224c17f33d9672d9f9d08a1ecb46
   languageName: node
   linkType: hard
 

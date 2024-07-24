@@ -1,6 +1,6 @@
-import { TrackAdapter } from './types-adapter.js';
-
-export type TrackContextFunction<T> = (ctx?: T) => T | Promise<T>;
+export type TrackOptions<T, V> = {
+  createCtx: () => T | Promise<T>;
+} & Partial<V>;
 
 export type TrackTransformFunction<T, V> = (
   ctx: T,
@@ -9,9 +9,4 @@ export type TrackTransformFunction<T, V> = (
 
 export type TrackFunctionVoid = () => void | Promise<void>;
 
-export type TrackSelectFunction<T, A extends Array<TrackAdapter>> = (
-  ctx: T,
-  adapterList: A
-) => A;
-
-export type TrackContext<T> = T | TrackContextFunction<T>;
+export type TrackSelectFunction<T, A> = (ctx: T, adapterList: A) => A;
