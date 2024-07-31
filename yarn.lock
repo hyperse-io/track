@@ -832,7 +832,6 @@ __metadata:
     eslint: "npm:^9.6.0"
     husky: "npm:9.0.11"
     lint-staged: "npm:15.2.7"
-    lodash: "npm:^4.17.21"
     next: "npm:14.2.4"
     npm-run-all: "npm:^4.1.5"
     react: "npm:^18.3.1"
