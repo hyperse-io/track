@@ -38,7 +38,7 @@ export class Track<T, V extends TrackEventValueBase> {
    *
    * @returns adapterMap
    */
-  public getAdapterMap() {
+  public getAdapterMap(): Readonly<TrackAdapterMap<T, V>> {
     return this.adapterMap;
   }
 
