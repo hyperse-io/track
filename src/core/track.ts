@@ -1,5 +1,5 @@
 import { pipe } from '@hyperse/pipeline';
-import { defaultGlobalTransform } from '../constant/default-track-fns.js';
+import { defaultTrackTransform } from '../constant.js';
 import { ensureArray } from '../helpers/helper-array.js';
 import { deepMerge } from '../helpers/helper-deep-merge.js';
 import { ensureFuncExist } from '../helpers/helper-ensure-func-exist.js';
@@ -103,7 +103,7 @@ export class Track<T, V extends TrackEventValueBase> {
   }
 
   public async executeTransform(options: V): Promise<V> {
-    const fun = this.globalTransform || defaultGlobalTransform;
+    const fun = this.globalTransform || defaultTrackTransform;
     const result = await pipe(() => {
       const finalOptions = deepMerge(this.globalOptions || {}, options);
       return fun(this.ctx, finalOptions as V);
