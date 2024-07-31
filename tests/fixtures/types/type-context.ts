@@ -1,5 +1,6 @@
 export type Context = {
-  name: string;
   env: 'prod' | 'uat';
-  platform?: string;
+  platform: 'android' | 'ios';
+  ip: string;
+  userId: string;
 };

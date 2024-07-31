@@ -1,158 +1,139 @@
-import _ from 'lodash';
 import { pipe } from '@hyperse/pipeline';
-import { BaseAdapter } from '../adapter/adapter-base.js';
+import { defaultGlobalTransform } from '../constant/default-track-fns.js';
+import { ensureArray } from '../helpers/helper-array.js';
+import { deepMerge } from '../helpers/helper-deep-merge.js';
+import { ensureFuncExist } from '../helpers/helper-ensure-func-exist.js';
+import { isFunction } from '../helpers/helper-is-function.js';
 import {
-  defaultGlobalTransform,
-  defaultSelect,
-} from '../constant/default-track-fns.js';
-import { setAdd } from '../helpers/helper-set-add.js';
-import {
-  TrackFunctionVoid,
-  TrackSelectFunction,
+  TrackAdapterMap,
+  TrackEventValueBase,
+  TrackSelectOptions,
   TrackTransformFunction,
 } from '../types/index.js';
+import { TrackAdapter } from '../types/types-adapter.js';
 
-export class Track<T, V> {
-  private ctx: T;
-  private adapterList: Array<BaseAdapter<T, V>>;
-  private selectFun: TrackSelectFunction<T, Array<BaseAdapter<T, V>>>;
-  private afterFns: Set<TrackFunctionVoid>;
-  private beforeFns: Set<TrackFunctionVoid>;
+export class Track<T, V extends TrackEventValueBase> {
+  private ctx: Readonly<T>;
+  private adapterMap: TrackAdapterMap<T, V>;
+  private selectAdapterNames: unknown[];
+  private selectAdapterFun?: <N>(
+    ctx: T,
+    adapterMap: TrackAdapterMap<T, V>
+  ) => N | N[] | Promise<N> | Promise<N[]>;
+  private afterFun: (context: T) => void | Promise<void>;
+  private beforeFun: (context: T) => void | Promise<void>;
   private globalTransform: TrackTransformFunction<T, V>;
   private globalOptions?: Partial<V>;
 
   constructor(ctx: T, globalOptions?: Partial<V>) {
-    this.adapterList = [];
-    this.afterFns = new Set<TrackFunctionVoid>();
-    this.beforeFns = new Set<TrackFunctionVoid>();
+    this.adapterMap = {};
+    this.selectAdapterNames = [];
+    this.selectAdapterFun = undefined;
     this.ctx = ctx;
     this.globalOptions = globalOptions;
   }
 
   /**
-   * Adds one or more functions to be executed before the main track function.
+   * Return the adapter map. generally used in UT
    *
-   * @param fns - The function(s) to be executed before the main track function.
-   * @returns The current instance of the `Track` class.
+   * @returns adapterMap
    */
-  before(fns: TrackFunctionVoid | TrackFunctionVoid[]) {
-    setAdd<TrackFunctionVoid>(this.beforeFns, fns);
-    return this;
+  public getAdapterMap() {
+    return this.adapterMap;
   }
 
-  /**
-   * Adds one or more functions to be executed after the track event is triggered.
-   *
-   * @param fns - A single function or an array of functions to be executed.
-   * @returns The current instance of the `Track` class.
-   */
-  after(fns: TrackFunctionVoid | TrackFunctionVoid[]) {
-    setAdd<TrackFunctionVoid>(this.afterFns, fns);
-    return this;
+  public before(fns: (context: T) => void) {
+    this.beforeFun = fns;
   }
 
-  /**
-   * Adds an adapter to the track.
-   * @param adapter - The adapter to add. It can be a single `BaseAdapter` instance or an array of `BaseAdapter` instances.
-   * @returns The updated `Track` instance.
-   */
-  addAdapter(adapter: BaseAdapter<T, V> | Array<BaseAdapter<T, V>>) {
-    if (Array.isArray(adapter)) {
-      for (const ad of adapter) {
-        this.adapterList.push(ad);
-      }
-    } else {
-      this.adapterList.push(adapter);
+  public after(fns: (context: T) => void) {
+    this.afterFun = fns;
+  }
+
+  public useAdapter(adapterMap: TrackAdapterMap<T, V>) {
+    this.adapterMap = adapterMap;
+    this.selectAdapterNames = Object.keys(this.adapterMap);
+  }
+
+  public select<N>(names?: TrackSelectOptions<T, V, N>) {
+    if (!names) {
+      return;
     }
-    return this;
+    this.selectAdapterNames = [];
+    if (isFunction(names)) {
+      this.selectAdapterFun<N> = names;
+      return;
+    }
+    this.selectAdapterNames = Array.from(new Set(ensureArray(names)));
   }
 
-  /**
-   * Filter the list of adapters to be executed
-   *
-   * @param {TrackSelectFunction<T, Array<BaseAdapter<T, V>>>} fun - The select function to set.
-   * @returns The updated `Track` instance.
-   */
-  select(fun: TrackSelectFunction<T, Array<BaseAdapter<T, V>>>) {
-    this.selectFun = fun;
-    return this;
-  }
-
-  /**
-   * Sets the global transform function for the track.
-   *
-   * @param fun - The transform function to be set.
-   * @returns The current instance of the track.
-   */
-  transform(fun: TrackTransformFunction<T, V>) {
+  public transform(fun: TrackTransformFunction<T, V>) {
     this.globalTransform = fun;
-    return this;
   }
 
-  /**
-   * Executes the tracking process with the given options.
-   * @param options - The options for the tracking process.
-   * @returns A Promise that resolves when the tracking process is complete.
-   */
-  async track(options: V) {
-    await pipe(
-      () => this.executeBeforeFns(),
-      async () => await this.executeSelect(),
-      async ({ adapterList }) => {
-        const { result } = await this.executeTransform(options);
-        return {
-          result,
-          adapterList,
-        };
-      },
-      ({ adapterList, result }) =>
-        this.executeAdapterListTrack(adapterList, result),
-      () => this.executeAfterFns()
-    )();
+  public async executeSelect(): Promise<void> {
+    let selectAdapterNames = [...this.selectAdapterNames];
+    const filterAdapterMap: TrackAdapterMap<T, V> = {};
+    const lasterAdapterMap: TrackAdapterMap<T, V> = {};
+
+    //filter by custom select function
+    if (this.selectAdapterFun) {
+      const names = await pipe(() =>
+        this.selectAdapterFun!(this.ctx, this.adapterMap)
+      )();
+      selectAdapterNames = Array.from(
+        new Set([...selectAdapterNames, ...ensureArray(names)])
+      );
+    }
+
+    // filter by adapter name
+    for (const adapterName of Object.keys(this.adapterMap)) {
+      if (selectAdapterNames.includes(adapterName)) {
+        filterAdapterMap[adapterName] = this.adapterMap[adapterName];
+      }
+    }
+
+    //filter by isTrackable status
+    for (const [adapterName, adapter] of Object.entries(filterAdapterMap)) {
+      if (adapter.isTrackable()) {
+        lasterAdapterMap[adapterName] = adapter;
+      }
+    }
+    this.adapterMap = lasterAdapterMap;
   }
 
-  private async executeSelect(): Promise<{
-    adapterList: Array<BaseAdapter<T, V>>;
-  }> {
-    const fun = this.selectFun || defaultSelect;
-    const adapterList = await pipe(
-      () => {
-        return this.adapterList.filter((adapter) => adapter.isTrackable());
-      },
-      (adapterList) => fun(this.ctx, adapterList)
-    )();
-    return {
-      adapterList,
-    };
-  }
-
-  private async executeTransform(options: V): Promise<{ result: V }> {
+  public async executeTransform(options: V): Promise<V> {
     const fun = this.globalTransform || defaultGlobalTransform;
     const result = await pipe(() => {
-      const finalOptions = _.merge({}, options, this.globalOptions || {});
-      return fun(this.ctx, finalOptions);
+      const finalOptions = deepMerge(this.globalOptions || {}, options);
+      return fun(this.ctx, finalOptions as V);
     })();
-    return { result };
+    return result;
   }
 
-  private async executeBeforeFns() {
-    await Promise.all(Array.from(this.beforeFns).map((f) => f()));
+  public async executeBefore() {
+    await pipe(() => ensureFuncExist(this.beforeFun)(this.ctx))();
   }
 
-  private async executeAfterFns() {
-    await Promise.all(Array.from(this.afterFns).map((f) => f()));
+  public async executeAfter() {
+    await pipe(() => ensureFuncExist(this.afterFun)(this.ctx))();
   }
 
-  private async executeAdapterListTrack(
-    adapterList: Array<BaseAdapter<T, V>>,
+  public async executeTrackAdapter(eventType: keyof V, result: V): Promise<V> {
+    for (const [adapterName, adapter] of Object.entries(this.adapterMap)) {
+      await this.executeAdapterTrack(eventType, adapterName, adapter, result);
+    }
+    return result;
+  }
+
+  private async executeAdapterTrack(
+    eventType: keyof V,
+    adapterName: string,
+    adapter: TrackAdapter<T, V>,
     result: V
   ) {
-    for (const adapter of adapterList) {
-      await this.executeAdapterTrack(adapter, result);
-    }
-  }
-
-  private async executeAdapterTrack(adapter: BaseAdapter<T, V>, result: V) {
-    return await pipe(() => adapter.track(this.ctx, result))();
+    console.log('adapterName', adapterName);
+    //TODO 是否增加adapter的track方法的日志
+    return await pipe(() => adapter.track(this.ctx, eventType, result))();
   }
 }

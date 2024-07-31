@@ -1,12 +1,27 @@
+import { TrackAdapter } from './types-adapter.js';
+
 export type TrackOptions<T, V> = {
   createCtx: () => T | Promise<T>;
-} & Partial<V>;
+  globalInput?: Partial<V>;
+};
 
 export type TrackTransformFunction<T, V> = (
   ctx: T,
   options: V
 ) => V | Promise<V>;
 
-export type TrackFunctionVoid = () => void | Promise<void>;
+export type TrackAdapterMap<T, V> = {
+  [name: string]: TrackAdapter<T, V>;
+};
 
-export type TrackSelectFunction<T, A> = (ctx: T, adapterList: A) => A;
+export type TrackSelectOptions<T, V, N> =
+  | N
+  | N[]
+  | ((
+      ctx: T,
+      adapterMap: TrackAdapterMap<T, V>
+    ) => N | N[] | Promise<N> | Promise<N[]>);
+
+export type TrackEventValueBase = {
+  [eventType: string]: any;
+};
