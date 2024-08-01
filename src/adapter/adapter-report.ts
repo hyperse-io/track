@@ -1,10 +1,11 @@
 import { pipe } from '@hyperse/pipeline';
 import { ensureFuncExist } from '../helpers/helper-ensure-func-exist.js';
 import { isFunction } from '../helpers/helper-is-function.js';
+import { logger } from '../logger/create-logger.js';
 import { TrackAdapter } from '../types/types-adapter.js';
-import { TrackEventValueBase } from '../types/types-track.js';
+import { TrackEventDataBase } from '../types/types-track.js';
 
-export class ReportAdapter<T, V extends TrackEventValueBase>
+export class ReportAdapter<T, V extends TrackEventDataBase>
   implements TrackAdapter<T, V>
 {
   private _trackable: boolean = true;
@@ -68,7 +69,7 @@ export class ReportAdapter<T, V extends TrackEventValueBase>
     eventData: V
   ) => {
     if (!this.transformFun) {
-      //TODO 输出waring日志
+      logger.warn('Adapter transform function is not defined');
       return eventData;
     }
     const result = await pipe(() =>
@@ -79,10 +80,10 @@ export class ReportAdapter<T, V extends TrackEventValueBase>
 
   private executeReport = async <R>(ctx: T, result: R) => {
     if (!this.reportFun) {
-      throw new Error('report function is not defined');
+      throw new Error('Adapter report function is not defined');
     }
     if (!result) {
-      //TODO 输出waring日志
+      logger.warn('Adapter report eventData is not defined');
       return;
     }
     await pipe(() => this.reportFun<typeof result>(ctx, result))();
@@ -96,12 +97,16 @@ export class ReportAdapter<T, V extends TrackEventValueBase>
    * @returns A promise that resolves when the tracking is complete.
    */
   async track(ctx: T, eventType: keyof V, eventData: V): Promise<void> {
-    await pipe(
-      async () => await this.executeInit(ctx),
-      async () => await this.executeBefore(ctx),
-      async () => await this.executeTransform(ctx, eventType, eventData),
-      async (result) => await this.executeReport(ctx, result),
-      async () => await this.executeAfter(ctx)
-    )();
+    try {
+      await pipe(
+        async () => await this.executeInit(ctx),
+        async () => await this.executeBefore(ctx),
+        async () => await this.executeTransform(ctx, eventType, eventData),
+        async (result) => await this.executeReport(ctx, result),
+        async () => await this.executeAfter(ctx)
+      )();
+    } catch (error) {
+      logger.error(`Adapter track error: ${error}`);
+    }
   }
 }

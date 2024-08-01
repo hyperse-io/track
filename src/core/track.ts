@@ -1,18 +1,19 @@
 import { pipe } from '@hyperse/pipeline';
-import { defaultTrackTransform } from '../constant.js';
+import { defaultTrackTransform } from '../constant/track-func.js';
 import { ensureArray } from '../helpers/helper-array.js';
 import { deepMerge } from '../helpers/helper-deep-merge.js';
 import { ensureFuncExist } from '../helpers/helper-ensure-func-exist.js';
 import { isFunction } from '../helpers/helper-is-function.js';
+import { logger } from '../logger/create-logger.js';
 import {
   TrackAdapterMap,
-  TrackEventValueBase,
+  TrackEventDataBase,
   TrackSelectOptions,
   TrackTransformFunction,
 } from '../types/index.js';
 import { TrackAdapter } from '../types/types-adapter.js';
 
-export class Track<T, V extends TrackEventValueBase> {
+export class Track<T, V extends TrackEventDataBase> {
   private ctx: Readonly<T>;
   private adapterMap: TrackAdapterMap<T, V>;
   private selectAdapterNames: unknown[];
@@ -23,14 +24,14 @@ export class Track<T, V extends TrackEventValueBase> {
   private afterFun: (context: T) => void | Promise<void>;
   private beforeFun: (context: T) => void | Promise<void>;
   private globalTransform: TrackTransformFunction<T, V>;
-  private globalOptions?: Partial<V>;
+  private globalEventData?: Partial<V>;
 
-  constructor(ctx: T, globalOptions?: Partial<V>) {
+  constructor(ctx: T, eventData?: Partial<V>) {
     this.adapterMap = {};
     this.selectAdapterNames = [];
     this.selectAdapterFun = undefined;
     this.ctx = ctx;
-    this.globalOptions = globalOptions;
+    this.globalEventData = eventData;
   }
 
   /**
@@ -102,10 +103,10 @@ export class Track<T, V extends TrackEventValueBase> {
     this.adapterMap = lasterAdapterMap;
   }
 
-  public async executeTransform(options: V): Promise<V> {
+  public async executeTransform(eventData: V): Promise<V> {
     const fun = this.globalTransform || defaultTrackTransform;
     const result = await pipe(() => {
-      const finalOptions = deepMerge(this.globalOptions || {}, options);
+      const finalOptions = deepMerge(this.globalEventData || {}, eventData);
       return fun(this.ctx, finalOptions as V);
     })();
     return result;
@@ -132,8 +133,9 @@ export class Track<T, V extends TrackEventValueBase> {
     adapter: TrackAdapter<T, V>,
     result: V
   ) {
-    console.log('adapterName', adapterName);
-    //TODO 是否增加adapter的track方法的日志
+    logger.debug(
+      `Track: ${adapterName} is tracking event: ${eventType.toString()}`
+    );
     return await pipe(() => adapter.track(this.ctx, eventType, result))();
   }
 }

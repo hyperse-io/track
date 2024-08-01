@@ -1,6 +1,6 @@
-import { Track, TrackEventValueBase } from '../../../src/index.js';
+import { Track, TrackEventDataBase } from '../../../src/index.js';
 
-export const defaultTack = <T, V extends TrackEventValueBase>() => {
+export const defaultTack = <T, V extends TrackEventDataBase>() => {
   const context = {
     env: 'prod',
     platform: 'android',

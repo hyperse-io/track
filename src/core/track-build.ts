@@ -1,7 +1,8 @@
 import { pipe } from '@hyperse/pipeline';
+import { logger } from '../logger/create-logger.js';
 import {
   TrackAdapterMap,
-  TrackEventValueBase,
+  TrackEventDataBase,
   TrackSelectOptions,
 } from '../types/types-track.js';
 import { type Track } from './track.js';
@@ -11,7 +12,7 @@ import { type Track } from './track.js';
  * @template T The type of the context object.
  * @template V The type of the track event value.
  */
-export class TrackBuilder<T, V extends TrackEventValueBase> {
+export class TrackBuilder<T, V extends TrackEventDataBase> {
   private trackInstance: Track<T, V>;
 
   constructor(_track: Track<T, V>) {
@@ -28,7 +29,9 @@ export class TrackBuilder<T, V extends TrackEventValueBase> {
     return this.transform();
   };
 
-  private transformHook = (fun: (context: T, eventData: V) => V) => {
+  private transformHook = (
+    fun: (context: T, eventData: V) => V | Promise<V>
+  ) => {
     this.trackInstance.transform(fun);
     return this.useAdapter();
   };
@@ -45,18 +48,22 @@ export class TrackBuilder<T, V extends TrackEventValueBase> {
   };
 
   private trackHook = async (eventType: keyof V, eventData: V) => {
-    await pipe(
-      async () => await this.trackInstance.executeBefore(),
-      async () => await this.trackInstance.executeSelect(),
-      async () => await this.trackInstance.executeTransform(eventData),
-      async (result) =>
-        await this.trackInstance.executeTrackAdapter(eventType, result),
-      async () => await this.trackInstance.executeAfter()
-    )();
+    try {
+      await pipe(
+        async () => await this.trackInstance.executeBefore(),
+        async () => await this.trackInstance.executeSelect(),
+        async () => await this.trackInstance.executeTransform(eventData),
+        async (result) =>
+          await this.trackInstance.executeTrackAdapter(eventType, result),
+        async () => await this.trackInstance.executeAfter()
+      )();
+    } catch (error) {
+      logger.error(`Failed to track event: ${error}`);
+    }
     return this.build();
   };
 
-  private buildHook = () => {
+  private buildHook = async () => {
     return this.track;
   };
 

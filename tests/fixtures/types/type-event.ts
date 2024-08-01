@@ -1,4 +1,4 @@
-export type InputOption = {
+export type EventDataOption = {
   registry: {
     userName: string;
     mobile: string;
@@ -15,4 +15,5 @@ export type InputOption = {
     goodsName: string;
     count: number;
   };
+  timeStamp?: string;
 };

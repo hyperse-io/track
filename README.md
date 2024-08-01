@@ -19,131 +19,112 @@ A typed, smart, scalable , powerful data collection engine written in typescript
 
 ## Usage
 
-- ### Create CustomerAdapter
-  Creating a CustomerAdapter requires extends BaseAdapter, and you need to provide implementations of the transform and report methods
+### Create TrackBuilder
+
+Create a builder to load the track
 
 ```ts
 export type Context = {
-  name: string;
   env: 'prod' | 'uat';
-  platform?: string;
+  platform: 'android' | 'ios';
+  ip: string;
+  userId: string;
 };
 
-export type InputOption = {
-  level?: 'info' | 'warn' | 'error';
-  message?: string;
-  page?: string;
-  event?: string;
+export type EventData = {
+  registry: {
+    userName: string;
+    mobile: string;
+    pwd: string;
+    email: string;
+  };
+  addCart: {
+    price: number;
+    goodsId: string;
+    goodsName: string;
+    count: number;
+  };
 };
 
-class ConsoleAdapter extends BaseAdapter<Context, InputOption> {
-  transform(ctx: Context, options: InputOption) {
-    return {
-      ...options,
-      adapter: 'console',
-      page: 'page',
-      url: 'http://localhost:3000',
-    };
-  }
-  after(
-    ctx: Context,
-    result: Awaited<ReturnType<typeof this.transform>>
-  ): void {
-    console.log('ConsoleAdapter after: ');
-  }
-
-  before(ctx: Context, options: InputOption): void {
-    console.log('ConsoleAdapter before: ');
-  }
-
-  init(ctx: Context): void {
-    console.log('ConsoleAdapter init');
-  }
-
-  report(result: Awaited<ReturnType<typeof this.transform>>): void {
-    console.log('ConsoleAdapter report: ', result);
-  }
-
-  isTrackable(): boolean {
-    return true;
-  }
-}
-```
-
-- ### Create a Track instance using the createTracker method
-
-```ts
-import { createTrack } from '@hyperse/track';
-
-const track = await createTrack<Context, InputOption>({
-  createCtx: () => {
-    return {
-      name: 'customer adapter',
-      env: 'prod',
-      platform: 'web',
-    };
+const trackBuilder = await createTrackBuilder<Context, EventData>({
+  createCtx() {
+    // Used to build a global context
+    return Promise.resolve(context);
   },
-  level: 'info',
+  eventData: {
+    // Generic EventData-type data is deeply merged during the transform phase
+  },
+  // The formatStrategy for logger
+  formatStrategy: formatStrategy,
 });
-
-const inputOptions: InputOption = {
-  message: 'this is a message',
-};
-
-//construct the track actuator
-track
-  //add adapter
-  .addAdapter([customerAdapter])
-  //add one or more functions to be executed before the main track function
-  .before(() => {
-    console.log('global before: ', new Date().getTime());
-  })
-  //add one or more functions to be executed after the track event is triggered.
-  .after(() => {
-    console.log('global after: ', new Date().getTime());
-  })
-  //filter the list of adapters to be executed
-  .select((ctx, adapterList) => {
-    return adapterList.filter((adapter) => adapter.isTrackable());
-  })
-  //The global transform function for the track inputOption.
-  .transform((ctx, options) => {
-    return Promise.resolve({
-      ...ctx,
-      ...options,
-      age: 1,
-    });
-  })
-  //execute function
-  .track(inputOptions);
 ```
 
-- ### Create a Track instance with a constructor
+### Create Adapter
+
+Create a adapter by createAdapterBuilder function
 
 ```ts
-const ctxOptions: Context = {
-  name: 'customer adapter',
-  env: 'prod',
-  platform: 'web',
-};
-const track = new Track<Context, InputOption>(ctxOptions);
+const adapterBuilder = await createAdapterBuilder<Context, InputOption>();
+
+const adapter = await adapterBuilder
+  .init(() => {
+    // Initialization adapter
+  })
+  .before((ctx) => {
+    // Execute before the adapter track function
+  })
+  .after((ctx) => {
+    // Execute after the adapter track function
+  })
+  .isTrackable(() => {
+    // Determine whether the adapter is trackable
+    return true;
+  })
+  .transform((ctx, eventType, eventData) => {
+    // Transform the eventData
+    return eventData;
+  })
+  .report((ctx, eventData) => {
+    // Report the eventData
+  })
+  // Return a adapter instance
+  .build();
+```
+
+> <span style="color:orange">The createAdapterBuilder function can accept an optional parameter (TrackAdapter) to handle eventdata escalation logic. By default, the ReportAdapter provided by Track is used</span>
+
+### Report data through track
+
+- Load the adapter in track
+
+- Event Data is reported through the track method provided by track
+
+```ts
+await trackBuilder
+  .before((ctx) => {
+    // Execute before the track function
+  })
+  .after((ctx) => {
+    // Execute after the track function
+  })
+  .transform((ctx, eventData) => {
+    // Global Transform the eventData
+    return eventData;
+  })
+  .useAdapter(() => {
+    // Load all adapters
+    return {
+      reportData: adapter,
+    };
+  })
+  // Filter the adapter used to process eventData
+  .select(['reportData'])
+  // EventType: previewGoods
+  // EventData: eventData
+  .track('previewGoods', eventData);
 ```
 
 ## Errors
-
-If an exception occurs during the track process, you can use trycache to catch the exception information and handle the error information.
-
-```ts
-const inputOptions: InputOption = {
-  message: 'this is a message',
-};
-
-try {
-  await track.addAdapter([customerAdapter]).track(inputOptions);
-} catch (error: any) {
-  console.error(error.message);
-}
-```
 
 ## Development
 

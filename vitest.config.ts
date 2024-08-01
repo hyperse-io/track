@@ -10,5 +10,11 @@ export default defineConfig({
       '~/': fileURLToPath(new URL('./src/', import.meta.url)),
     },
     include: ['**/?(*.){test,spec}.?(c|m)[jt]s?(x)'],
+    coverage: {
+      provider: 'istanbul',
+      reporter: ['html'],
+      include: ['src/**'],
+      enabled: true,
+    },
   },
 });

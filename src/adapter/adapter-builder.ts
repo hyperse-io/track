@@ -45,7 +45,7 @@ export class AdapterBuilder<T, V> {
     return this.build();
   };
 
-  private buildHook = () => {
+  private buildHook = async () => {
     return this.adapter;
   };
 

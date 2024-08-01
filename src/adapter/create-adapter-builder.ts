@@ -1,5 +1,5 @@
 import { TrackAdapter } from '../types/types-adapter.js';
-import { TrackEventValueBase } from '../types/types-track.js';
+import { TrackEventDataBase } from '../types/types-track.js';
 import { AdapterBuilder } from './adapter-builder.js';
 import { ReportAdapter } from './adapter-report.js';
 
@@ -9,7 +9,7 @@ import { ReportAdapter } from './adapter-report.js';
  * @param adapter - Optional track adapter to use. If not provided, a default `ReportAdapter` will be used.
  * @returns A promise that resolves to an initialized adapter builder.
  */
-export const createAdapterBuilder = async <T, V extends TrackEventValueBase>(
+export const createAdapterBuilder = async <T, V extends TrackEventDataBase>(
   adapter?: TrackAdapter<Readonly<T>, V>
 ) => {
   let reportAdapter: TrackAdapter<Readonly<T>, V>;
