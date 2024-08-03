@@ -1,16 +1,19 @@
-import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
-import { LogLevel } from '../src/constant/log-level.js';
 import { createTrackBuilder } from '../src/core/create-track-builder.js';
-import { FormatStrategy } from '../src/logger/format-strategy.js';
-import { Context } from './fixtures/types/type-context.js';
+import { TrackAdapter } from '../src/types/types-adapter.js';
+import { TrackContext } from '../src/types/types-create.js';
+import { defaultAdapterBuilder } from './fixtures/adapter/default-adapter-builder.js';
+import { ConsoleLogger } from './fixtures/console-logger.js';
+import { AdapterOptions } from './fixtures/types/type-adapter-options.js';
 import { EventDataOption } from './fixtures/types/type-event.js';
+import { TrackData } from './fixtures/types/type-track-data.js';
 
 describe('test-track-error.spec', () => {
-  const context: Context = {
+  const trackData: TrackData = {
     env: 'prod',
     platform: 'android',
     ip: '0.0.0.0',
     userId: 'uuid_10001',
+    bizMode: 'test',
   };
 
   const eventData: EventDataOption = {
@@ -32,124 +35,98 @@ describe('test-track-error.spec', () => {
     },
   };
 
-  class TestFormatStrategy implements FormatStrategy<string> {
-    print(
-      priority: LogLevel,
-      context: string,
-      message: string,
-      trace?: any
-    ): void {
-      console.log(priority, context, message, trace);
-    }
-  }
+  it('test throw error', async () => {
+    let adapterBuilder = await defaultAdapterBuilder();
 
-  it('test throw error1', async () => {
-    const formatStrategy = new TestFormatStrategy();
-    const print = vi.fn(
-      (priority: LogLevel, context: string, message: string, trace?: any) => {
-        if (priority === LogLevel.Error) {
-          return `Exception: ${message}`;
-        }
-      }
-    );
-
-    vi.spyOn(formatStrategy, 'print').mockImplementation(print);
-
-    const adapterBuilder = await createAdapterBuilder<
-      Context,
-      EventDataOption
-    >();
-
-    const trackBuilder = await createTrackBuilder<Context, EventDataOption>({
-      createCtx() {
-        return Promise.resolve(context);
-      },
-      eventData: eventData,
-      formatStrategy: formatStrategy,
-    });
-
-    const adapter = await adapterBuilder
-      .init(() => {})
-      .isTrackable(() => {
-        return true;
-      })
-      .transform((ctx, eventType, eventData) => {
-        return eventData;
+    let adapter = adapterBuilder
+      .setup(() => {
+        throw new Error('setup Error');
       })
       .build();
 
-    await trackBuilder
-      .before((ctx) => {})
-      .after((ctx) => {})
-      .transform((ctx, eventData) => {
-        return eventData;
-      })
-      .useAdapter(() => {
-        return {
-          report1: adapter,
-        };
-      })
-      .select()
-      .track('previewGoods', eventData);
+    let error = await testAdapterError(adapter);
 
-    expect(print.mock.results).toBeDefined();
-    expect(print.mock.results[0].value).toEqual(
-      'Exception: Adapter track error: Error: Adapter report function is not defined'
-    );
-  });
-
-  it('test throw error2', async () => {
-    const formatStrategy = new TestFormatStrategy();
-    const print = vi.fn(
-      (priority: LogLevel, context: string, message: string, trace?: any) => {
-        if (priority === LogLevel.Error) {
-          return `Exception: ${message}`;
-        }
-      }
+    expect(error.mock.results).toBeDefined();
+    expect(error.mock.results[0].value).toEqual(
+      'Exception: Error: setup Error'
     );
 
-    vi.spyOn(formatStrategy, 'print').mockImplementation(print);
-    const adapterBuilder = await createAdapterBuilder<
-      Context,
-      EventDataOption
-    >();
-
-    const trackBuilder = await createTrackBuilder<Context, EventDataOption>({
-      createCtx() {
-        return Promise.resolve(context);
-      },
-      eventData: eventData,
-      formatStrategy: formatStrategy,
-    });
-
-    const adapter2 = await adapterBuilder
-      .init(() => {})
-      .isTrackable(() => {
-        return true;
+    adapterBuilder = await defaultAdapterBuilder();
+    adapter = adapterBuilder
+      .before(() => {
+        throw new Error('before Error');
       })
-      .transform((ctx, eventType, eventData) => {
-        throw Error('Adapter transform error');
+      .build();
+    error = await testAdapterError(adapter);
+
+    expect(error.mock.results).toBeDefined();
+    expect(error.mock.results[0].value).toEqual(
+      'Exception: Error: before Error'
+    );
+
+    adapterBuilder = await defaultAdapterBuilder();
+    adapter = adapterBuilder
+      .transform(() => {
+        throw new Error('transform Error');
       })
-      .report(() => {})
       .build();
 
-    await trackBuilder
-      .before((ctx) => {})
-      .after((ctx) => {})
-      .transform((ctx, eventData) => {
-        throw Error('Track transform error');
-      })
-      .useAdapter(() => {
-        return {
-          report1: adapter2,
-        };
-      })
-      .select()
-      .track('previewGoods', eventData);
+    error = await testAdapterError(adapter);
 
-    expect(print.mock.results).toBeDefined();
-    expect(print.mock.results[0].value).toEqual(
-      'Exception: Failed to track event: Error: Track transform error'
+    expect(error.mock.results).toBeDefined();
+    expect(error.mock.results[0].value).toEqual(
+      'Exception: Error: transform Error'
+    );
+
+    adapterBuilder = await defaultAdapterBuilder();
+    adapter = adapterBuilder
+      .transform(() => {})
+      .after(() => {
+        throw new Error('after Error');
+      })
+      .build();
+
+    error = await testAdapterError(adapter);
+
+    expect(error.mock.results).toBeDefined();
+    expect(error.mock.results[0].value).toEqual(
+      'Exception: Error: after Error'
     );
   });
+
+  const testAdapterError = async (
+    adapter: TrackAdapter<
+      TrackContext<TrackData>,
+      EventDataOption,
+      AdapterOptions<TrackContext<TrackData>, EventDataOption>
+    >
+  ) => {
+    const logger = new ConsoleLogger();
+    const error = vi.fn((message: any, context?: string) => {
+      return `Exception: ${message}`;
+    });
+
+    vi.spyOn(logger, 'error').mockImplementation(error);
+
+    const trackBuilder = await createTrackBuilder<
+      TrackContext<TrackData>,
+      EventDataOption
+    >({
+      createData() {
+        return Promise.resolve(trackData);
+      },
+      eventData: eventData,
+      logger: logger,
+    });
+
+    await trackBuilder
+      .useAdapter(() => {
+        return {
+          report: adapter,
+        };
+      })
+      .track('previewGoods', eventData);
+
+    return error;
+  };
 });

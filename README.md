@@ -73,9 +73,6 @@ const adapter = await adapterBuilder
   .before((ctx) => {
     // Execute before the adapter track function
   })
-  .after((ctx) => {
-    // Execute after the adapter track function
-  })
   .isTrackable(() => {
     // Determine whether the adapter is trackable
     return true;
@@ -84,8 +81,8 @@ const adapter = await adapterBuilder
     // Transform the eventData
     return eventData;
   })
-  .report((ctx, eventData) => {
-    // Report the eventData
+  .after((ctx) => {
+    // Execute after the adapter track function
   })
   // Return a adapter instance
   .build();

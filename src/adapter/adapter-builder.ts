@@ -1,76 +1,82 @@
-import { TrackAdapter } from '../types/types-adapter.js';
+import {
+  AdapterAfterFunction,
+  AdapterBeforeFunction,
+  AdapterSetTrackableFunction,
+  AdapterTransformFunction,
+  TrackAdapter,
+} from '../types/types-adapter.js';
+import { TrackAdapterOptions, TrackContext } from '../types/types-create.js';
+import { TrackEventDataBase } from '../types/types-track.js';
 
 /**
- * Builder class for creating an adapter with various configuration options.
+ * Represents a builder for creating a track adapter.
  *
- * @template T - The type of the context object.
- * @template V - The type of the eventData object.
+ * @template Context - The type of the track context.
+ * @template EventData - The type of the track event data.
+ * @template AdapterOptions - The type of the track adapter options.
  */
-export class AdapterBuilder<T, V> {
-  private adapter: TrackAdapter<T, V>;
+export class AdapterBuilder<
+  Context extends TrackContext<any>,
+  EventData extends TrackEventDataBase,
+  AdapterOptions extends TrackAdapterOptions<Context, EventData>,
+> {
+  private adapter: TrackAdapter<Context, EventData, AdapterOptions>;
 
-  constructor(_adapter: TrackAdapter<T, V>) {
+  constructor(_adapter: TrackAdapter<Context, EventData, AdapterOptions>) {
     this.adapter = _adapter;
   }
 
-  private initHook = (fun: (context: T) => void) => {
-    this.adapter.init(fun);
+  private setupHook = (fun?: AdapterOptions['setup']) => {
+    this.adapter._setup(fun);
     return this.before();
   };
 
-  private beforeHook = (fun: (context: T) => void) => {
+  private beforeHook = (fun: AdapterBeforeFunction<Context, EventData>) => {
     this.adapter.before(fun);
-    return this.after();
-  };
-
-  private afterHook = (fun: (context: T) => void) => {
-    this.adapter.after(fun);
     return this.isTrackable();
   };
 
-  private isTrackableHook = (trackable: boolean | (() => boolean)) => {
-    this.adapter.setTrackable(trackable);
-    return this.transform();
-  };
-
-  private transformHook = <R>(
-    fun: (context: T, eventType: keyof V, eventData: V) => R
+  private afterHook = <ReportData>(
+    fun: AdapterAfterFunction<Context, EventData, ReportData>
   ) => {
-    this.adapter.transform<R>(fun);
-    return this.report<R>();
-  };
-
-  private reportHook = <R>(fun: (context: T, eventData: R) => void) => {
-    this.adapter.report(fun);
+    this.adapter.after<ReportData>(fun);
     return this.build();
   };
 
-  private buildHook = async () => {
+  private isTrackableHook = (
+    trackable: AdapterSetTrackableFunction<Context>
+  ) => {
+    this.adapter._setTrackable(trackable);
+    return this.transform();
+  };
+
+  private transformHook = <ReportData>(
+    fun: AdapterTransformFunction<Context, EventData, ReportData>
+  ) => {
+    this.adapter.transform<ReportData>(fun);
+    return this.after<ReportData>();
+  };
+
+  private buildHook = () => {
     return this.adapter;
   };
 
   public initBuilder() {
     return {
-      init: this.initHook,
+      setup: this.setupHook,
+      before: this.beforeHook,
+      isTrackable: this.isTrackableHook,
+      transform: this.transformHook,
+      build: this.buildHook,
     };
   }
 
   public before() {
     return {
       before: this.beforeHook,
-      after: this.afterHook,
       isTrackable: this.isTrackableHook,
       transform: this.transformHook,
-      report: this.reportHook<V>,
-    };
-  }
-
-  public after() {
-    return {
-      after: this.afterHook,
-      isTrackable: this.isTrackableHook,
-      transform: this.transformHook,
-      report: this.reportHook<V>,
+      build: this.buildHook,
     };
   }
 
@@ -78,21 +84,20 @@ export class AdapterBuilder<T, V> {
     return {
       isTrackable: this.isTrackableHook,
       transform: this.transformHook,
-      report: this.reportHook<V>,
+      build: this.buildHook,
     };
   }
 
   public transform() {
     return {
       transform: this.transformHook,
-      report: this.reportHook<V>,
       build: this.buildHook,
     };
   }
 
-  public report<R>() {
+  public after<ReportData>() {
     return {
-      report: this.reportHook<R>,
+      after: this.afterHook<ReportData>,
       build: this.buildHook,
     };
   }

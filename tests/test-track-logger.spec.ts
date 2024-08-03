@@ -1,17 +1,22 @@
 import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
-import { LogLevel } from '../src/constant/log-level.js';
 import { createTrackBuilder } from '../src/core/create-track-builder.js';
-import { logger } from '../src/logger/create-logger.js';
-import { FormatStrategy } from '../src/logger/format-strategy.js';
-import { Context } from './fixtures/types/type-context.js';
+import { DEFAULT_CONTEXT } from '../src/index.js';
+import {
+  TrackAdapterOptions,
+  TrackContext,
+} from '../src/types/types-create.js';
+import { ReportAdapter } from './fixtures/adapter/report-adapter.js';
+import { ConsoleLogger } from './fixtures/console-logger.js';
 import { EventDataOption } from './fixtures/types/type-event.js';
+import { TrackData } from './fixtures/types/type-track-data.js';
 
 describe('test-track-logger.spec', () => {
-  const context: Context = {
+  const trackData: TrackData = {
     env: 'prod',
     platform: 'android',
     ip: '0.0.0.0',
     userId: 'uuid_10001',
+    bizMode: 'test',
   };
 
   const eventData: EventDataOption = {
@@ -33,57 +38,55 @@ describe('test-track-logger.spec', () => {
     },
   };
 
-  class TestFormatStrategy implements FormatStrategy<string> {
-    print(
-      priority: LogLevel,
-      context: string,
-      message: string,
-      trace?: any
-    ): void {
-      console.log(priority, context, message, trace);
-    }
-  }
-
   it('test custom logger', async () => {
-    const formatStrategy = new TestFormatStrategy();
+    const logger = new ConsoleLogger();
 
-    const print = vi.fn(
-      (priority: LogLevel, context: string, message: string, trace?: any) => {
-        return `TestFormatStrategy ${priority} ${context} ${message}`;
-      }
-    );
-    vi.spyOn(formatStrategy, 'print').mockImplementation(print);
+    const print = vi.fn((message: any, context?: string) => {
+      return `ConsoleLogger ${context || DEFAULT_CONTEXT} ${message}`;
+    });
+    vi.spyOn(logger, 'debug').mockImplementation(print);
+    vi.spyOn(logger, 'error').mockImplementation(print);
+    vi.spyOn(logger, 'info').mockImplementation(print);
+    vi.spyOn(logger, 'verbose').mockImplementation(print);
+    vi.spyOn(logger, 'warn').mockImplementation(print);
+
+    const adapter = new ReportAdapter();
 
     const adapterBuilder = await createAdapterBuilder<
-      Context,
-      EventDataOption
-    >();
+      TrackContext<TrackData>,
+      EventDataOption,
+      TrackAdapterOptions<TrackContext<TrackData>, EventDataOption>
+    >(adapter);
 
-    const trackBuilder = await createTrackBuilder<Context, EventDataOption>({
-      createCtx() {
-        return Promise.resolve(context);
+    const trackBuilder = await createTrackBuilder<
+      TrackContext<TrackData>,
+      EventDataOption
+    >({
+      createData() {
+        return Promise.resolve(trackData);
       },
       eventData: eventData,
-      formatStrategy: formatStrategy,
+      logger: logger,
     });
 
-    const adapter = await adapterBuilder
-      .init(() => {
-        logger.info('adapter init');
+    adapterBuilder
+      .setup(() => {
+        logger.debug('adapter setup');
       })
       .before((ctx) => {
-        logger.info('adapter before');
-      })
-      .after((ctx) => {
-        logger.info('adapter after');
+        logger.error('adapter before');
       })
       .isTrackable(() => {
+        logger.info('adapter isTrackable');
         return true;
       })
       .transform((ctx, eventType, eventData) => {
+        logger.verbose('adapter transform');
         return eventData;
       })
-      .report((ctx, eventData) => {})
+      .after((ctx) => {
+        logger.warn('adapter after');
+      })
       .build();
 
     await trackBuilder
@@ -98,40 +101,57 @@ describe('test-track-logger.spec', () => {
         return eventData;
       })
       .useAdapter(() => {
+        logger.info('track useAdapter');
         return {
-          report1: adapter,
+          reportData: adapter,
         };
       })
-      .select()
+      .select(() => {
+        logger.info('track select');
+        return ['reportData'];
+      })
       .track('previewGoods', eventData);
 
     expect(print.mock.results).toBeDefined();
-    expect(print.mock.results.length).toBe(6);
+    expect(print.mock.results.length).toBe(10);
     expect(print.mock.results).toMatchObject([
       {
         type: 'return',
-        value: 'TestFormatStrategy 2 @hyperse/track track before',
+        value: 'ConsoleLogger @hyperse/track track useAdapter',
       },
       {
         type: 'return',
-        value: 'TestFormatStrategy 2 @hyperse/track track transform',
+        value: 'ConsoleLogger @hyperse/track track before',
       },
       {
         type: 'return',
-        value: 'TestFormatStrategy 2 @hyperse/track adapter init',
+        value: 'ConsoleLogger @hyperse/track track select',
       },
       {
         type: 'return',
-        value: 'TestFormatStrategy 2 @hyperse/track adapter before',
+        value: 'ConsoleLogger @hyperse/track adapter isTrackable',
       },
       {
         type: 'return',
-        value: 'TestFormatStrategy 2 @hyperse/track adapter after',
+        value: 'ConsoleLogger @hyperse/track track transform',
       },
       {
         type: 'return',
-        value: 'TestFormatStrategy 2 @hyperse/track track after',
+        value: 'ConsoleLogger @hyperse/track adapter before',
       },
+      {
+        type: 'return',
+        value: 'ConsoleLogger @hyperse/track adapter transform',
+      },
+      {
+        type: 'return',
+        value: 'ConsoleLogger @hyperse/track adapter setup',
+      },
+      {
+        type: 'return',
+        value: 'ConsoleLogger @hyperse/track adapter after',
+      },
+      { type: 'return', value: 'ConsoleLogger @hyperse/track track after' },
     ]);
   });
 });

@@ -1,29 +1,35 @@
-import { pipe } from '@hyperse/pipeline';
-import { configLogger } from '../logger/create-logger.js';
-import { TrackEventDataBase, TrackOptions } from '../types/types-track.js';
-import { Track } from './track.js';
-import { TrackBuilder } from './track-build.js';
+import { executeFunction } from '../helpers/helper-execute.js';
+import { TrackContext, TrackCreateOptions } from '../types/types-create.js';
+import { TrackEventDataBase } from '../types/types-track.js';
+import { TrackBuilder } from './track-builder.js';
 
 /**
  * Creates a track builder function.
  *
- * @param option - The track global options.
+ * @param options - The track global options.
  * @returns A promise that resolves to the initialized track builder.
- * @template T - The type of the track context.
- * @template V - The type of the track event value.
+ * @template Context - The type of the track context.
+ * @template EventData - The type of the track event value.
  */
-export const createTrackBuilder = async <T, V extends TrackEventDataBase>(
-  option: TrackOptions<Readonly<T>, V>
+export const createTrackBuilder = async <
+  Context extends TrackContext<any>,
+  EventData extends TrackEventDataBase,
+>(
+  options: TrackCreateOptions<Context, EventData>
 ) => {
-  const { createCtx, eventData, formatStrategy } = option;
+  const { eventData, logger, createData } = options;
 
-  if (formatStrategy) {
-    configLogger(formatStrategy);
-  }
+  const data = await executeFunction(createData, eventData);
 
-  const ctx = await pipe(() => createCtx())();
-  const trackInstance = new Track<Readonly<T>, V>(ctx, eventData);
-  const trackBuilder = new TrackBuilder<Readonly<T>, V>(trackInstance);
+  const ctx = {
+    logger,
+    data,
+  };
+
+  const trackBuilder = new TrackBuilder<Context, EventData>(
+    ctx as Context,
+    eventData
+  );
 
   return trackBuilder.initBuilder();
 };

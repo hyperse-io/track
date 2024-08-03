@@ -1,9 +1,13 @@
 import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
-import { Context } from './fixtures/types/type-context.js';
+import { TrackContext } from '../src/types/types-create.js';
+import { ReportAdapter } from './fixtures/adapter/report-adapter.js';
+import { AdapterOptions } from './fixtures/types/type-adapter-options.js';
 import { EventDataOption } from './fixtures/types/type-event.js';
+import { TrackData } from './fixtures/types/type-track-data.js';
 
 describe('test-adapter.spec', () => {
-  const context: Context = {
+  const trackData: TrackData = {
+    bizMode: 'test',
     env: 'prod',
     platform: 'android',
     ip: '0.0.0.0',
@@ -30,12 +34,21 @@ describe('test-adapter.spec', () => {
   };
 
   it('test adapter hook', async () => {
-    const trackBuilder = await createAdapterBuilder<Context, EventDataOption>();
+    const reportAdapter = new ReportAdapter();
+    const trackBuilder = await createAdapterBuilder<
+      TrackContext<TrackData>,
+      EventDataOption,
+      AdapterOptions<TrackContext<TrackData>, EventDataOption>
+    >(reportAdapter);
 
-    const initFun = vi.fn((ctx) => {});
+    const setupFun = vi.fn((ctx, eventData) => {
+      return Promise.resolve({
+        name: 'setup' as const,
+        timeStamp: new Date().getTime(),
+      });
+    });
     const beforeFun = vi.fn((ctx) => {});
     const afterFun = vi.fn((ctx) => {});
-    const isTrackableFun = vi.fn(() => true);
     const transformFun = vi.fn((ctx, eventType, eventData) => {
       return {
         ...eventData[eventType],
@@ -43,36 +56,52 @@ describe('test-adapter.spec', () => {
       };
     });
     const reportFun = vi.fn((ctx, eventData) => {});
+    vi.spyOn(reportAdapter, 'report').mockImplementation(reportFun);
 
-    const adapter = await trackBuilder
-      .init(initFun)
+    const adapter = trackBuilder
+      .setup(setupFun)
       .before(beforeFun)
-      .after(afterFun)
-      .isTrackable(isTrackableFun)
       .transform(transformFun)
-      .report(reportFun)
+      .after(afterFun)
       .build();
 
-    await adapter.track(context, 'addCart', eventData);
+    await adapter.track(
+      {
+        data: trackData,
+      },
+      'addCart',
+      eventData
+    );
 
-    expect(initFun.mock.lastCall).toBeDefined();
-    expect(initFun.mock.lastCall?.[0]).toMatchObject(context);
-    expect(initFun.mock.results[0].value).toBeUndefined();
+    expect(setupFun.mock.lastCall).toBeDefined();
+    expect(setupFun.mock.lastCall?.[0]).toMatchObject({
+      data: trackData,
+    });
+    expect(setupFun.mock.lastCall?.[1]).toMatchObject(eventData);
+    expect(setupFun.mock.results[0].value).toBeDefined();
+    expect(setupFun.mock.results?.[0].value).toMatchObject(
+      Promise.resolve({
+        name: 'setup' as const,
+        timeStamp: new Date().getTime(),
+      })
+    );
 
     expect(beforeFun.mock.lastCall).toBeDefined();
-    expect(beforeFun.mock.lastCall?.[0]).toMatchObject(context);
+    expect(beforeFun.mock.lastCall?.[0]).toMatchObject({
+      data: trackData,
+    });
     expect(beforeFun.mock.results[0].value).toBeUndefined();
 
     expect(afterFun.mock.lastCall).toBeDefined();
-    expect(afterFun.mock.lastCall?.[0]).toMatchObject(context);
+    expect(afterFun.mock.lastCall?.[0]).toMatchObject({
+      data: trackData,
+    });
     expect(afterFun.mock.results[0].value).toBeUndefined();
 
-    expect(isTrackableFun.mock.lastCall).toBeDefined();
-    expect(isTrackableFun.mock.lastCall?.length).toBe(0);
-    expect(isTrackableFun.mock.results[0].value).toBeTruthy();
-
     expect(transformFun.mock.lastCall).toBeDefined();
-    expect(transformFun.mock.lastCall?.[0]).toMatchObject(context);
+    expect(transformFun.mock.lastCall?.[0]).toMatchObject({
+      data: trackData,
+    });
     expect(transformFun.mock.lastCall?.[1]).toBe('addCart');
     expect(transformFun.mock.lastCall?.[2]).toMatchObject(eventData);
     expect(transformFun.mock.results[0].value).toMatchObject({
@@ -81,7 +110,9 @@ describe('test-adapter.spec', () => {
     });
 
     expect(reportFun.mock.lastCall).toBeDefined();
-    expect(reportFun.mock.lastCall?.[0]).toMatchObject(context);
+    expect(reportFun.mock.lastCall?.[0]).toMatchObject({
+      data: trackData,
+    });
     expect(reportFun.mock.lastCall?.[1]).toMatchObject({
       ...eventData['addCart'],
       eventType: 'addCart',
@@ -90,7 +121,12 @@ describe('test-adapter.spec', () => {
   });
 
   it('test adapter transform', async () => {
-    const trackBuilder = await createAdapterBuilder<Context, EventDataOption>();
+    const reportAdapter = new ReportAdapter();
+    const trackBuilder = await createAdapterBuilder<
+      TrackContext<TrackData>,
+      EventDataOption,
+      AdapterOptions<TrackContext<TrackData>, EventDataOption>
+    >(reportAdapter);
 
     const transformFun = vi.fn((ctx, eventType, eventData) => {
       return {
@@ -99,55 +135,58 @@ describe('test-adapter.spec', () => {
       };
     });
 
-    const reportFun = vi.fn((ctx: any, eventData: any) => {});
+    const reportFun = vi.fn(
+      (ctx: TrackContext<TrackData>, reportData: EventDataOption) => {}
+    );
 
-    const adapter = await trackBuilder
-      .init((ctx) => {})
-      .transform(transformFun)
-      .report(reportFun)
-      .build();
+    vi.spyOn(reportAdapter, 'report').mockImplementation(reportFun);
+
+    const adapter = trackBuilder.transform(transformFun).build();
 
     //eventType is addCart
-    await adapter.track(context, 'addCart', eventData);
+    await adapter.track({ data: trackData }, 'addCart', eventData);
 
     const transformOptions = transformFun.mock.lastCall;
     expect(transformOptions).toBeDefined();
-    expect(transformOptions?.[0]).toMatchObject(context);
+    expect(transformOptions?.[0]).toMatchObject({ data: trackData });
     expect(transformOptions?.[1]).toEqual('addCart');
     expect(transformOptions?.[2]).toMatchObject(eventData);
 
     const reportOptions = reportFun.mock.lastCall;
     expect(reportOptions).toBeDefined();
-    expect(reportOptions?.[0]).toMatchObject(context);
-    expect(reportOptions?.[1]).toMatchObject(eventData['addCart']);
-    expect(reportOptions?.[1]?.['eventType']).toEqual('addCart');
+    expect(reportOptions?.[0]).toMatchObject({ data: trackData });
+    expect(reportOptions?.[1]).toBeDefined();
+    expect(reportOptions?.[1]).toMatchObject(eventData.addCart!);
 
     //eventType is registry
-    await adapter.track(context, 'registry', eventData);
+    await adapter.track({ data: trackData }, 'registry', eventData);
 
     const transformOptions1 = transformFun.mock.lastCall;
     expect(transformOptions1).toBeDefined();
-    expect(transformOptions1?.[0]).toMatchObject(context);
+    expect(transformOptions1?.[0]).toMatchObject({ data: trackData });
     expect(transformOptions1?.[1]).toEqual('registry');
     expect(transformOptions1?.[2]).toMatchObject(eventData);
 
     const reportOptions1 = reportFun.mock.lastCall;
     expect(reportOptions1).toBeDefined();
-    expect(reportOptions1?.[1]).toMatchObject(eventData['registry']);
-    expect(reportOptions1?.[1]?.['eventType']).toEqual('registry');
+    expect(reportOptions1?.[1]).toBeDefined();
+    expect(reportOptions1?.[1]).toMatchObject({
+      ...eventData.registry,
+      eventType: 'registry',
+    });
 
     //eventType is previewGoods
-    await adapter.track(context, 'previewGoods', eventData);
+    await adapter.track({ data: trackData }, 'previewGoods', eventData);
 
     const transformOptions2 = transformFun.mock.lastCall;
     expect(transformOptions2).toBeDefined();
-    expect(transformOptions2?.[0]).toMatchObject(context);
+    expect(transformOptions2?.[0]).toMatchObject({ data: trackData });
     expect(transformOptions2?.[1]).toEqual('previewGoods');
     expect(transformOptions2?.[2]).toMatchObject(eventData);
 
     const reportOptions3 = reportFun.mock.lastCall;
     expect(reportOptions3).toBeDefined();
-    expect(reportOptions3?.[1]).toMatchObject(eventData['previewGoods']);
-    expect(reportOptions3?.[1]?.['eventType']).toEqual('previewGoods');
+    expect(reportOptions?.[1]).toBeDefined();
+    expect(reportOptions?.[1]).toMatchObject(eventData.previewGoods!);
   });
 });

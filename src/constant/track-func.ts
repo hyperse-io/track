@@ -1,10 +1,13 @@
 /**
  * A default track transform function.
  *
- * @param _ The input value of type T.
- * @param options The options of type V.
- * @returns The transformed options of type V.
+ * @param _ The input value of type Context.
+ * @param options The options of type EventData.
+ * @returns The transformed options of type EventData.
  */
-export const defaultTrackTransform = <T, V>(_: T, options: V): V => {
+export const defaultTrackTransform = <Context, EventData>(
+  _: Context,
+  options: EventData
+): EventData => {
   return options;
 };

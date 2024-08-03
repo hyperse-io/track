@@ -1,12 +1,12 @@
 import { defaultAdapter } from './fixtures/adapter/default-adapter.js';
-import { defaultTack } from './fixtures/adapter/default-tack.js';
-import { Context } from './fixtures/types/type-context.js';
+import { defaultTackInstance } from './fixtures/adapter/default-tack-instance.js';
 import { EventDataOption } from './fixtures/types/type-event.js';
+import { TrackData } from './fixtures/types/type-track-data.js';
 
 describe('test-track-execute-select.spec', () => {
   it('executeSelect names is empty', async () => {
-    const track = defaultTack<Context, EventDataOption>();
-    const adapter = await defaultAdapter<Context, EventDataOption>();
+    const track = defaultTackInstance<TrackData, EventDataOption>();
+    const adapter = await defaultAdapter();
 
     track.useAdapter({
       consoleAdapter: adapter,
@@ -16,23 +16,22 @@ describe('test-track-execute-select.spec', () => {
       businessAdapter: adapter,
     });
 
-    let adapterMap = track.getAdapterMap();
-
-    expect(Object.keys(adapterMap).length).toBe(5);
-
     track.select();
-    await track.executeSelect();
+    const lastAdapterMap = await track.executeSelect();
 
-    adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(5);
-    expect(adapterMap).toMatchObject({
+    expect(Object.keys(lastAdapterMap).length).toBe(5);
+    expect(lastAdapterMap).toMatchObject({
       consoleAdapter: adapter,
+      analyzerAdapter: adapter,
+      reportAdapter: adapter,
+      logAdapter: adapter,
+      businessAdapter: adapter,
     });
   });
 
   it('executeSelect names is string', async () => {
-    const track = defaultTack<Context, EventDataOption>();
-    const adapter = await defaultAdapter<Context, EventDataOption>();
+    const track = defaultTackInstance<TrackData, EventDataOption>();
+    const adapter = await defaultAdapter();
 
     track.useAdapter({
       consoleAdapter: adapter,
@@ -41,24 +40,19 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     });
-    let adapterMap = track.getAdapterMap();
-
-    expect(Object.keys(adapterMap).length).toBe(5);
-
     track.select('consoleAdapter');
 
-    await track.executeSelect();
+    const lastAdapterMap = await track.executeSelect();
 
-    adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(1);
-    expect(adapterMap).toMatchObject({
+    expect(Object.keys(lastAdapterMap).length).toBe(1);
+    expect(lastAdapterMap).toMatchObject({
       consoleAdapter: adapter,
     });
   });
 
   it('executeSelect names is string[]', async () => {
-    const track = defaultTack<Context, EventDataOption>();
-    const adapter = await defaultAdapter<Context, EventDataOption>();
+    const track = defaultTackInstance<TrackData, EventDataOption>();
+    const adapter = await defaultAdapter();
 
     track.useAdapter({
       consoleAdapter: adapter,
@@ -67,15 +61,12 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     });
-    let adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(5);
 
     track.select(['consoleAdapter', 'analyzerAdapter', 'reportAdapter']);
-    await track.executeSelect();
 
-    adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(3);
-    expect(adapterMap).toMatchObject({
+    const lastAdapterMap = await track.executeSelect();
+    expect(Object.keys(lastAdapterMap).length).toBe(3);
+    expect(lastAdapterMap).toMatchObject({
       consoleAdapter: adapter,
       analyzerAdapter: adapter,
       reportAdapter: adapter,
@@ -83,8 +74,8 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect names is () => string', async () => {
-    const track = defaultTack<Context, EventDataOption>();
-    const adapter = await defaultAdapter<Context, EventDataOption>();
+    const track = defaultTackInstance<TrackData, EventDataOption>();
+    const adapter = await defaultAdapter();
 
     track.useAdapter({
       consoleAdapter: adapter,
@@ -93,23 +84,19 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     });
-    let adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(5);
 
     track.select(() => 'consoleAdapter');
-    await track.executeSelect();
+    const lastAdapterMap = await track.executeSelect();
 
-    adapterMap = track.getAdapterMap();
-
-    expect(Object.keys(adapterMap).length).toBe(1);
-    expect(adapterMap).toMatchObject({
+    expect(Object.keys(lastAdapterMap).length).toBe(1);
+    expect(lastAdapterMap).toMatchObject({
       consoleAdapter: adapter,
     });
   });
 
   it('executeSelect names is () => string[]', async () => {
-    const track = defaultTack<Context, EventDataOption>();
-    const adapter = await defaultAdapter<Context, EventDataOption>();
+    const track = defaultTackInstance<TrackData, EventDataOption>();
+    const adapter = await defaultAdapter();
 
     track.useAdapter({
       consoleAdapter: adapter,
@@ -118,16 +105,13 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     });
-    let adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(5);
 
     track.select(() => ['consoleAdapter', 'analyzerAdapter', 'reportAdapter']);
-    await track.executeSelect();
 
-    adapterMap = track.getAdapterMap();
+    const lastAdapterMap = await track.executeSelect();
 
-    expect(Object.keys(adapterMap).length).toBe(3);
-    expect(adapterMap).toMatchObject({
+    expect(Object.keys(lastAdapterMap).length).toBe(3);
+    expect(lastAdapterMap).toMatchObject({
       consoleAdapter: adapter,
       analyzerAdapter: adapter,
       reportAdapter: adapter,
@@ -135,8 +119,8 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect names is () => Promise<string>', async () => {
-    const track = defaultTack<Context, EventDataOption>();
-    const adapter = await defaultAdapter<Context, EventDataOption>();
+    const track = defaultTackInstance<TrackData, EventDataOption>();
+    const adapter = await defaultAdapter();
 
     track.useAdapter({
       consoleAdapter: adapter,
@@ -145,23 +129,20 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     });
-    let adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(5);
 
     track.select(() => Promise.resolve('analyzerAdapter'));
-    await track.executeSelect();
 
-    adapterMap = track.getAdapterMap();
+    const lastAdapterMap = await track.executeSelect();
 
-    expect(Object.keys(adapterMap).length).toBe(1);
-    expect(adapterMap).toMatchObject({
+    expect(Object.keys(lastAdapterMap).length).toBe(1);
+    expect(lastAdapterMap).toMatchObject({
       analyzerAdapter: adapter,
     });
   });
 
   it('executeSelect names is () => Promise<string[]>', async () => {
-    const track = defaultTack<Context, EventDataOption>();
-    const adapter = await defaultAdapter<Context, EventDataOption>();
+    const track = defaultTackInstance<TrackData, EventDataOption>();
+    const adapter = await defaultAdapter();
 
     track.useAdapter({
       consoleAdapter: adapter,
@@ -170,18 +151,14 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     });
-    let adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(5);
 
     track.select(() =>
       Promise.resolve(['analyzerAdapter', 'logAdapter', 'businessAdapter'])
     );
-    await track.executeSelect();
+    const lastAdapterMap = await track.executeSelect();
 
-    adapterMap = track.getAdapterMap();
-
-    expect(Object.keys(adapterMap).length).toBe(3);
-    expect(adapterMap).toMatchObject({
+    expect(Object.keys(lastAdapterMap).length).toBe(3);
+    expect(lastAdapterMap).toMatchObject({
       businessAdapter: adapter,
       analyzerAdapter: adapter,
       logAdapter: adapter,
@@ -189,45 +166,18 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect isTrackable', async () => {
-    const track = defaultTack<Context, EventDataOption>();
-    const adapter1 = await defaultAdapter<Context, EventDataOption>();
-    const adapter2 = await defaultAdapter<Context, EventDataOption>();
-    const adapter3 = await defaultAdapter<Context, EventDataOption>();
-    const adapter4 = await defaultAdapter<Context, EventDataOption>();
-    const adapter5 = await defaultAdapter<Context, EventDataOption>();
+    const track = defaultTackInstance<TrackData, EventDataOption>();
+    const adapter1 = await defaultAdapter();
+    const adapter2 = await defaultAdapter();
+    const adapter3 = await defaultAdapter();
+    const adapter4 = await defaultAdapter();
+    const adapter5 = await defaultAdapter();
 
-    adapter1.setTrackable(true);
-    adapter2.setTrackable(true);
-    adapter3.setTrackable(true);
-    adapter4.setTrackable(true);
-    adapter5.setTrackable(true);
-
-    track.useAdapter({
-      consoleAdapter: adapter1,
-      analyzerAdapter: adapter2,
-      reportAdapter: adapter3,
-      logAdapter: adapter4,
-      businessAdapter: adapter5,
-    });
-    let adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(5);
-
-    await track.executeSelect();
-    adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(5);
-    expect(adapterMap).toMatchObject({
-      consoleAdapter: adapter1,
-      analyzerAdapter: adapter2,
-      reportAdapter: adapter3,
-      logAdapter: adapter4,
-      businessAdapter: adapter5,
-    });
-
-    adapter1.setTrackable(true);
-    adapter2.setTrackable(false);
-    adapter3.setTrackable(false);
-    adapter4.setTrackable(false);
-    adapter5.setTrackable(false);
+    adapter1._setTrackable(true);
+    adapter2._setTrackable(true);
+    adapter3._setTrackable(true);
+    adapter4._setTrackable(true);
+    adapter5._setTrackable(true);
 
     track.useAdapter({
       consoleAdapter: adapter1,
@@ -236,18 +186,41 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter4,
       businessAdapter: adapter5,
     });
-    await track.executeSelect();
-    adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(1);
-    expect(adapterMap).toMatchObject({
+
+    let lastAdapterMap = await track.executeSelect();
+    expect(Object.keys(lastAdapterMap).length).toBe(5);
+    expect(lastAdapterMap).toMatchObject({
+      consoleAdapter: adapter1,
+      analyzerAdapter: adapter2,
+      reportAdapter: adapter3,
+      logAdapter: adapter4,
+      businessAdapter: adapter5,
+    });
+
+    adapter1._setTrackable(true);
+    adapter2._setTrackable(false);
+    adapter3._setTrackable(false);
+    adapter4._setTrackable(false);
+    adapter5._setTrackable(false);
+
+    track.useAdapter({
+      consoleAdapter: adapter1,
+      analyzerAdapter: adapter2,
+      reportAdapter: adapter3,
+      logAdapter: adapter4,
+      businessAdapter: adapter5,
+    });
+    lastAdapterMap = await track.executeSelect();
+    expect(Object.keys(lastAdapterMap).length).toBe(1);
+    expect(lastAdapterMap).toMatchObject({
       consoleAdapter: adapter1,
     });
 
-    adapter1.setTrackable(true);
-    adapter2.setTrackable(true);
-    adapter3.setTrackable(true);
-    adapter4.setTrackable(false);
-    adapter5.setTrackable(false);
+    adapter1._setTrackable(true);
+    adapter2._setTrackable(true);
+    adapter3._setTrackable(true);
+    adapter4._setTrackable(false);
+    adapter5._setTrackable(false);
 
     track.useAdapter({
       consoleAdapter: adapter1,
@@ -259,10 +232,9 @@ describe('test-track-execute-select.spec', () => {
     track.select(() => {
       return Promise.resolve(['reportAdapter']);
     });
-    await track.executeSelect();
-    adapterMap = track.getAdapterMap();
-    expect(Object.keys(adapterMap).length).toBe(1);
-    expect(adapterMap).toMatchObject({
+    lastAdapterMap = await track.executeSelect();
+    expect(Object.keys(lastAdapterMap).length).toBe(1);
+    expect(lastAdapterMap).toMatchObject({
       reportAdapter: adapter3,
     });
   });

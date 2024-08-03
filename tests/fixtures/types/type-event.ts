@@ -1,15 +1,15 @@
 export type EventDataOption = {
-  registry: {
+  registry?: {
     userName: string;
     mobile: string;
     pwd: string;
     email: string;
   };
-  previewGoods: {
+  previewGoods?: {
     goodsId: string;
     goodsName: string;
   };
-  addCart: {
+  addCart?: {
     price: number;
     goodsId: string;
     goodsName: string;

@@ -7,13 +7,12 @@ import { EventDataOption } from '../types/type-event.js';
 import { TrackData } from '../types/type-track-data.js';
 import { ReportAdapter } from './report-adapter.js';
 
-export const defaultAdapter = async () => {
+export const defaultAdapterBuilder = async () => {
   const adapter = new ReportAdapter();
-  const adapterBuilder = await createAdapterBuilder<
+
+  return await createAdapterBuilder<
     TrackContext<TrackData>,
     EventDataOption,
     TrackAdapterOptions<TrackContext<TrackData>, EventDataOption>
   >(adapter);
-
-  return adapterBuilder.build();
 };

@@ -1,24 +1,27 @@
 import { TrackAdapter } from '../types/types-adapter.js';
+import { TrackAdapterOptions, TrackContext } from '../types/types-create.js';
 import { TrackEventDataBase } from '../types/types-track.js';
 import { AdapterBuilder } from './adapter-builder.js';
-import { ReportAdapter } from './adapter-report.js';
 
 /**
- * Creates an adapter builder for track events.
+ * Creates an adapter builder for a given track adapter.
  *
- * @param adapter - Optional track adapter to use. If not provided, a default `ReportAdapter` will be used.
- * @returns A promise that resolves to an initialized adapter builder.
+ * @param adapter - The track adapter to build.
+ * @returns A promise that resolves to the initialized adapter builder.
+ * @throws {Error} If the adapter is not provided.
  */
-export const createAdapterBuilder = async <T, V extends TrackEventDataBase>(
-  adapter?: TrackAdapter<Readonly<T>, V>
-) => {
-  let reportAdapter: TrackAdapter<Readonly<T>, V>;
+export async function createAdapterBuilder<
+  Context extends TrackContext<any>,
+  EventData extends TrackEventDataBase,
+  AdapterOptions extends TrackAdapterOptions<Context, EventData>,
+>(adapter: TrackAdapter<Context, EventData, AdapterOptions>) {
   if (!adapter) {
-    reportAdapter = new ReportAdapter<Readonly<T>, V>();
-  } else {
-    reportAdapter = adapter;
+    throw new Error('Adapter is required');
   }
-  const adapterBuilder = new AdapterBuilder<Readonly<T>, V>(reportAdapter);
+
+  const adapterBuilder = new AdapterBuilder<Context, EventData, AdapterOptions>(
+    adapter
+  );
 
   return adapterBuilder.initBuilder();
-};
+}

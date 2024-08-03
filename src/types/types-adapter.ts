@@ -1,22 +1,54 @@
-export type AdapterTransformResult = any;
+import { TrackAdapterOptions, TrackContext } from './types-create.js';
+import { TrackEventDataBase } from './types-track.js';
 
-export type ReportAdapterFunctionVoid<T, V> = (
-  ctx: T,
-  options: V
+export type AdapterReportData = any;
+
+export type AdapterSetupData = any;
+
+export type AdapterFunctionVoid<Context> = (
+  ctx: Context
 ) => void | Promise<void>;
 
-export type ReportAdapterTransformFunction<T, V> = (
-  ctx: T,
-  options: V
-) => AdapterTransformResult | Promise<AdapterTransformResult>;
+export type AdapterSetTrackableFunction<Context> =
+  | boolean
+  | ((ctx: Context) => boolean | Promise<boolean>);
 
-export interface TrackAdapter<T, V> {
-  init(fun: (context: T) => void): void;
-  before(fun: (context: T) => void): void;
-  after(fun: (context: T) => void): void;
-  transform<R>(fun: (context: T, eventType: keyof V, eventData: V) => R): void;
-  report<R>(fun: (context: T, eventData: R) => void): void;
-  setTrackable(trackable: boolean | (() => boolean)): void;
-  isTrackable(): boolean;
-  track(ctx: T, eventType: keyof V, eventData: V): Promise<void>;
+export type AdapterBeforeFunction<Context, EventData> = (
+  ctx: Context,
+  eventType: keyof EventData,
+  eventData: EventData
+) => void | Promise<void>;
+
+export type AdapterAfterFunction<Context, EventData, ReportData> = (
+  ctx: Context,
+  eventType: keyof EventData,
+  eventData: ReportData
+) => void | Promise<void>;
+
+export type AdapterTransformFunction<Context, EventData, ReportData> = (
+  ctx: Context,
+  eventType: keyof EventData,
+  eventData: EventData
+) => ReportData | Promise<ReportData>;
+
+export interface TrackAdapter<
+  Context extends TrackContext<any>,
+  EventData extends TrackEventDataBase,
+  AdapterOptions extends TrackAdapterOptions<Context, EventData>,
+> {
+  _setup(fun?: AdapterOptions['setup']): void;
+  _setTrackable(fun: AdapterSetTrackableFunction<Context>): void;
+  before(fun: AdapterBeforeFunction<Context, EventData>): void;
+  after<ReportData>(
+    fun: AdapterAfterFunction<Context, EventData, ReportData>
+  ): void;
+  transform<ReportData>(
+    fun: AdapterTransformFunction<Context, EventData, ReportData>
+  ): void;
+  isTrackable(): AdapterSetTrackableFunction<Context>;
+  track(
+    ctx: Context,
+    eventType: keyof EventData,
+    eventData: EventData
+  ): Promise<void>;
 }
