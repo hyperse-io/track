@@ -9,7 +9,7 @@ import {
   TrackAfterFunction,
   TrackBeforeFunction,
   TrackEventDataBase,
-  TrackSelectOptions,
+  TrackSelectFunction,
   TrackTransformFunction,
 } from '../types/index.js';
 import { TrackContext } from '../types/types-create.js';
@@ -22,7 +22,7 @@ export class Track<
   private adapterMap: TrackAdapterMap<Context, EventData>;
   private beforeFun: TrackBeforeFunction<Context>;
   private afterFun: TrackAfterFunction<Context>;
-  private selectFun?: TrackSelectOptions<Context, EventData, unknown>;
+  private selectFun?: TrackSelectFunction<Context, EventData, unknown>;
   private globalTransform: TrackTransformFunction<Context, EventData>;
   private globalEventData?: Partial<EventData>;
 
@@ -45,7 +45,7 @@ export class Track<
   }
 
   public select<AdapterName>(
-    fun?: TrackSelectOptions<Context, EventData, AdapterName>
+    fun?: TrackSelectFunction<Context, EventData, AdapterName>
   ) {
     this.selectFun = fun;
   }

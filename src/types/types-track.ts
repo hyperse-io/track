@@ -8,13 +8,12 @@ export type TrackBeforeFunction<Context extends TrackContext<any>> = (
 export type TrackAfterFunction<Context extends TrackContext<any>> = (
   ctx: Context
 ) => void | Promise<void>;
-
 export type TrackTransformFunction<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
 > = (ctx: Context, options: EventData) => EventData | Promise<EventData>;
 
-export type TrackSelectOptions<
+export type TrackSelectFunction<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
   AdapterName,

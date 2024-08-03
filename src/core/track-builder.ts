@@ -5,7 +5,7 @@ import {
   TrackAfterFunction,
   TrackBeforeFunction,
   TrackEventDataBase,
-  TrackSelectOptions,
+  TrackSelectFunction,
   TrackTransformFunction,
 } from '../types/types-track.js';
 import { Track } from './track.js';
@@ -56,7 +56,7 @@ export class TrackBuilder<
   };
 
   private selectHook = <AdapterName>(
-    names?: TrackSelectOptions<Context, EventData, AdapterName>
+    names?: TrackSelectFunction<Context, EventData, AdapterName>
   ) => {
     this.trackInstance.select<AdapterName>(names);
     return this.track();

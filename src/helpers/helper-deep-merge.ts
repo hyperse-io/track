@@ -27,8 +27,8 @@ const needMerge = (source: unknown, mergeUndefined?: boolean) => {
 export const deepMerge = <T>(
   target: T,
   source: DeepPartial<T>,
-  mergeUndefined = false,
-  depth = 0
+  mergeUndefined: boolean = false,
+  depth: number = 0
 ): T => {
   if (!source) {
     return target;

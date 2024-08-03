@@ -1,7 +1,10 @@
 import { TrackLogger } from './types-logger.js';
 import { TrackEventDataBase } from './types-track.js';
 
-export type TrackCreateOptions<Context extends TrackContext<any>, EventData> = {
+export type TrackCreateOptions<
+  Context extends TrackContext<any>,
+  EventData extends TrackEventDataBase,
+> = {
   eventData?: Partial<EventData>;
   createData?: (
     eventData?: Partial<EventData>
@@ -9,7 +12,7 @@ export type TrackCreateOptions<Context extends TrackContext<any>, EventData> = {
 } & Omit<TrackContext<any>, 'data'>;
 
 export type TrackContext<TrackData> = {
-  data?: TrackData;
+  data: Readonly<TrackData>;
   logger?: TrackLogger<any>;
 };
 

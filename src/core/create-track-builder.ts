@@ -15,16 +15,18 @@ export const createTrackBuilder = async <
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
 >(
-  options: TrackCreateOptions<Context, EventData>
+  options: TrackCreateOptions<Context, EventData> = {}
 ) => {
   const { eventData, logger, createData } = options;
 
-  const data = await executeFunction(createData, eventData);
-
   const ctx = {
-    logger,
-    data,
+    data: {},
+    logger: logger,
   };
+
+  if (createData) {
+    ctx.data = await executeFunction(createData, eventData);
+  }
 
   const trackBuilder = new TrackBuilder<Context, EventData>(
     ctx as Context,

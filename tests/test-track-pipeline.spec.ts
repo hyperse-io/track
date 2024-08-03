@@ -64,16 +64,10 @@ describe('test-track-pipeline.spec', () => {
     const trackBuilder = await createTrackBuilder<
       TrackContext<TrackData>,
       EventDataOption
-    >({
-      createData: async (eventData) => {
-        return trackData;
-      },
-    });
+    >();
 
     trackBuilder
-      .before(({ data, logger }) => {
-        console.log(data?.bizMode);
-      })
+      .before(({ data, logger }) => {})
       .after((ctx) => {})
       .transform((ctx, eventData) => {
         return eventData;

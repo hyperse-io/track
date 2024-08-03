@@ -3,8 +3,6 @@ import { TrackEventDataBase } from './types-track.js';
 
 export type AdapterReportData = any;
 
-export type AdapterSetupData = any;
-
 export type AdapterFunctionVoid<Context> = (
   ctx: Context
 ) => void | Promise<void>;
