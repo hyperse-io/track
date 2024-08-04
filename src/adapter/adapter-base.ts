@@ -82,7 +82,7 @@ export abstract class BaseAdapter<
   ): Promise<ReportData> => {
     let setupResult;
     if (this.setupHook) {
-      setupResult = await this.setupHook?.(ctx, eventData);
+      setupResult = await this.setupHook(ctx, eventData);
     }
     await this.report(ctx, reportData, setupResult);
     return reportData;
