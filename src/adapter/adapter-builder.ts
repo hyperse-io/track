@@ -25,7 +25,11 @@ export class AdapterBuilder<
     this.adapter = _adapter;
   }
 
-  public buildInitChainer() {
+  public init() {
+    return this.executeInit();
+  }
+
+  private buildInitChainer() {
     return {
       setup: this.mountSetupHook,
       before: this.mountBeforeHook,
@@ -34,7 +38,7 @@ export class AdapterBuilder<
     };
   }
 
-  public buildBeforeChainer() {
+  private buildSetupChainer() {
     return {
       before: this.mountBeforeHook,
       transform: this.mountTransformHook,
@@ -42,50 +46,54 @@ export class AdapterBuilder<
     };
   }
 
-  public buildTransformChainer() {
+  private buildBeforeChainer() {
     return {
       transform: this.mountTransformHook,
       build: this.executeBuild,
     };
   }
 
-  public buildAfterChainer<ReportData>() {
+  private buildTransformChainer<ReportData>() {
     return {
       after: this.mountAfterHook<ReportData>,
       build: this.executeBuild,
     };
   }
 
-  public buildChainer() {
+  private buildAfterChainer() {
     return {
       build: this.executeBuild,
     };
   }
 
+  private executeInit = () => {
+    return this.buildInitChainer();
+  };
+
   private mountSetupHook = (fun?: AdapterOptions['setup']) => {
     this.adapter._mountSetupHook(fun);
-    return this.buildBeforeChainer();
+    return this.buildSetupChainer();
   };
 
   private mountBeforeHook = (
     fun: AdapterBeforeFunction<Context, EventData>
   ) => {
     this.adapter._mountBeforeHook(fun);
-    return this.buildTransformChainer();
-  };
-
-  private mountAfterHook = <ReportData>(
-    fun: AdapterAfterFunction<Context, EventData, ReportData>
-  ) => {
-    this.adapter._mountAfterHook<ReportData>(fun);
-    return this.buildChainer();
+    return this.buildBeforeChainer();
   };
 
   private mountTransformHook = <ReportData>(
     fun: AdapterTransformFunction<Context, EventData, ReportData>
   ) => {
     this.adapter._mountTransformHook<ReportData>(fun);
-    return this.buildAfterChainer<ReportData>();
+    return this.buildTransformChainer<ReportData>();
+  };
+
+  private mountAfterHook = <ReportData>(
+    fun: AdapterAfterFunction<Context, EventData, ReportData>
+  ) => {
+    this.adapter._mountAfterHook<ReportData>(fun);
+    return this.buildAfterChainer();
   };
 
   private executeBuild = () => {

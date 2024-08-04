@@ -16,10 +16,10 @@ export abstract class BaseAdapter<
   AdapterOptions extends TrackAdapterOptions<Context, EventData>,
 > implements TrackAdapter<Context, EventData, AdapterOptions>
 {
-  private setupFun?: AdapterOptions['setup'];
-  private beforeFun?: AdapterBeforeFunction<Context, EventData>;
-  private transformFun?: AdapterTransformFunction<Context, EventData, any>;
-  private afterFun?: AdapterAfterFunction<
+  private setupHook?: AdapterOptions['setup'];
+  private beforeHook?: AdapterBeforeFunction<Context, EventData>;
+  private transformHook?: AdapterTransformFunction<Context, EventData, any>;
+  private afterHook?: AdapterAfterFunction<
     Context,
     EventData,
     Awaited<ReturnType<AdapterTransformFunction<Context, EventData, any>>>
@@ -36,25 +36,25 @@ export abstract class BaseAdapter<
   ): void | Promise<void> {}
 
   public _mountSetupHook(fun?: AdapterOptions['setup']) {
-    this.setupFun = fun;
+    this.setupHook = fun;
   }
 
   public _mountBeforeHook(
     fun: AdapterBeforeFunction<Context, EventData>
   ): void {
-    this.beforeFun = fun;
+    this.beforeHook = fun;
   }
 
   public _mountAfterHook<ReportData>(
     fun: AdapterAfterFunction<Context, EventData, ReportData>
   ): void {
-    this.afterFun = fun;
+    this.afterHook = fun;
   }
 
   public _mountTransformHook<ReportData>(
     fun: AdapterTransformFunction<Context, EventData, ReportData>
   ) {
-    this.transformFun = fun;
+    this.transformHook = fun;
   }
 
   private executeTransform = async (
@@ -62,12 +62,12 @@ export abstract class BaseAdapter<
     eventType: keyof EventData,
     eventData: EventData
   ) => {
-    if (!this.transformFun) {
+    if (!this.transformHook) {
       ctx.logger?.warn('Adapter transform hook is not defined');
       return eventData;
     }
     const result = await executeFunction(
-      this.transformFun,
+      this.transformHook,
       ctx,
       eventType,
       eventData
@@ -81,8 +81,8 @@ export abstract class BaseAdapter<
     reportData: ReportData
   ): Promise<ReportData> => {
     let setupResult;
-    if (this.setupFun) {
-      setupResult = await this.setupFun?.(ctx, eventData);
+    if (this.setupHook) {
+      setupResult = await this.setupHook?.(ctx, eventData);
     }
     await this.report(ctx, reportData, setupResult);
     return reportData;
@@ -103,12 +103,12 @@ export abstract class BaseAdapter<
   ): Promise<void> {
     await pipe(
       async () =>
-        await executeFunction(this.beforeFun, ctx, eventType, eventData),
+        await executeFunction(this.beforeHook, ctx, eventType, eventData),
       async () => await this.executeTransform(ctx, eventType, eventData),
       async (reportData) =>
         await this.executeReport(ctx, eventData, reportData),
       async (reportData) =>
-        await executeFunction(this.afterFun, ctx, eventType, reportData)
+        await executeFunction(this.afterHook, ctx, eventType, reportData)
     )();
   }
 }

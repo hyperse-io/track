@@ -29,10 +29,5 @@ export const createTrackBuilder = async <
     ctx.data = data || {};
   }
 
-  const trackBuilder = new TrackBuilder<Context, EventData>(
-    ctx as Context,
-    eventData
-  );
-
-  return trackBuilder.buildInitChainer();
+  return new TrackBuilder<Context, EventData>(ctx as Context, eventData);
 };

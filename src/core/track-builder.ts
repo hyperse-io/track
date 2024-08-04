@@ -35,13 +35,13 @@ export class TrackBuilder<
     this.globalEventData = eventData;
   }
 
-  public buildInitChainer() {
-    return {
-      init: this.executeInit,
-    };
+  public init<AdapterMap extends TrackAdapterMap<Context, EventData>>(
+    fun: () => AdapterMap
+  ) {
+    return this.executeInit(fun);
   }
 
-  public buildBeforeChainer<AdapterName>() {
+  private buildInitChainer<AdapterName>() {
     return {
       before: this.mountBeforeHook<AdapterName>,
       after: this.mountAfterHook<AdapterName>,
@@ -51,16 +51,16 @@ export class TrackBuilder<
     };
   }
 
-  public buildAfterChainer = <AdapterName>() => {
+  private buildBeforeChainer<AdapterName>() {
     return {
       after: this.mountAfterHook<AdapterName>,
       transform: this.mountTransformHook<AdapterName>,
       select: this.executeSelect<AdapterName>,
       track: this.executeSelect<AdapterName>().track,
     };
-  };
+  }
 
-  public buildTransformChainer = <AdapterName>() => {
+  private buildAfterChainer = <AdapterName>() => {
     return {
       transform: this.mountTransformHook<AdapterName>,
       select: this.executeSelect<AdapterName>,
@@ -68,9 +68,10 @@ export class TrackBuilder<
     };
   };
 
-  public buildSelectChainer = <AdapterName>() => {
+  private buildTransformChainer = <AdapterName>() => {
     return {
       select: this.executeSelect<AdapterName>,
+      track: this.executeSelect<AdapterName>().track,
     };
   };
 
@@ -78,19 +79,19 @@ export class TrackBuilder<
     fun: TrackBeforeFunction<Context>
   ) => {
     this.beforeHook = fun;
-    return this.buildAfterChainer<AdapterName>();
+    return this.buildBeforeChainer<AdapterName>();
   };
 
   private mountAfterHook = <AdapterName>(fun: TrackAfterFunction<Context>) => {
     this.afterHook = fun;
-    return this.buildTransformChainer<AdapterName>();
+    return this.buildAfterChainer<AdapterName>();
   };
 
   private mountTransformHook = <AdapterName>(
     fun: TrackTransformFunction<Context, EventData>
   ) => {
     this.transformHook = fun;
-    return this.buildSelectChainer<AdapterName>();
+    return this.buildTransformChainer<AdapterName>();
   };
 
   private executeInit = <
@@ -100,7 +101,7 @@ export class TrackBuilder<
   ) => {
     const adapterMap = fun();
     this.adapterMap = adapterMap;
-    return this.buildBeforeChainer<keyof typeof adapterMap>();
+    return this.buildInitChainer<keyof typeof adapterMap>();
   };
 
   private executeSelect = <AdapterName>(
@@ -123,18 +124,18 @@ export class TrackBuilder<
             await executeFunction(innerBeforeHook, innerCtx);
           },
           async () => {
+            const transformEventData = await executeTrackTransform<
+              Context,
+              EventData
+            >(innerCtx, eventData, innerGlobalEventData, innerTransformHook);
+            return { transformEventData };
+          },
+          async ({ transformEventData }) => {
             const adapterMap = await executeSelect(
               innerCtx,
               innerTrackAdapterMap,
               selectRule
             );
-            return { adapterMap };
-          },
-          async ({ adapterMap }) => {
-            const transformEventData = await executeTrackTransform<
-              Context,
-              EventData
-            >(innerCtx, eventData, innerGlobalEventData, innerTransformHook);
             return { adapterMap, transformEventData };
           },
           async ({ adapterMap, transformEventData }) => {

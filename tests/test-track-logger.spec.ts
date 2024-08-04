@@ -80,7 +80,7 @@ describe('test-track-logger.spec', () => {
         logger.verbose('adapter transform');
         return eventData;
       })
-      .after((ctx) => {
+      .after((ctx, eventType, eventData) => {
         logger.warn('adapter after');
       })
       .build();
@@ -121,11 +121,11 @@ describe('test-track-logger.spec', () => {
       },
       {
         type: 'return',
-        value: 'ConsoleLogger @hyperse/track track select',
+        value: 'ConsoleLogger @hyperse/track track transform',
       },
       {
         type: 'return',
-        value: 'ConsoleLogger @hyperse/track track transform',
+        value: 'ConsoleLogger @hyperse/track track select',
       },
       {
         type: 'return',
