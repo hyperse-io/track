@@ -19,6 +19,108 @@ A typed, smart, scalable , powerful data collection engine written in typescript
 
 ## Usage
 
+### Create TrackBuilder
+
+Create a builder to load the track
+
+```ts
+export type Context = {
+  env: 'prod' | 'uat';
+  platform: 'android' | 'ios';
+  ip: string;
+  userId: string;
+};
+
+export type EventData = {
+  registry: {
+    userName: string;
+    mobile: string;
+    pwd: string;
+    email: string;
+  };
+  addCart: {
+    price: number;
+    goodsId: string;
+    goodsName: string;
+    count: number;
+  };
+};
+
+const trackBuilder = await createTrackBuilder<Context, EventData>({
+  createCtx() {
+    // Used to build a global context
+    return Promise.resolve(context);
+  },
+  eventData: {
+    // Generic EventData-type data is deeply merged during the transform phase
+  },
+  // The formatStrategy for logger
+  formatStrategy: formatStrategy,
+});
+```
+
+### Create Adapter
+
+Create a adapter by createAdapterBuilder function
+
+```ts
+const adapterBuilder = await createAdapterBuilder<Context, InputOption>();
+
+const adapter = await adapterBuilder
+  .init(() => {
+    // Initialization adapter
+  })
+  .before((ctx) => {
+    // Execute before the adapter track function
+  })
+  .isTrackable(() => {
+    // Determine whether the adapter is trackable
+    return true;
+  })
+  .transform((ctx, eventType, eventData) => {
+    // Transform the eventData
+    return eventData;
+  })
+  .after((ctx) => {
+    // Execute after the adapter track function
+  })
+  // Return a adapter instance
+  .build();
+```
+
+> <span style="color:orange">The createAdapterBuilder function can accept an optional parameter (TrackAdapter) to handle eventdata escalation logic. By default, the ReportAdapter provided by Track is used</span>
+
+### Report data through track
+
+- Load the adapter in track
+
+- Event Data is reported through the track method provided by track
+
+```ts
+await trackBuilder
+  .before((ctx) => {
+    // Execute before the track function
+  })
+  .after((ctx) => {
+    // Execute after the track function
+  })
+  .transform((ctx, eventData) => {
+    // Global Transform the eventData
+    return eventData;
+  })
+  .useAdapter(() => {
+    // Load all adapters
+    return {
+      reportData: adapter,
+    };
+  })
+  // Filter the adapter used to process eventData
+  .select(['reportData'])
+  // EventType: previewGoods
+  // EventData: eventData
+  .track('previewGoods', eventData);
+```
+
 ## Errors
 
 ## Development
