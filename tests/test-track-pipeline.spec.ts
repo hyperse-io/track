@@ -1,5 +1,8 @@
+import { Mock } from 'vitest';
 import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
 import { createTrackBuilder } from '../src/core/create-track-builder.js';
+import { TrackAdapterMap } from '../src/index.js';
+import { TrackAdapter } from '../src/types/types-adapter.js';
 import { TrackContext } from '../src/types/types-create.js';
 import { ReportAdapter } from './fixtures/adapter/report-adapter.js';
 import { AdapterOptions } from './fixtures/types/type-adapter-options.js';
@@ -215,4 +218,80 @@ describe('test-track-pipeline.spec', () => {
       timeStamp: '2024-09-01T00:00:00Z',
     });
   });
+
+  it('test track parallel pipeline', async () => {
+    const [reportFn, reportAdapter] = await mockAdapter();
+
+    const [analyzerFn, analyzerAdapter] = await mockAdapter();
+
+    const [consoleFn, consoleAdapter] = await mockAdapter();
+
+    const adapterMap = {
+      reportAdapter: reportAdapter,
+      analyzerAdapter: analyzerAdapter,
+      consoleAdapter: consoleAdapter,
+    } as TrackAdapterMap<TrackContext<TrackData>, EventDataOption>;
+
+    const trackBuilder = await createTrackBuilder<
+      TrackContext<TrackData>,
+      EventDataOption
+    >({
+      createData(eventData) {
+        return trackData;
+      },
+    });
+
+    const trackBuilderFactory = trackBuilder.init(() => adapterMap);
+
+    const previewGoodsAsync = trackBuilderFactory
+      .select('analyzerAdapter')
+      .track('previewGoods', eventData);
+
+    const addCartAsync = trackBuilderFactory.track('addCart', eventData);
+
+    const registryAsync = trackBuilderFactory
+      .select('consoleAdapter')
+      .track('registry', eventData);
+
+    await Promise.all([previewGoodsAsync, addCartAsync, registryAsync]);
+
+    expect(reportFn.mock.results.length).toBe(1);
+    expect(reportFn.mock.results[0].value?.['eventKey']).toBe('addCart');
+
+    expect(analyzerFn.mock.results.length).toBe(2);
+    expect(analyzerFn.mock.results[0].value?.['eventKey']).toBe('previewGoods');
+    expect(analyzerFn.mock.results[1].value?.['eventKey']).toBe('addCart');
+
+    expect(consoleFn.mock.results.length).toBe(2);
+    expect(consoleFn.mock.results[0].value?.['eventKey']).toBe('registry');
+    expect(consoleFn.mock.results[1].value?.['eventKey']).toBe('addCart');
+  });
 });
+
+const mockAdapter = async (): Promise<
+  [
+    Mock<(ctx: any, reportData: any, setupData: any) => any>,
+    TrackAdapter<TrackContext<TrackData>, EventDataOption, any>,
+  ]
+> => {
+  const report = vi.fn((ctx: any, reportData: any, setupData: any) => {
+    return reportData;
+  });
+
+  const reportAdapterBuilder = await createAdapterBuilder<
+    TrackContext<TrackData>,
+    EventDataOption,
+    AdapterOptions<TrackContext<TrackData>, EventDataOption>
+  >(new ReportAdapter());
+  const reportAdapter = reportAdapterBuilder
+    .transform((ctx, eventKey, eventData) => {
+      return {
+        ...eventData,
+        eventKey,
+      };
+    })
+    .build();
+  vi.spyOn(reportAdapter as ReportAdapter, 'report').mockImplementation(report);
+
+  return [report, reportAdapter];
+};
