@@ -21,7 +21,12 @@ const sidebars: SidebarsConfig = {
         {
           type: 'link',
           label: 'Hyperse Pipeline',
-          href: 'https://hyperse.github.io/pipeline/',
+          href: 'https://hyperse-io.github.io/pipeline/',
+        },
+        {
+          type: 'link',
+          label: 'Hyperse gh-pages starter',
+          href: 'https://hyperse-io.github.io/gh-pages-starter/',
         },
       ],
     },

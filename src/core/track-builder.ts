@@ -23,7 +23,7 @@ export class TrackBuilder<
   EventData extends TrackEventDataBase,
 > {
   private ctx: Context;
-  private adapterMap: TrackAdapterMap<Context, EventData>;
+  private adapterMap: TrackAdapterMap<Context, EventData> = {};
 
   private beforeHook?: TrackBeforeFunction<Context>;
   private afterHook?: TrackAfterFunction<Context>;
