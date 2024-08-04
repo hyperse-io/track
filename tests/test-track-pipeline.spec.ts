@@ -51,7 +51,6 @@ describe('test-track-pipeline.spec', () => {
         });
       })
       .before((ctx, eventType, eventData) => {})
-      .isTrackable(true)
       .transform((ctx, eventType, eventData) => {
         return {
           ...eventData,
@@ -67,16 +66,16 @@ describe('test-track-pipeline.spec', () => {
     >();
 
     trackBuilder
-      .before(({ data, logger }) => {})
-      .after((ctx) => {})
-      .transform((ctx, eventData) => {
-        return eventData;
-      })
-      .useAdapter(() => {
+      .init(() => {
         return {
           reportAdapter: adapter,
           reportAdapter1: adapter,
         };
+      })
+      .before(({ data, logger }) => {})
+      .after((ctx) => {})
+      .transform((ctx, eventData) => {
+        return eventData;
       })
       .select((ctx, adapterMap) => {
         return ['reportAdapter', 'reportAdapter1'];
@@ -96,7 +95,6 @@ describe('test-track-pipeline.spec', () => {
 
     const adBeforeFun = vi.fn(async (ctx, eventType, eventData) => {});
     const adAfterFun = vi.fn(async (ctx) => {});
-    const adIsTrackableFun = vi.fn(() => true);
     const adTransformFun = vi.fn((ctx, eventType, eventData) => {
       return {
         ...eventData,
@@ -111,7 +109,6 @@ describe('test-track-pipeline.spec', () => {
 
     const adapter = adapterBuilder
       .before(adBeforeFun)
-      .isTrackable(adIsTrackableFun)
       .transform(adTransformFun)
       .after(adAfterFun)
       .build();
@@ -131,7 +128,7 @@ describe('test-track-pipeline.spec', () => {
     };
     type Name = keyof typeof adapterMap;
 
-    const traUseAdapterFun = vi.fn(() => {
+    const traInitFun = vi.fn(() => {
       return adapterMap;
     });
     const traSelectFun = vi.fn((ctx, adapterMap): Name | Name[] => [
@@ -148,10 +145,10 @@ describe('test-track-pipeline.spec', () => {
     });
 
     await trackBuilder
+      .init(traInitFun)
       .before(traBeforeFun)
       .after(traAfterFun)
       .transform(traTransformFun)
-      .useAdapter(traUseAdapterFun)
       .select(traSelectFun)
       .track('previewGoods', eventData);
 
@@ -177,8 +174,8 @@ describe('test-track-pipeline.spec', () => {
       timeStamp: '2021-09-01T00:00:00Z',
     });
 
-    expect(traUseAdapterFun.mock.results[0]).toBeDefined();
-    expect(traUseAdapterFun.mock.results[0].value).toMatchObject(adapterMap);
+    expect(traInitFun.mock.results[0]).toBeDefined();
+    expect(traInitFun.mock.results[0].value).toMatchObject(adapterMap);
 
     expect(traSelectFun.mock.lastCall).toBeDefined();
     expect(traSelectFun.mock.lastCall?.[0]).toMatchObject({
@@ -195,9 +192,6 @@ describe('test-track-pipeline.spec', () => {
       ...eventData,
       timeStamp: '2021-09-01T00:00:00Z',
     });
-
-    expect(adIsTrackableFun.mock.calls).toBeDefined();
-    expect(adIsTrackableFun.mock.results?.[0].value).toBeTruthy();
 
     expect(adTransformFun.mock.lastCall).toBeDefined();
     expect(adTransformFun.mock.lastCall?.[0]).toMatchObject({

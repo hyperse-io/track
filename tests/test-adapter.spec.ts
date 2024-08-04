@@ -35,7 +35,8 @@ describe('test-adapter.spec', () => {
 
   it('test adapter hook', async () => {
     const reportAdapter = new ReportAdapter();
-    const trackBuilder = await createAdapterBuilder<
+
+    const adapterBuilder = await createAdapterBuilder<
       TrackContext<TrackData>,
       EventDataOption,
       AdapterOptions<TrackContext<TrackData>, EventDataOption>
@@ -45,6 +46,7 @@ describe('test-adapter.spec', () => {
       return Promise.resolve({
         name: 'setup' as const,
         timeStamp: new Date().getTime(),
+        newField: 'newField',
       });
     });
     const beforeFun = vi.fn((ctx) => {});
@@ -55,10 +57,10 @@ describe('test-adapter.spec', () => {
         eventType,
       };
     });
-    const reportFun = vi.fn((ctx, eventData) => {});
+    const reportFun = vi.fn((ctx, eventData, setupData) => {});
     vi.spyOn(reportAdapter, 'report').mockImplementation(reportFun);
 
-    const adapter = trackBuilder
+    const adapter = adapterBuilder
       .setup(setupFun)
       .before(beforeFun)
       .transform(transformFun)
@@ -117,6 +119,12 @@ describe('test-adapter.spec', () => {
       ...eventData['addCart'],
       eventType: 'addCart',
     });
+
+    expect(Object.keys(reportFun.mock.lastCall?.[2])).toMatchObject([
+      'name',
+      'timeStamp',
+      'newField',
+    ]);
     expect(reportFun.mock.results[0].value).toBeUndefined();
   });
 

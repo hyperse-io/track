@@ -7,10 +7,6 @@ export type AdapterFunctionVoid<Context> = (
   ctx: Context
 ) => void | Promise<void>;
 
-export type AdapterSetTrackableFunction<Context> =
-  | boolean
-  | ((ctx: Context) => boolean | Promise<boolean>);
-
 export type AdapterBeforeFunction<Context, EventData> = (
   ctx: Context,
   eventType: keyof EventData,
@@ -34,16 +30,15 @@ export interface TrackAdapter<
   EventData extends TrackEventDataBase,
   AdapterOptions extends TrackAdapterOptions<Context, EventData>,
 > {
-  _setup(fun?: AdapterOptions['setup']): void;
-  _setTrackable(fun: AdapterSetTrackableFunction<Context>): void;
-  before(fun: AdapterBeforeFunction<Context, EventData>): void;
-  after<ReportData>(
+  _mountSetupHook(fun?: AdapterOptions['setup']): void;
+  _mountBeforeHook(fun: AdapterBeforeFunction<Context, EventData>): void;
+  _mountAfterHook<ReportData>(
     fun: AdapterAfterFunction<Context, EventData, ReportData>
   ): void;
-  transform<ReportData>(
+  _mountTransformHook<ReportData>(
     fun: AdapterTransformFunction<Context, EventData, ReportData>
   ): void;
-  isTrackable(): AdapterSetTrackableFunction<Context>;
+  isTrackable(): boolean | Promise<boolean>;
   track(
     ctx: Context,
     eventType: keyof EventData,

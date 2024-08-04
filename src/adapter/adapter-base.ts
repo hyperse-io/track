@@ -4,7 +4,6 @@ import {
   AdapterAfterFunction,
   AdapterBeforeFunction,
   AdapterReportData,
-  AdapterSetTrackableFunction,
   AdapterTransformFunction,
   TrackAdapter,
 } from '../types/types-adapter.js';
@@ -17,15 +16,16 @@ export abstract class BaseAdapter<
   AdapterOptions extends TrackAdapterOptions<Context, EventData>,
 > implements TrackAdapter<Context, EventData, AdapterOptions>
 {
-  private trackableFun: AdapterSetTrackableFunction<Context> = true;
   private setupFun?: AdapterOptions['setup'];
-  private beforeFun: AdapterBeforeFunction<Context, EventData>;
-  private transformFun: AdapterTransformFunction<Context, EventData, any>;
-  private afterFun: AdapterAfterFunction<
+  private beforeFun?: AdapterBeforeFunction<Context, EventData>;
+  private transformFun?: AdapterTransformFunction<Context, EventData, any>;
+  private afterFun?: AdapterAfterFunction<
     Context,
     EventData,
-    Awaited<ReturnType<typeof this.transformFun>>
+    Awaited<ReturnType<AdapterTransformFunction<Context, EventData, any>>>
   >;
+
+  abstract isTrackable(): boolean | Promise<boolean>;
 
   protected report(
     ctx: Context,
@@ -35,29 +35,23 @@ export abstract class BaseAdapter<
       : undefined
   ): void | Promise<void> {}
 
-  public _setup(fun?: AdapterOptions['setup']) {
+  public _mountSetupHook(fun?: AdapterOptions['setup']) {
     this.setupFun = fun;
   }
 
-  public _setTrackable(fun: AdapterSetTrackableFunction<Context>) {
-    this.trackableFun = fun;
-  }
-
-  public isTrackable(): AdapterSetTrackableFunction<Context> {
-    return this.trackableFun;
-  }
-
-  public before(fun: AdapterBeforeFunction<Context, EventData>): void {
+  public _mountBeforeHook(
+    fun: AdapterBeforeFunction<Context, EventData>
+  ): void {
     this.beforeFun = fun;
   }
 
-  public after<ReportData>(
+  public _mountAfterHook<ReportData>(
     fun: AdapterAfterFunction<Context, EventData, ReportData>
   ): void {
     this.afterFun = fun;
   }
 
-  public transform<ReportData>(
+  public _mountTransformHook<ReportData>(
     fun: AdapterTransformFunction<Context, EventData, ReportData>
   ) {
     this.transformFun = fun;
@@ -88,7 +82,7 @@ export abstract class BaseAdapter<
   ): Promise<ReportData> => {
     let setupResult;
     if (this.setupFun) {
-      setupResult = await pipe(() => this.setupFun?.(ctx, eventData))();
+      setupResult = await this.setupFun?.(ctx, eventData);
     }
     await this.report(ctx, reportData, setupResult);
     return reportData;

@@ -120,12 +120,12 @@ describe('test-track-error.spec', () => {
     });
 
     await trackBuilder
-      .useAdapter(() => {
+      .init(() => {
         return {
           report: adapter,
         };
       })
-      .track('previewGoods', eventData);
+      .track('addCart', eventData);
 
     return error;
   };

@@ -1,4 +1,4 @@
-import { BaseAdapter, TrackEventDataBase } from '../../../src/index.js';
+import { BaseAdapter } from '../../../src/index.js';
 import { AdapterReportData } from '../../../src/types/types-adapter.js';
 import { TrackContext } from '../../../src/types/types-create.js';
 import { AdapterOptions } from '../types/type-adapter-options.js';
@@ -10,11 +10,19 @@ export class ReportAdapter extends BaseAdapter<
   EventDataOption,
   AdapterOptions<TrackContext<TrackData>, EventDataOption>
 > {
+  isTrackable(): boolean | Promise<boolean> {
+    return true;
+  }
+
   report(
     ctx: TrackContext<TrackData>,
     reportData: AdapterReportData,
     setupData?:
-      | { name: 'setup' | 'setup1' | 'setup2'; timeStamp: number }
+      | {
+          name: 'setup' | 'setup1' | 'setup2';
+          timeStamp: number;
+          user?: string;
+        }
       | undefined
   ): void | Promise<void> {}
 }

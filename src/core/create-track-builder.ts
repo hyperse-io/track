@@ -25,7 +25,8 @@ export const createTrackBuilder = async <
   };
 
   if (createData) {
-    ctx.data = await executeFunction(createData, eventData);
+    const data = await executeFunction(createData, eventData);
+    ctx.data = data || {};
   }
 
   const trackBuilder = new TrackBuilder<Context, EventData>(
@@ -33,5 +34,5 @@ export const createTrackBuilder = async <
     eventData
   );
 
-  return trackBuilder.initBuilder();
+  return trackBuilder.buildInitChainer();
 };

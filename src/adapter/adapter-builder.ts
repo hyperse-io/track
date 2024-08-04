@@ -1,7 +1,6 @@
 import {
   AdapterAfterFunction,
   AdapterBeforeFunction,
-  AdapterSetTrackableFunction,
   AdapterTransformFunction,
   TrackAdapter,
 } from '../types/types-adapter.js';
@@ -26,85 +25,70 @@ export class AdapterBuilder<
     this.adapter = _adapter;
   }
 
-  private setupHook = (fun?: AdapterOptions['setup']) => {
-    this.adapter._setup(fun);
-    return this.before();
+  public buildInitChainer() {
+    return {
+      setup: this.mountSetupHook,
+      before: this.mountBeforeHook,
+      transform: this.mountTransformHook,
+      build: this.executeBuild,
+    };
+  }
+
+  public buildBeforeChainer() {
+    return {
+      before: this.mountBeforeHook,
+      transform: this.mountTransformHook,
+      build: this.executeBuild,
+    };
+  }
+
+  public buildTransformChainer() {
+    return {
+      transform: this.mountTransformHook,
+      build: this.executeBuild,
+    };
+  }
+
+  public buildAfterChainer<ReportData>() {
+    return {
+      after: this.mountAfterHook<ReportData>,
+      build: this.executeBuild,
+    };
+  }
+
+  public buildChainer() {
+    return {
+      build: this.executeBuild,
+    };
+  }
+
+  private mountSetupHook = (fun?: AdapterOptions['setup']) => {
+    this.adapter._mountSetupHook(fun);
+    return this.buildBeforeChainer();
   };
 
-  private beforeHook = (fun: AdapterBeforeFunction<Context, EventData>) => {
-    this.adapter.before(fun);
-    return this.isTrackable();
+  private mountBeforeHook = (
+    fun: AdapterBeforeFunction<Context, EventData>
+  ) => {
+    this.adapter._mountBeforeHook(fun);
+    return this.buildTransformChainer();
   };
 
-  private afterHook = <ReportData>(
+  private mountAfterHook = <ReportData>(
     fun: AdapterAfterFunction<Context, EventData, ReportData>
   ) => {
-    this.adapter.after<ReportData>(fun);
-    return this.build();
+    this.adapter._mountAfterHook<ReportData>(fun);
+    return this.buildChainer();
   };
 
-  private isTrackableHook = (
-    trackable: AdapterSetTrackableFunction<Context>
-  ) => {
-    this.adapter._setTrackable(trackable);
-    return this.transform();
-  };
-
-  private transformHook = <ReportData>(
+  private mountTransformHook = <ReportData>(
     fun: AdapterTransformFunction<Context, EventData, ReportData>
   ) => {
-    this.adapter.transform<ReportData>(fun);
-    return this.after<ReportData>();
+    this.adapter._mountTransformHook<ReportData>(fun);
+    return this.buildAfterChainer<ReportData>();
   };
 
-  private buildHook = () => {
+  private executeBuild = () => {
     return this.adapter;
   };
-
-  public initBuilder() {
-    return {
-      setup: this.setupHook,
-      before: this.beforeHook,
-      isTrackable: this.isTrackableHook,
-      transform: this.transformHook,
-      build: this.buildHook,
-    };
-  }
-
-  public before() {
-    return {
-      before: this.beforeHook,
-      isTrackable: this.isTrackableHook,
-      transform: this.transformHook,
-      build: this.buildHook,
-    };
-  }
-
-  public isTrackable() {
-    return {
-      isTrackable: this.isTrackableHook,
-      transform: this.transformHook,
-      build: this.buildHook,
-    };
-  }
-
-  public transform() {
-    return {
-      transform: this.transformHook,
-      build: this.buildHook,
-    };
-  }
-
-  public after<ReportData>() {
-    return {
-      after: this.afterHook<ReportData>,
-      build: this.buildHook,
-    };
-  }
-
-  public build() {
-    return {
-      build: this.buildHook,
-    };
-  }
 }

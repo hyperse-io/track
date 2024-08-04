@@ -76,10 +76,6 @@ describe('test-track-logger.spec', () => {
       .before((ctx) => {
         logger.error('adapter before');
       })
-      .isTrackable(() => {
-        logger.info('adapter isTrackable');
-        return true;
-      })
       .transform((ctx, eventType, eventData) => {
         logger.verbose('adapter transform');
         return eventData;
@@ -90,6 +86,12 @@ describe('test-track-logger.spec', () => {
       .build();
 
     await trackBuilder
+      .init(() => {
+        logger.info('track useAdapter');
+        return {
+          reportData: adapter,
+        };
+      })
       .before((ctx) => {
         logger.info('track before');
       })
@@ -100,12 +102,6 @@ describe('test-track-logger.spec', () => {
         logger.info('track transform');
         return eventData;
       })
-      .useAdapter(() => {
-        logger.info('track useAdapter');
-        return {
-          reportData: adapter,
-        };
-      })
       .select(() => {
         logger.info('track select');
         return ['reportData'];
@@ -113,7 +109,7 @@ describe('test-track-logger.spec', () => {
       .track('previewGoods', eventData);
 
     expect(print.mock.results).toBeDefined();
-    expect(print.mock.results.length).toBe(10);
+    expect(print.mock.results.length).toBe(9);
     expect(print.mock.results).toMatchObject([
       {
         type: 'return',
@@ -126,10 +122,6 @@ describe('test-track-logger.spec', () => {
       {
         type: 'return',
         value: 'ConsoleLogger @hyperse/track track select',
-      },
-      {
-        type: 'return',
-        value: 'ConsoleLogger @hyperse/track adapter isTrackable',
       },
       {
         type: 'return',

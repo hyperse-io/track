@@ -23,5 +23,5 @@ export async function createAdapterBuilder<
     adapter
   );
 
-  return adapterBuilder.initBuilder();
+  return adapterBuilder.buildInitChainer();
 }

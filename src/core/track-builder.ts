@@ -1,4 +1,8 @@
 import { pipe } from '@hyperse/pipeline';
+import { executeAdapterTrack } from '../helpers/helper-adapter-track.js';
+import { executeFunction } from '../helpers/helper-execute.js';
+import { executeSelect } from '../helpers/helper-select-adapter.js';
+import { executeTrackTransform } from '../helpers/helper-track-transform.js';
 import { TrackContext } from '../types/types-create.js';
 import {
   TrackAdapterMap,
@@ -8,7 +12,6 @@ import {
   TrackSelectFunction,
   TrackTransformFunction,
 } from '../types/types-track.js';
-import { Track } from './track.js';
 
 /**
  * Represents a builder for creating and configuring a Track instance.
@@ -20,117 +23,136 @@ export class TrackBuilder<
   EventData extends TrackEventDataBase,
 > {
   private ctx: Context;
-  private trackInstance: Track<Context, EventData>;
+  private adapterMap: TrackAdapterMap<Context, EventData>;
 
-  constructor(configuration: Context, eventData?: Partial<EventData>) {
-    this.ctx = configuration;
-    this.trackInstance = new Track<Context, EventData>(
-      configuration,
-      eventData
-    );
+  private beforeHook?: TrackBeforeFunction<Context>;
+  private afterHook?: TrackAfterFunction<Context>;
+  private transformHook?: TrackTransformFunction<Context, EventData>;
+  private globalEventData?: Partial<EventData>;
+
+  constructor(context: Context, eventData?: Partial<EventData>) {
+    this.ctx = context;
+    this.globalEventData = eventData;
   }
 
-  private beforeHook = (fun: TrackBeforeFunction<Context>) => {
-    this.trackInstance.before(fun);
-    return this.after();
+  public buildInitChainer() {
+    return {
+      init: this.executeInit,
+    };
+  }
+
+  public buildBeforeChainer<AdapterName>() {
+    return {
+      before: this.mountBeforeHook<AdapterName>,
+      after: this.mountAfterHook<AdapterName>,
+      transform: this.mountTransformHook<AdapterName>,
+      select: this.executeSelect<AdapterName>,
+      track: this.executeSelect<AdapterName>().track,
+    };
+  }
+
+  public buildAfterChainer = <AdapterName>() => {
+    return {
+      after: this.mountAfterHook<AdapterName>,
+      transform: this.mountTransformHook<AdapterName>,
+      select: this.executeSelect<AdapterName>,
+      track: this.executeSelect<AdapterName>().track,
+    };
   };
 
-  private afterHook = (fun: TrackAfterFunction<Context>) => {
-    this.trackInstance.after(fun);
-    return this.transform();
+  public buildTransformChainer = <AdapterName>() => {
+    return {
+      transform: this.mountTransformHook<AdapterName>,
+      select: this.executeSelect<AdapterName>,
+      track: this.executeSelect<AdapterName>().track,
+    };
   };
 
-  private transformHook = (fun: TrackTransformFunction<Context, EventData>) => {
-    this.trackInstance.transform(fun);
-    return this.useAdapter();
+  public buildSelectChainer = <AdapterName>() => {
+    return {
+      select: this.executeSelect<AdapterName>,
+    };
   };
 
-  private useAdapterHook = <
+  private mountBeforeHook = <AdapterName>(
+    fun: TrackBeforeFunction<Context>
+  ) => {
+    this.beforeHook = fun;
+    return this.buildAfterChainer<AdapterName>();
+  };
+
+  private mountAfterHook = <AdapterName>(fun: TrackAfterFunction<Context>) => {
+    this.afterHook = fun;
+    return this.buildTransformChainer<AdapterName>();
+  };
+
+  private mountTransformHook = <AdapterName>(
+    fun: TrackTransformFunction<Context, EventData>
+  ) => {
+    this.transformHook = fun;
+    return this.buildSelectChainer<AdapterName>();
+  };
+
+  private executeInit = <
     AdapterMap extends TrackAdapterMap<Context, EventData>,
   >(
     fun: () => AdapterMap
   ) => {
     const adapterMap = fun();
-    this.trackInstance.useAdapter(adapterMap);
-    return this.select<keyof typeof adapterMap>();
+    this.adapterMap = adapterMap;
+    return this.buildBeforeChainer<keyof typeof adapterMap>();
   };
 
-  private selectHook = <AdapterName>(
-    names?: TrackSelectFunction<Context, EventData, AdapterName>
+  private executeSelect = <AdapterName>(
+    selectRule: TrackSelectFunction<Context, EventData, AdapterName> = []
   ) => {
-    this.trackInstance.select<AdapterName>(names);
-    return this.track();
-  };
+    const innerCtx = this.ctx;
+    const innerTrackAdapterMap = this.adapterMap;
+    const innerGlobalEventData = this.globalEventData;
+    const innerTransformHook = this.transformHook;
+    const innerBeforeHook = this.beforeHook;
+    const innerAfterHook = this.afterHook;
 
-  private trackHook = async (
-    eventType: keyof EventData,
-    eventData: EventData
-  ) => {
-    try {
-      await pipe(
-        async () => await this.trackInstance.executeBefore(),
-        async () => {
-          const result = await this.trackInstance.executeSelect();
-          return result;
-        },
-        async (adapterMap) => {
-          const transformEventData =
-            await this.trackInstance.executeTransform(eventData);
-          return { adapterMap, transformEventData };
-        },
-        async ({ adapterMap, transformEventData }) =>
-          await this.trackInstance.executeTrackAdapter(
-            adapterMap,
-            eventType,
-            transformEventData
-          ),
-        async () => await this.trackInstance.executeAfter()
-      )();
-    } catch (error) {
-      this.ctx.logger?.error(error);
+    async function executeTrack(
+      eventType: keyof EventData,
+      eventData: EventData
+    ) {
+      try {
+        await pipe(
+          async () => {
+            await executeFunction(innerBeforeHook, innerCtx);
+          },
+          async () => {
+            const adapterMap = await executeSelect(
+              innerCtx,
+              innerTrackAdapterMap,
+              selectRule
+            );
+            return { adapterMap };
+          },
+          async ({ adapterMap }) => {
+            const transformEventData = await executeTrackTransform<
+              Context,
+              EventData
+            >(innerCtx, eventData, innerGlobalEventData, innerTransformHook);
+            return { adapterMap, transformEventData };
+          },
+          async ({ adapterMap, transformEventData }) => {
+            await executeAdapterTrack(
+              innerCtx,
+              adapterMap,
+              eventType,
+              transformEventData
+            );
+          },
+          async () => {
+            await executeFunction(innerAfterHook, innerCtx);
+          }
+        )();
+      } catch (error) {
+        innerCtx.logger?.error(error);
+      }
     }
-  };
-
-  public initBuilder() {
-    return {
-      before: this.beforeHook,
-      after: this.afterHook,
-      transform: this.transformHook,
-      useAdapter: this.useAdapterHook,
-    };
-  }
-
-  public after = () => {
-    return {
-      after: this.afterHook,
-      transform: this.transformHook,
-      useAdapter: this.useAdapterHook,
-    };
-  };
-
-  public useAdapter = () => {
-    return {
-      useAdapter: this.useAdapterHook,
-    };
-  };
-
-  public select = <AdapterName>() => {
-    return {
-      select: this.selectHook<AdapterName>,
-      track: this.trackHook,
-    };
-  };
-
-  public transform = () => {
-    return {
-      transform: this.transformHook,
-      useAdapter: this.useAdapterHook,
-    };
-  };
-
-  public track = () => {
-    return {
-      track: this.trackHook,
-    };
+    return { track: executeTrack };
   };
 }

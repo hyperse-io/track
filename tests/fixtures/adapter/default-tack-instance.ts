@@ -1,11 +1,9 @@
-import { Track, TrackEventDataBase } from '../../../src/index.js';
+import { createTrackBuilder } from '../../../src/index.js';
 import { TrackContext } from '../../../src/types/types-create.js';
 import { ConsoleLogger } from '../console-logger.js';
+import { TrackData } from '../types/type-track-data.js';
 
-export const defaultTackInstance = <
-  TrackData,
-  EventData extends TrackEventDataBase,
->() => {
+export const defaultTackInstance = async () => {
   const configuration = {
     logger: new ConsoleLogger(),
     data: {
@@ -17,7 +15,12 @@ export const defaultTackInstance = <
     },
   } as TrackContext<TrackData>;
 
-  const track = new Track<TrackContext<TrackData>, EventData>(configuration);
+  const track = await createTrackBuilder({
+    createData(eventData) {
+      return configuration.data;
+    },
+    logger: new ConsoleLogger(),
+  });
 
   return track;
 };
