@@ -1,0 +1,48 @@
+name: github pages
+
+on:
+  push:
+    branches: 
+      - main  # Set a branch name to trigger deployment
+    paths:
+      - '.github/workflows/gh-pages.yml'
+      - 'website/**'
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    defaults:
+      run:
+        working-directory: website
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 📥 Install Dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: |
+          yarn build
+
+      - name: Unit tests
+        run: |
+          yarn test
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website/build

@@ -5,7 +5,9 @@
     "rootDir": ".",
     "outDir": "dist",
     "types": ["vitest/globals"],
-    "paths": {},
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "lib": ["dom", "dom.iterable", "esnext"],
     "isolatedModules": true,
     "jsx": "preserve"

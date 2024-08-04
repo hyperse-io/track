@@ -9,7 +9,8 @@
     "pipe",
     "track engine",
     "google track",
-    "facebook track"
+    "facebook track",
+    "klaviyo track"
   ],
   "repository": {
     "type": "git",
@@ -28,6 +29,10 @@
     "./bin/",
     "./dist/",
     "./index.js"
+  ],
+  "workspaces": [
+    "website",
+    "./"
   ],
   "scripts": {
     "build": "tsup",
@@ -54,28 +59,28 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.0",
-    "@changesets/cli": "2.27.6",
+    "@changesets/cli": "2.27.7",
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "19.2.2",
-    "@hyperse/eslint-config-hyperse": "^1.0.10",
-    "@hyperse/exec-program": "^1.0.6",
+    "@hyperse/eslint-config-hyperse": "^1.0.12",
+    "@hyperse/exec-program": "^1.0.10",
     "@types/lodash": "^4",
-    "@types/node": "^20.14.9",
+    "@types/node": "^22.1.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitest/coverage-istanbul": "^2.0.5",
     "@vitest/ui": "^2.0.5",
     "commitizen": "4.3.0",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "^9.6.0",
-    "husky": "9.0.11",
-    "lint-staged": "15.2.7",
-    "next": "14.2.4",
+    "eslint": "^9.8.0",
+    "husky": "9.1.4",
+    "lint-staged": "15.2.8",
+    "next": "14.2.5",
     "npm-run-all": "^4.1.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tsup": "^8.1.0",
-    "typescript": "^5.5.2",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
     "vite": "^5.3.5",
     "vitest": "^2.0.5"
   },
@@ -85,5 +90,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "yarn@4.3.0"
+  "packageManager": "yarn@4.3.1"
 }
