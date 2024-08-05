@@ -51,7 +51,7 @@ const config: Config = {
       },
     },
     navbar: {
-      title: 'Hyperse',
+      // title: 'Hyperse',
       hideOnScroll: false,
       logo: {
         alt: 'Hyperse',
