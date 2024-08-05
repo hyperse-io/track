@@ -4,7 +4,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Plugin from '@docusaurus/types/src/plugin';
 
 const config: Config = {
-  title: 'hyperse track',
+  title: 'hyperse data tracker engine',
   tagline:
     'A typed, smart, scalable , powerful data collection engine written in typescript',
   url: 'https://hyperse-io.github.io',
