@@ -3,8 +3,8 @@ import { TrackContext } from '../../../src/types/types-create.js';
 import { ConsoleLogger } from '../console-logger.js';
 import { TrackData } from '../types/type-track-data.js';
 
-export const defaultTackInstance = async () => {
-  const configuration = {
+export const defaultTackInstance = () => {
+      const configuration = {
     logger: new ConsoleLogger(),
     data: {
       bizMode: 'test',
@@ -15,7 +15,7 @@ export const defaultTackInstance = async () => {
     },
   } as TrackContext<TrackData>;
 
-  const track = await createTrackBuilder({
+  const track = createTrackBuilder({
     createData(eventData) {
       return configuration.data;
     },

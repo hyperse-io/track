@@ -1,33 +1,20 @@
-import { executeFunction } from '../helpers/helper-execute.js';
 import { TrackContext, TrackCreateOptions } from '../types/types-create.js';
 import { TrackEventDataBase } from '../types/types-track.js';
 import { TrackBuilder } from './track-builder.js';
 
 /**
- * Creates a track builder function.
+ * Creates a track builder instance.
  *
- * @param options - The track global options.
- * @returns A promise that resolves to the initialized track builder.
  * @template Context - The type of the track context.
- * @template EventData - The type of the track event value.
+ * @template EventData - The type of the track event data.
+ * @param options - The options for creating the track builder.
+ * @returns A new instance of the TrackBuilder class.
  */
-export const createTrackBuilder = async <
+export const createTrackBuilder = <
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
 >(
   options: TrackCreateOptions<Context, EventData> = {}
 ) => {
-  const { eventData, logger, createData } = options;
-
-  const ctx = {
-    data: {},
-    logger: logger,
-  };
-
-  if (createData) {
-    const data = await executeFunction(createData, eventData);
-    ctx.data = data || {};
-  }
-
-  return new TrackBuilder<Context, EventData>(ctx as Context, eventData);
+  return new TrackBuilder<Context, EventData>(options);
 };

@@ -19,7 +19,7 @@ export class ReportAdapter extends BaseAdapter<
     reportData: AdapterReportData,
     setupData?:
       | {
-          name: 'setup' | 'setup1' | 'setup2';
+           name: 'setup' | 'setup1' | 'setup2';
           timeStamp: number;
           user?: string;
         }

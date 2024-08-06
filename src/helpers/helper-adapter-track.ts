@@ -15,14 +15,15 @@ import { TrackAdapterMap, TrackEventDataBase } from '../types/types-track.js';
 export const executeAdapterTrack = async <
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
+  EventType extends keyof EventData,
 >(
   ctx: Context,
   adapterMap: TrackAdapterMap<Context, EventData>,
-  eventType: keyof EventData,
-  result: EventData
+  eventType: EventType,
+  result: EventData[EventType]
 ): Promise<EventData> => {
   for (const adapter of Object.values(adapterMap)) {
-    await adapter.track(ctx, eventType, result);
+    await adapter.track<EventType>(ctx, eventType, result);
   }
   return result;
 };

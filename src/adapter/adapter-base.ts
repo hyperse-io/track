@@ -18,12 +18,11 @@ export abstract class BaseAdapter<
 {
   private setupHook?: AdapterOptions['setup'];
   private beforeHook?: AdapterBeforeFunction<Context, EventData>;
-  private transformHook?: AdapterTransformFunction<Context, EventData, any>;
-  private afterHook?: AdapterAfterFunction<
-    Context,
-    EventData,
-    Awaited<ReturnType<AdapterTransformFunction<Context, EventData, any>>>
-  >;
+  transformHookMap: {
+    [K in keyof EventData]?: AdapterTransformFunction<Context, K, EventData>;
+  } = {};
+
+  private afterHook?: AdapterAfterFunction<Context, EventData>;
 
   abstract isTrackable(): boolean | Promise<boolean>;
 
@@ -45,29 +44,33 @@ export abstract class BaseAdapter<
     this.beforeHook = fun;
   }
 
-  public _mountAfterHook<ReportData>(
-    fun: AdapterAfterFunction<Context, EventData, ReportData>
-  ): void {
+  public _mountAfterHook(fun: AdapterAfterFunction<Context, EventData>): void {
     this.afterHook = fun;
   }
 
-  public _mountTransformHook<ReportData>(
-    fun: AdapterTransformFunction<Context, EventData, ReportData>
+  public _mountTransformHook<EventType extends keyof EventData>(
+    eventType: EventType,
+    fun: AdapterTransformFunction<Context, EventType, EventData>
   ) {
-    this.transformHook = fun;
+    this.transformHookMap[eventType] = fun;
   }
 
-  private executeTransform = async (
+  private executeTransform = async <EventType extends keyof EventData>(
     ctx: Context,
-    eventType: keyof EventData,
-    eventData: EventData
+    eventType: EventType,
+    eventData: EventData[EventType]
   ) => {
-    if (!this.transformHook) {
+    if (Object.keys(this.transformHookMap).length < 1) {
       ctx.logger?.warn('Adapter transform hook is not defined');
       return eventData;
     }
+    const transformHook = this.transformHookMap[eventType];
+
+    if (!transformHook) {
+      return eventData;
+    }
     const result = await executeFunction(
-      this.transformHook,
+      transformHook as AdapterTransformFunction<Context, EventType, EventData>,
       ctx,
       eventType,
       eventData
@@ -77,7 +80,7 @@ export abstract class BaseAdapter<
 
   private executeReport = async <ReportData>(
     ctx: Context,
-    eventData: EventData,
+    eventData: EventData[keyof EventData],
     reportData: ReportData
   ): Promise<ReportData> => {
     let setupResult;
@@ -96,10 +99,10 @@ export abstract class BaseAdapter<
    * @param eventData - The data associated with the event.
    * @returns A promise that resolves when the tracking is complete.
    */
-  public async track(
+  public async track<EventType extends keyof EventData>(
     ctx: Context,
-    eventType: keyof EventData,
-    eventData: EventData
+    eventType: EventType,
+    eventData: EventData[EventType]
   ): Promise<void> {
     await pipe(
       async () =>

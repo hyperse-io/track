@@ -52,13 +52,13 @@ describe('test-track-logger.spec', () => {
 
     const adapter = new ReportAdapter();
 
-    const adapterBuilder = await createAdapterBuilder<
+    const adapterBuilder = createAdapterBuilder<
       TrackContext<TrackData>,
       EventDataOption,
       TrackAdapterOptions<TrackContext<TrackData>, EventDataOption>
     >(adapter);
 
-    const trackBuilder = await createTrackBuilder<
+    const trackBuilder = createTrackBuilder<
       TrackContext<TrackData>,
       EventDataOption
     >({
@@ -76,7 +76,7 @@ describe('test-track-logger.spec', () => {
       .before((ctx) => {
         logger.error('adapter before');
       })
-      .transform((ctx, eventType, eventData) => {
+      .transform('addCart', (ctx, eventType, eventData) => {
         logger.verbose('adapter transform');
         return eventData;
       })
@@ -98,18 +98,14 @@ describe('test-track-logger.spec', () => {
       .after((ctx) => {
         logger.info('track after');
       })
-      .transform((ctx, eventData) => {
-        logger.info('track transform');
-        return eventData;
-      })
       .select(() => {
         logger.info('track select');
         return ['reportData'];
       })
-      .track('previewGoods', eventData);
+      .track('addCart', eventData.addCart);
 
     expect(print.mock.results).toBeDefined();
-    expect(print.mock.results.length).toBe(9);
+    expect(print.mock.results.length).toBe(8);
     expect(print.mock.results).toMatchObject([
       {
         type: 'return',
@@ -118,10 +114,6 @@ describe('test-track-logger.spec', () => {
       {
         type: 'return',
         value: 'ConsoleLogger @hyperse/track track before',
-      },
-      {
-        type: 'return',
-        value: 'ConsoleLogger @hyperse/track track transform',
       },
       {
         type: 'return',

@@ -19,10 +19,11 @@ import { isFunction } from './helper-is-function.js';
 export const executeSelect = async <
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
+  TrackMap extends TrackAdapterMap<Context, EventData>,
 >(
   ctx: Context,
-  adapterMap: TrackAdapterMap<Context, EventData>,
-  selectRule: TrackSelectFunction<Context, EventData, unknown> = []
+  adapterMap: TrackMap,
+  selectRule: TrackSelectFunction<Context, EventData, TrackMap> = []
 ): Promise<TrackAdapterMap<Context, EventData>> => {
   let names = [];
 

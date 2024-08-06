@@ -21,6 +21,5 @@
   },
   "[jsonc]": {
     "editor.formatOnSave": false
-  },
-  "commentTranslate.multiLineMerge": true
+  }
 }

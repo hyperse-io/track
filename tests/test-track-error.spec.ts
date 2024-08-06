@@ -36,7 +36,7 @@ describe('test-track-error.spec', () => {
   };
 
   it('test throw error', async () => {
-    let adapterBuilder = await defaultAdapterBuilder();
+    let adapterBuilder = defaultAdapterBuilder();
 
     let adapter = adapterBuilder
       .setup(() => {
@@ -51,7 +51,7 @@ describe('test-track-error.spec', () => {
       'Exception: Error: setup Error'
     );
 
-    adapterBuilder = await defaultAdapterBuilder();
+    adapterBuilder = defaultAdapterBuilder();
     adapter = adapterBuilder
       .before(() => {
         throw new Error('before Error');
@@ -64,9 +64,9 @@ describe('test-track-error.spec', () => {
       'Exception: Error: before Error'
     );
 
-    adapterBuilder = await defaultAdapterBuilder();
+    adapterBuilder = defaultAdapterBuilder();
     adapter = adapterBuilder
-      .transform(() => {
+      .transform('addCart', () => {
         throw new Error('transform Error');
       })
       .build();
@@ -78,9 +78,9 @@ describe('test-track-error.spec', () => {
       'Exception: Error: transform Error'
     );
 
-    adapterBuilder = await defaultAdapterBuilder();
+    adapterBuilder = defaultAdapterBuilder();
     adapter = adapterBuilder
-      .transform(() => {})
+      .transform('previewGoods', () => {})
       .after(() => {
         throw new Error('after Error');
       })
@@ -108,7 +108,7 @@ describe('test-track-error.spec', () => {
 
     vi.spyOn(logger, 'error').mockImplementation(error);
 
-    const trackBuilder = await createTrackBuilder<
+    const trackBuilder = createTrackBuilder<
       TrackContext<TrackData>,
       EventDataOption
     >({
@@ -125,7 +125,7 @@ describe('test-track-error.spec', () => {
           report: adapter,
         };
       })
-      .track('addCart', eventData);
+      .track('addCart', eventData.addCart);
 
     return error;
   };
