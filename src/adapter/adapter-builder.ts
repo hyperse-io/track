@@ -1,3 +1,4 @@
+import { UnionToTuple } from '../types/type-union-tuple.js';
 import {
   AdapterAfterFunction,
   AdapterBeforeFunction,
@@ -116,10 +117,16 @@ export class AdapterBuilder<
       );
       return this.mountTransformHook<RightKey, RightEventData>(eventType, fun);
     };
-    return {
+    const result = {
       transform: transform,
       ...this.buildTransformChainer(),
     };
+
+    return result as UnionToTuple<
+      Exclude<keyof LeftEventData, Key>
+    >['length'] extends 0
+      ? ReturnType<typeof this.buildTransformChainer>
+      : typeof result;
   };
 
   private mountAfterHook = (fun: AdapterAfterFunction<Context, EventData>) => {

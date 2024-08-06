@@ -3,6 +3,7 @@ import { executeAdapterCtx } from '../helpers/helper-adapter-ctx.js';
 import { executeAdapterTrack } from '../helpers/helper-adapter-track.js';
 import { deepMerge } from '../helpers/helper-deep-merge.js';
 import { executeFunction } from '../helpers/helper-execute.js';
+import { isFunction } from '../helpers/helper-is-function.js';
 import { executeSelect } from '../helpers/helper-select-adapter.js';
 import {
   TrackContext,
@@ -50,9 +51,9 @@ export class TrackBuilder<
   }
 
   public init<AdapterMap extends TrackAdapterMap<Context, EventData>>(
-    fun: () => AdapterMap
+    fun: AdapterMap | (() => AdapterMap)
   ) {
-    return this.executeInit<AdapterMap>(fun());
+    return this.executeInit<AdapterMap>(fun);
   }
 
   private buildInitChainer<
@@ -106,9 +107,13 @@ export class TrackBuilder<
   private executeInit = <
     AdapterMap extends TrackAdapterMap<Context, EventData>,
   >(
-    adapterMap: AdapterMap
+    adapterMap: AdapterMap | (() => AdapterMap)
   ) => {
-    this.adapterMap = adapterMap;
+    if (isFunction(adapterMap)) {
+      this.adapterMap = adapterMap();
+    } else {
+      this.adapterMap = adapterMap;
+    }
     return this.buildInitChainer<AdapterMap>();
   };
 

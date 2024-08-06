@@ -59,6 +59,9 @@ describe('test-track-pipeline.spec', () => {
           timeStamp: '2024-09-01T00:00:00Z',
         };
       })
+      .transform('previewGoods', (ctx, eventType, eventData) => {})
+      .transform('registry', (ctx, eventType, eventData) => {})
+      .transform('timeStamp', (ctx, eventType, eventData) => {})
       .after(async (ctx, eventType, eventData) => {
         console.log('after', eventData);
       })
@@ -70,16 +73,14 @@ describe('test-track-pipeline.spec', () => {
     >();
 
     await trackBuilder
-      .init(() => {
-        return { reportAdapter: adapter };
-      })
+      .init({ reportAdapter: adapter, consoleAdapter: adapter })
       .before(async (ctx) => {
         console.log('before');
       })
       .after(async (ctx) => {
         console.log('after');
       })
-      .select('reportAdapter')
+      .select(() => ['consoleAdapter', 'reportAdapter'])
       .track('addCart', eventData.addCart);
 
     expect(true).toBeTruthy();
