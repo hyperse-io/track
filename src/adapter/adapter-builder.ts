@@ -1,14 +1,14 @@
 import {
   AdapterAfterFunction,
   AdapterBeforeFunction,
-  AdapterTransformFunction,
+  AdapterReportData,
   TrackAdapter,
 } from '../types/types-adapter.js';
 import { TrackAdapterOptions, TrackContext } from '../types/types-create.js';
 import { TrackEventDataBase } from '../types/types-track.js';
 
 /**
- * Represents a builder for creating a track adapter.
+ * A builder for creating a track adapter.
  *
  * @template Context - The type of the track context.
  * @template EventData - The type of the track event data.
@@ -53,13 +53,6 @@ export class AdapterBuilder<
     };
   }
 
-  private buildTransformChainer<ReportData>() {
-    return {
-      after: this.mountAfterHook<ReportData>,
-      build: this.executeBuild,
-    };
-  }
-
   private buildAfterChainer() {
     return {
       build: this.executeBuild,
@@ -82,17 +75,55 @@ export class AdapterBuilder<
     return this.buildBeforeChainer();
   };
 
-  private mountTransformHook = <ReportData>(
-    fun: AdapterTransformFunction<Context, EventData, ReportData>
+  private buildTransformChainer() {
+    return {
+      after: this.mountAfterHook,
+      build: this.executeBuild,
+    };
+  }
+
+  private mountTransformHook = <
+    Key extends keyof LeftEventData,
+    LeftEventData = EventData,
+  >(
+    eventType: Key,
+    fun: (
+      ctx: Context,
+      eventType: Key,
+      eventData: LeftEventData[Key]
+    ) => AdapterReportData | Promise<AdapterReportData>
   ) => {
-    this.adapter._mountTransformHook<ReportData>(fun);
-    return this.buildTransformChainer<ReportData>();
+    this.adapter._mountTransformHook(
+      eventType as keyof EventData,
+      fun as (...args: any[]) => AdapterReportData | Promise<AdapterReportData>
+    );
+    const transform = <
+      RightKey extends keyof RightEventData,
+      RightEventData = Omit<LeftEventData, Key>,
+    >(
+      eventType: RightKey,
+      fun: (
+        ctx: Context,
+        eventType: RightKey,
+        eventData: RightEventData[RightKey]
+      ) => AdapterReportData | Promise<AdapterReportData>
+    ) => {
+      this.adapter._mountTransformHook(
+        eventType as keyof EventData,
+        fun as (
+          ...args: any[]
+        ) => AdapterReportData | Promise<AdapterReportData>
+      );
+      return this.mountTransformHook<RightKey, RightEventData>(eventType, fun);
+    };
+    return {
+      transform: transform,
+      ...this.buildTransformChainer(),
+    };
   };
 
-  private mountAfterHook = <ReportData>(
-    fun: AdapterAfterFunction<Context, EventData, ReportData>
-  ) => {
-    this.adapter._mountAfterHook<ReportData>(fun);
+  private mountAfterHook = (fun: AdapterAfterFunction<Context, EventData>) => {
+    this.adapter._mountAfterHook(fun);
     return this.buildAfterChainer();
   };
 

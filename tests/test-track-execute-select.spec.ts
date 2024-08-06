@@ -14,7 +14,7 @@ describe('test-track-execute-select.spec', () => {
   };
 
   it('executeSelect names is empty', async () => {
-    const adapter = await defaultAdapter();
+    const adapter = defaultAdapter();
 
     const adapterMap = {
       consoleAdapter: adapter,
@@ -36,7 +36,7 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect names is string', async () => {
-    const adapter = await defaultAdapter();
+    const adapter = defaultAdapter();
 
     const adapterMap = {
       consoleAdapter: adapter,
@@ -58,7 +58,7 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect names is string[]', async () => {
-    const adapter = await defaultAdapter();
+    const adapter = defaultAdapter();
 
     const adapterMap = {
       consoleAdapter: adapter,
@@ -81,7 +81,7 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect names is () => string', async () => {
-    const adapter = await defaultAdapter();
+    const adapter = defaultAdapter();
 
     const adapterMap = {
       consoleAdapter: adapter,
@@ -103,7 +103,7 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect names is () => string[]', async () => {
-    const adapter = await defaultAdapter();
+    const adapter = defaultAdapter();
 
     const adapterMap = {
       consoleAdapter: adapter,
@@ -127,7 +127,7 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect names is () => Promise<string>', async () => {
-    const adapter = await defaultAdapter();
+    const adapter = defaultAdapter();
 
     const adapterMap = {
       consoleAdapter: adapter,
@@ -147,7 +147,7 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect names is () => Promise<string[]>', async () => {
-    const adapter = await defaultAdapter();
+    const adapter = defaultAdapter();
 
     const adapterMap = {
       consoleAdapter: adapter,
@@ -157,7 +157,7 @@ describe('test-track-execute-select.spec', () => {
       businessAdapter: adapter,
     };
     const lastAdapterMap = await executeSelect(ctx, adapterMap, () =>
-      Promise.resolve(['analyzerAdapter', 'logAdapter', 'businessAdapter'])
+      Promise.resolve(['businessAdapter', 'analyzerAdapter', 'logAdapter'])
     );
 
     expect(Object.keys(lastAdapterMap).length).toBe(3);
@@ -169,11 +169,11 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect isTrackable', async () => {
-    const adapter1 = await defaultAdapter();
-    const adapter2 = await defaultAdapter();
-    const adapter3 = await defaultAdapter();
-    const adapter4 = await defaultAdapter();
-    const adapter5 = await defaultAdapter();
+    const adapter1 = defaultAdapter();
+    const adapter2 = defaultAdapter();
+    const adapter3 = defaultAdapter();
+    const adapter4 = defaultAdapter();
+    const adapter5 = defaultAdapter();
 
     vi.spyOn(adapter1, 'isTrackable').mockReturnValue(true);
     vi.spyOn(adapter2, 'isTrackable').mockReturnValue(true);

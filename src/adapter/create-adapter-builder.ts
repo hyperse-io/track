@@ -7,10 +7,10 @@ import { AdapterBuilder } from './adapter-builder.js';
  * Creates an adapter builder for a given track adapter.
  *
  * @param adapter - The track adapter to build.
- * @returns A promise that resolves to the initialized adapter builder.
- * @throws {Error} If the adapter is not provided.
+ * @returns The initialized adapter builder.
+ * @throws Error if the adapter is not provided.
  */
-export async function createAdapterBuilder<
+export function createAdapterBuilder<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
   AdapterOptions extends TrackAdapterOptions<Context, EventData>,
