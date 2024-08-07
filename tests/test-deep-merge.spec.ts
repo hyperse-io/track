@@ -1,6 +1,41 @@
 import { deepMerge } from '../src/helpers/helper-deep-merge.js';
+import { isObject } from '../src/index.js';
 
 describe('test-deep-merge.spec', () => {
+  it('source is undefined', () => {
+    const nestedObject = { b: 2, y: 2 };
+    const input: any = {
+      a: nestedObject,
+      x: 1,
+    };
+
+    const result = deepMerge(input, undefined as any);
+    expect(result).toBe(input);
+  });
+
+  it('target key is not object', () => {
+    const nestedObject = {
+      b: 2,
+      y: 2,
+      x: {
+        xxx: 1,
+      },
+    };
+    const input: any = {
+      a: nestedObject,
+      x: ['a', 'b'],
+    };
+
+    const result = deepMerge(input, nestedObject as any);
+
+    expect(result).toMatchObject({
+      a: { b: 2, y: 2, x: { xxx: 1 } },
+      x: { xxx: 1 },
+      b: 2,
+      y: 2,
+    });
+  });
+
   it('creates a new object reference', () => {
     const nestedObject = { b: 2, y: 2 };
     const input: any = {

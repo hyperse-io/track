@@ -33,6 +33,16 @@ describe('test-adapter.spec', () => {
     },
   };
 
+  it('test adapter is undefined', async () => {
+    expect(() =>
+      createAdapterBuilder<
+        TrackContext<TrackData>,
+        EventDataOption,
+        AdapterOptions<TrackContext<TrackData>, EventDataOption>
+      >(undefined as unknown as ReportAdapter)
+    ).toThrowError('Adapter is required');
+  });
+
   it('test adapter hook', async () => {
     const reportAdapter = new ReportAdapter();
 
