@@ -18,10 +18,13 @@ import { isFunction } from './helper-is-function.js';
  */
 export const executeSelect = async <
   Context extends TrackContext<any>,
+  EventType extends keyof EventData,
   EventData extends TrackEventDataBase,
   TrackMap extends TrackAdapterMap<Context, EventData>,
 >(
   ctx: Context,
+  eventType: EventType,
+  eventData: EventData[EventType],
   adapterMap: TrackMap,
   selectRule: TrackSelectFunction<Context, EventData, TrackMap> = []
 ): Promise<TrackAdapterMap<Context, EventData>> => {
@@ -43,7 +46,12 @@ export const executeSelect = async <
 
   const lasterAdapterMap: TrackAdapterMap<Context, EventData> = {};
   for (const [adapterName, adapter] of Object.entries(adapterMap)) {
-    const isTrackable = await executeFunction(adapter.isTrackable);
+    const isTrackable = await executeFunction(
+      adapter.isTrackable,
+      ctx,
+      eventType,
+      eventData
+    );
     if (isTrackable && names.includes(adapterName)) {
       lasterAdapterMap[adapterName] = adapterMap[adapterName];
     }

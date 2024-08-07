@@ -10,10 +10,10 @@ export class ReportAdapter extends BaseAdapter<
   EventDataOption,
   AdapterOptions<TrackContext<TrackData>, EventDataOption>
 > {
-  isTrackable(): boolean | Promise<boolean> {
+
+  isTrackable<EventType extends keyof EventDataOption>(ctx: TrackContext<TrackData>, eventType: EventType, eventData: EventDataOption[EventType]): boolean | Promise<boolean> {
     return true;
   }
-
   report(
     ctx: TrackContext<TrackData>,
     reportData: AdapterReportData,

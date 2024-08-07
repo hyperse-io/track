@@ -24,7 +24,11 @@ export abstract class BaseAdapter<
 
   private afterHook?: AdapterAfterFunction<Context, EventData>;
 
-  abstract isTrackable(): boolean | Promise<boolean>;
+  abstract isTrackable<EventType extends keyof EventData>(
+    ctx: Context,
+    eventType: EventType,
+    eventData: EventData[EventType]
+  ): boolean | Promise<boolean>;
 
   protected report(
     ctx: Context,

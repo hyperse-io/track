@@ -23,7 +23,13 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     };
-    const lastAdapterMap = await executeSelect(ctx, adapterMap, undefined);
+    const lastAdapterMap = await executeSelect(
+      ctx,
+      'addCart',
+      {},
+      adapterMap,
+      undefined
+    );
 
     expect(Object.keys(lastAdapterMap).length).toBe(5);
     expect(lastAdapterMap).toMatchObject({
@@ -47,6 +53,8 @@ describe('test-track-execute-select.spec', () => {
     };
     const lastAdapterMap = await executeSelect(
       ctx,
+      'addCart',
+      {},
       adapterMap,
       'consoleAdapter'
     );
@@ -67,7 +75,7 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     };
-    const lastAdapterMap = await executeSelect(ctx, adapterMap, [
+    const lastAdapterMap = await executeSelect(ctx, 'addCart', {}, adapterMap, [
       'consoleAdapter',
       'analyzerAdapter',
       'reportAdapter',
@@ -92,6 +100,8 @@ describe('test-track-execute-select.spec', () => {
     };
     const lastAdapterMap = await executeSelect(
       ctx,
+      'addCart',
+      {},
       adapterMap,
       () => 'consoleAdapter'
     );
@@ -112,11 +122,13 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     };
-    const lastAdapterMap = await executeSelect(ctx, adapterMap, () => [
-      'consoleAdapter',
-      'analyzerAdapter',
-      'reportAdapter',
-    ]);
+    const lastAdapterMap = await executeSelect(
+      ctx,
+      'addCart',
+      {},
+      adapterMap,
+      () => ['consoleAdapter', 'analyzerAdapter', 'reportAdapter']
+    );
 
     expect(Object.keys(lastAdapterMap).length).toBe(3);
     expect(lastAdapterMap).toMatchObject({
@@ -136,8 +148,12 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     };
-    const lastAdapterMap = await executeSelect(ctx, adapterMap, () =>
-      Promise.resolve('analyzerAdapter')
+    const lastAdapterMap = await executeSelect(
+      ctx,
+      'addCart',
+      {},
+      adapterMap,
+      () => Promise.resolve('analyzerAdapter')
     );
 
     expect(Object.keys(lastAdapterMap).length).toBe(1);
@@ -156,8 +172,13 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter,
       businessAdapter: adapter,
     };
-    const lastAdapterMap = await executeSelect(ctx, adapterMap, () =>
-      Promise.resolve(['businessAdapter', 'analyzerAdapter', 'logAdapter'])
+    const lastAdapterMap = await executeSelect(
+      ctx,
+      'addCart',
+      {},
+      adapterMap,
+      () =>
+        Promise.resolve(['businessAdapter', 'analyzerAdapter', 'logAdapter'])
     );
 
     expect(Object.keys(lastAdapterMap).length).toBe(3);
@@ -188,7 +209,13 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter4,
       businessAdapter: adapter5,
     };
-    let lastAdapterMap = await executeSelect(ctx, adapterMap, undefined);
+    let lastAdapterMap = await executeSelect(
+      ctx,
+      'addCart',
+      {},
+      adapterMap,
+      undefined
+    );
 
     expect(Object.keys(lastAdapterMap).length).toBe(5);
     expect(lastAdapterMap).toMatchObject({
@@ -212,7 +239,13 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter4,
       businessAdapter: adapter5,
     };
-    lastAdapterMap = await executeSelect(ctx, adapterMap, undefined);
+    lastAdapterMap = await executeSelect(
+      ctx,
+      'addCart',
+      {},
+      adapterMap,
+      undefined
+    );
     expect(Object.keys(lastAdapterMap).length).toBe(1);
     expect(lastAdapterMap).toMatchObject({
       consoleAdapter: adapter1,
@@ -231,7 +264,7 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter4,
       businessAdapter: adapter5,
     };
-    lastAdapterMap = await executeSelect(ctx, adapterMap, () => {
+    lastAdapterMap = await executeSelect(ctx, 'addCart', {}, adapterMap, () => {
       return Promise.resolve(['reportAdapter']);
     });
     expect(Object.keys(lastAdapterMap).length).toBe(1);
