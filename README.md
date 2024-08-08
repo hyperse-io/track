@@ -17,11 +17,17 @@
 
 A typed, smart, scalable , powerful data collection engine written in typescript
 
+## Install
+
+```ts
+// npm
+npm i @hyperse/track
+
+// yarn
+yarn add @hyperse/track
+```
+
 ## Usage
-
-### Create TrackBuilder
-
-Create a builder to load the track
 
 ```ts
 export type Context = {
@@ -46,87 +52,151 @@ export type EventData = {
   };
 };
 
-const trackBuilder = await createTrackBuilder<Context, EventData>({
-  createCtx() {
-    // Used to build a global context
-    return Promise.resolve(context);
-  },
-  eventData: {
-    // Generic EventData-type data is deeply merged during the transform phase
-  },
-  // The formatStrategy for logger
-  formatStrategy: formatStrategy,
-});
-```
+export type AdapterOptions<Context, EventData> = {
+  setup?: (
+    ctx: Context,
+    eventData: EventData[keyof EventData]
+  ) => Promise<{
+    name: 'setup' | 'setup1' | 'setup2';
+    timeStamp: number;
+  }>;
+};
 
-### Create Adapter
-
-Create a adapter by createAdapterBuilder function
-
-```ts
-const adapterBuilder = await createAdapterBuilder<Context, InputOption>();
-
-const adapter = await adapterBuilder
-  .init(() => {
-    // Initialization adapter
-  })
-  .before((ctx) => {
-    // Execute before the adapter track function
-  })
-  .isTrackable(() => {
-    // Determine whether the adapter is trackable
+// custom report adapter
+export class ReportAdapter extends BaseAdapter<
+  TrackContext<TrackData>,
+  EventData,
+  AdapterOptions<TrackContext<TrackData>, EventData>
+> {
+  isTrackable<EventType extends keyof EventData>(
+    ctx: TrackContext<TrackData>,
+    eventType: EventType,
+    eventData: EventData[EventType]
+  ): boolean | Promise<boolean> {
     return true;
-  })
-  .transform((ctx, eventType, eventData) => {
-    // Transform the eventData
-    return eventData;
-  })
-  .after((ctx) => {
-    // Execute after the adapter track function
-  })
-  // Return a adapter instance
-  .build();
-```
+  }
+  report(
+    ctx: TrackContext<TrackData>,
+    reportData: AdapterReportData,
+    setupData?:
+      | {
+          name: 'setup' | 'setup1' | 'setup2';
+          timeStamp: number;
+        }
+      | undefined
+  ): void | Promise<void> {}
+}
 
-> <span style="color:orange">The createAdapterBuilder function can accept an optional parameter (TrackAdapter) to handle eventdata escalation logic. By default, the ReportAdapter provided by Track is used</span>
+const reportAdapter = new ReportAdapter();
 
-### Report data through track
+// create adapter builder
+const adapterBuilder = createAdapterBuilder<
+  TrackContext<TrackData>,
+  EventData,
+  AdapterOptions<TrackContext<TrackData>, EventData>
+>(reportAdapter);
 
-- Load the adapter in track
-
-- Event Data is reported through the track method provided by track
-
-```ts
-await trackBuilder
-  .before((ctx) => {
-    // Execute before the track function
+// mount adapter hook
+adapterBuilder
+  .setup((ctx, eventData) => {
+    return Promise.resolve({
+      name: 'setup' as const,
+      timeStamp: new Date().getTime(),
+      newField: 'newField',
+    });
   })
-  .after((ctx) => {
-    // Execute after the track function
+  .before(async (ctx, eventType, eventData) => {
+    console.log('before');
   })
-  .transform((ctx, eventData) => {
-    // Global Transform the eventData
-    return eventData;
-  })
-  .useAdapter(() => {
-    // Load all adapters
+  .transform('addCart', (ctx, eventType, eventData) => {
     return {
-      reportData: adapter,
+      ...eventData,
+      pay: {
+        payId: 'p123',
+        payName: 'Sample Pay',
+        payType: 'credit',
+      },
+      timeStamp: '2024-09-01T00:00:00Z',
     };
   })
-  // Filter the adapter used to process eventData
-  .select(['reportData'])
-  // EventType: previewGoods
-  // EventData: eventData
-  .track('previewGoods', eventData);
+  .after(async (ctx, eventType, eventData) => {
+    console.log('after', eventData);
+  })
+  .build();
+
+// create track builder
+const trackBuilder = createTrackBuilder<
+  TrackContext<TrackData>,
+  EventDataOption
+>();
+
+// mount track hook
+await trackBuilder
+  .init({ reportAdapter: reportAdapter })
+  .before(async (ctx) => {})
+  .after(async (ctx) => {})
+  .select(() => ['reportAdapter'])
+  .track('addCart', eventData.addCart);
 ```
 
-## Errors
+## Options
 
-## Development
+### ReportAdapter
 
-yarn install
+Adapter used to process event data reporting
 
-## Testing
+#### `isTrackable`
 
-yarn test
+Checks if the adapter is available.
+
+#### `report`
+
+Data report
+
+### AdapterBuilder
+
+A builder for track adapter. Provides the ability to load adpater corresponding hooks
+
+#### `setup`
+
+The adapter hook Performs data consolidation against the rules defined by AdapterOptions. Passes the returned results to report. Executes before the report function is called
+
+#### `before`
+
+The adapter hook function is executed before tracking an event.
+
+#### `transform`
+
+The adapter hook function that converts EventData corresponding to different EventType
+
+#### `after`
+
+The adapter hook function is triggered after the report is executed
+
+#### `build`
+
+Return adapter instance
+
+### TrackBuilder
+
+A builder for track. Provides the ability to load track corresponding hooks
+
+#### `init`
+
+Track builder initialization, which loads the adapter into the track
+
+#### `before`
+
+A function that is executed before tracking
+
+#### `after`
+
+A function that is executed after a track event
+
+#### `select`
+
+Selects track adapter from a given context, event data, and adapter map.
+
+#### `track`
+
+Event reporting activation function
