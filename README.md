@@ -15,6 +15,12 @@
   </a>
 </p>
 
+<!-- hyperse-vitest-coverage-reporter-marker-readme -->
+
+## Coverage Report
+
+<table> <thead> <tr> <th align="center">Status</th> <th align="left">Category</th> <th align="right">Percentage</th> <th align="right">Covered / Total</th> </tr> </thead> <tbody> <tr> <td align="center">🔵</td> <td align="left">Lines</td> <td align="right">100%</td> <td align="right">185 / 185</td> </tr> <tr> <td align="center">🔵</td> <td align="left">Statements</td> <td align="right">100%</td> <td align="right">185 / 185</td> </tr> <tr> <td align="center">🔵</td> <td align="left">Functions</td> <td align="right">98.18%</td> <td align="right">54 / 55</td> </tr> <tr> <td align="center">🔵</td> <td align="left">Branches</td> <td align="right">93.75%</td> <td align="right">75 / 80</td> </tr> </tbody> </table>
+
 A typed, smart, scalable , powerful data collection engine written in typescript
 
 ## Install

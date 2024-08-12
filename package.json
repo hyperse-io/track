@@ -46,6 +46,7 @@
     "lint-staged-files": "lint-staged --allow-empty",
     "changeset": "changeset",
     "release": "yarn build && changeset publish",
+    "test:coverage": "vitest run --coverage",
     "cz": "cz",
     "prepare": "husky"
   },

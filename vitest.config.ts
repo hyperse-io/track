@@ -12,7 +12,7 @@ export default defineConfig({
     coverage: {
       include: ['src/**'],
       provider: 'istanbul',
-      reporter: ['text', 'json', 'json-summary'],
+      reporter: ['text', 'json-summary', 'json'],
       reportOnFailure: true,
     },
   },
