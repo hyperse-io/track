@@ -150,16 +150,9 @@ export class TrackBuilder<
           async ({ trackCtx }) => {
             const adapterMap = await executeSelect<
               Context,
-              EventType,
               EventData,
               AdapterMap
-            >(
-              trackCtx,
-              eventType,
-              eventData,
-              innerTrackAdapterMap as AdapterMap,
-              selectRule
-            );
+            >(trackCtx, innerTrackAdapterMap as AdapterMap, selectRule);
             return { trackCtx, adapterMap };
           },
           async ({ trackCtx, adapterMap }) => {

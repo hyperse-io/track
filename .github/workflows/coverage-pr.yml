@@ -1,0 +1,34 @@
+name: "PR Build and Test"
+on:
+  pull_request:
+
+jobs:
+  build-and-test:
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Install Node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: 📥 Install Dependencies
+        run: yarn --frozen-lockfile
+
+      - name: "Build"
+        run: yarn build
+
+      - name: run coverage
+        run: yarn test:coverage
+
+        # Remove node_modules to see if this action runs entirely compiled
+      - name: "Remove Node Modules"
+        run: rm -rf node_modules
+
+      - name: "PR Test Reports"
+        uses: hyperse-io/vitest-coverage-reporter@v1.0.13
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          include-all-projects: "false"
+          name: "PR Test Reports"

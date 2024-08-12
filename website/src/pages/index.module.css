@@ -24,3 +24,7 @@
   width: 100%;
   @apply h-[15em] md:h-[30em];
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

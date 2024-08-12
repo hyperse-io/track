@@ -3,10 +3,10 @@ import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
 import { createTrackBuilder } from '../src/core/create-track-builder.js';
 import { TrackAdapter } from '../src/types/types-adapter.js';
 import { TrackContext } from '../src/types/types-create.js';
-import { ReportAdapter } from './fixtures/adapter/report-adapter.js';
-import { AdapterOptions } from './fixtures/types/type-adapter-options.js';
-import { EventDataOption } from './fixtures/types/type-event.js';
-import { TrackData } from './fixtures/types/type-track-data.js';
+import { ReportAdapter } from './test-utils/adapter/report-adapter.js';
+import { AdapterOptions } from './test-utils/types/type-adapter-options.js';
+import { EventDataOption } from './test-utils/types/type-event.js';
+import { TrackData } from './test-utils/types/type-track-data.js';
 
 describe('test-track-pipeline.spec', () => {
   const eventData: EventDataOption = {

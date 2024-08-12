@@ -4,7 +4,7 @@ import { ConsoleLogger } from '../console-logger.js';
 import { TrackData } from '../types/type-track-data.js';
 
 export const defaultTackInstance = () => {
-      const configuration = {
+  const configuration = {
     logger: new ConsoleLogger(),
     data: {
       bizMode: 'test',

@@ -10,10 +10,10 @@ export default defineConfig({
     },
     include: ['**/?(*.){test,spec}.?(c|m)[jt]s?(x)'],
     coverage: {
-      provider: 'istanbul',
-      reporter: ['html'],
       include: ['src/**'],
-      enabled: true,
+      provider: 'istanbul',
+      reporter: ['text', 'json', 'json-summary'],
+      reportOnFailure: true,
     },
   },
 });
