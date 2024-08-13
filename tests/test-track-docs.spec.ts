@@ -1,5 +1,6 @@
 import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
 import { createTrackBuilder } from '../src/core/create-track-builder.js';
+import { AdapterReportData } from '../src/types/types-adapter.js';
 import { TrackContext } from '../src/types/types-create.js';
 import { ReportAdapter } from './test-utils/adapter/report-adapter.js';
 import { AdapterOptions } from './test-utils/types/type-adapter-options.js';
@@ -98,7 +99,7 @@ describe('test-track-pipeline.spec', () => {
         (
           ctx: TrackContext<TrackData>,
           eventType: keyof EventDataOption,
-          eventData: EventDataOption[keyof EventDataOption]
+          reportData: AdapterReportData
         ) => {
           //do something
         }

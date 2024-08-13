@@ -32,9 +32,9 @@ Checks if the adapter is available.
 
 #### Props
 
-- **ctx** : `Context` - The track context.
-- **eventType** : `EventType` - The type of the event.
-- **eventData** : `EventData[EventType]` - The data associated with the event.
+- **ctx** : `TrackContext<TrackData>` - The track context.
+- **eventType** : `keyof EventDataOption` - The event type.
+- **eventData** : `EventData[keyof EventDataOption]` - The data associated with the event.
 
 #### Returns
 
@@ -66,7 +66,7 @@ Reports the event to the adapter.
 
 #### Props
 
-- **ctx** : `Context` - The track context.
+- **ctx** : `TrackContext<TrackData>` - The track context.
 - **reportData** : `AdapterReportData` - The data to report.
 - **setupData** : `Required<AdapterOptions>['setup'] extends (...args: any) => any ? Awaited<ReturnType<Required<AdapterOptions>['setup']> : undefined` - The setup data. It is often useful to extend the report method by configuring some additional data to be used in the report phase without the transform processing
 

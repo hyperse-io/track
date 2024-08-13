@@ -20,9 +20,9 @@ The setup data. It is often useful to extend the report method by configuring so
 
 #### Props
 
-- **ctx** : `Context` - The track context.
-- **eventType** : `EventType` - The event type.
-- **eventData** : `EventData[EventType]` - The event data.
+- **ctx** : `TrackContext<TrackData>` - The track context.
+- **eventType** : `keyof EventDataOption` - The event type.
+- **eventData** : `EventDataOption[keyof EventDataOption]` - The event data.
 
 #### Example
 
@@ -47,9 +47,9 @@ The adapter hook function is executed before tracking an event.
 
 #### Props
 
-- **ctx** : `Context` - The track context.
-- **eventType** : `EventType` - The event type.
-- **eventData** : `EventData[EventType]` - The event data.
+- **ctx** : `TrackContext<TrackData>` - The track context.
+- **eventType** : `keyof EventDataOption` - The event type.
+- **eventData** : `EventDataOption[keyof EventDataOption]` - The event data.
 
 #### Example
 
@@ -71,7 +71,7 @@ The adapter hook function is executed to transform the event data before trackin
 
 #### Props
 
-- **eventType** : `EventType` - The event type.
+- **eventType** : `keyof EventDataOption` - The event type.
 - **fun** : `(
   ctx: Context,
   eventType: Key,
@@ -118,9 +118,9 @@ The adapter hook function is executed after report an event.
 
 #### Props
 
-- **ctx** : `Context` - The track context.
-- **eventType** : `EventType` - The event type.
-- **reportData** : `any` - The report data.
+- **ctx** : `TrackContext<TrackData>` - The track context.
+- **eventType** : `keyof EventDataOption` - The event type.
+- **reportData** : `AdapterReportData` - The report data.
 
 #### Example
 
@@ -129,7 +129,7 @@ adapterBuilder.after(
   (
     ctx: TrackContext<TrackData>,
     eventType: keyof EventDataOption,
-    eventData: EventDataOption[keyof EventDataOption]
+    reportData: AdapterReportData
   ) => {
     //do something
   }

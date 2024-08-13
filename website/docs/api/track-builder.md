@@ -34,7 +34,7 @@ trackBuilder.init(() => {
 
 #### Props
 
-- **ctx** : `Context` - The track context.
+- **ctx** : `TrackContext<TrackData>` - The track context.
 
 #### Example
 
@@ -48,7 +48,7 @@ trackBuilder.before(async (ctx: TrackContext<TrackData>) => {
 
 #### Props
 
-- **ctx** : `Context` - The track context.
+- **ctx** : `TrackContext<TrackData>` - The track context.
 
 #### Example
 
@@ -62,7 +62,7 @@ trackBuilder.after(async (ctx: TrackContext<TrackData>) => {
 
 #### Props
 
-- **ctx** : `Context` - The track context.
+- **ctx** : `TrackContext<TrackData>` - The track context.
 - **adapterMap** : `Record<string, TrackAdapter<Context, EventData>>` - The adapter map.
 
 #### Example
