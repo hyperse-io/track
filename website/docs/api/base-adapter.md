@@ -62,7 +62,7 @@ export class ReportAdapter extends BaseAdapter<
 
 `protected Function`
 
-Reports the event to the adapter.
+Method of reporting data to a third party, where the converted data can be obtained
 
 #### Props
 
