@@ -5,7 +5,6 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
-import DynamicCoding from '@site/src/components/Amimate/DynamicCoding';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import LogoDark from '@site/static/img/logo-dark.svg';
 import LogoWhite from '@site/static/img/logo-white.svg';
@@ -106,10 +105,6 @@ export default function Home() {
     >
       <div className={styles.topBackground} />
       <HomepageHeader />
-      <div className="flex flex-row items-center">
-        <div className="flex-1">Sample Usage</div>
-        <DynamicCoding />
-      </div>
       <main>
         <HomepageFeatures />
       </main>

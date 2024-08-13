@@ -147,15 +147,11 @@ await trackBuilder
 
 ## Options
 
-### ReportAdapter
-
-Adapter used to process event data reporting
-
-#### `isTrackable`
+#### [`isTrackable`](https://hyperse-io.github.io/track/docs/api/base-adapter#istrackable)
 
 Checks if the adapter is available.
 
-#### `report`
+#### [`report`](https://hyperse-io.github.io/track/docs/api/base-adapter#istrackable)
 
 Data report
 
@@ -163,23 +159,23 @@ Data report
 
 A builder for track adapter. Provides the ability to load adpater corresponding hooks
 
-#### `setup`
+#### [`setup`](https://hyperse-io.github.io/track/docs/api/adapter-builder#setup)
 
 The adapter hook Performs data consolidation against the rules defined by AdapterOptions. Passes the returned results to report. Executes before the report function is called
 
-#### `before`
+#### [`before`](https://hyperse-io.github.io/track/docs/api/adapter-builder#before)
 
 The adapter hook function is executed before tracking an event.
 
-#### `transform`
+#### [`transform`](https://hyperse-io.github.io/track/docs/api/adapter-builder#transform)
 
 The adapter hook function that converts EventData corresponding to different EventType
 
-#### `after`
+#### [`after`](https://hyperse-io.github.io/track/docs/api/adapter-builder#after)
 
 The adapter hook function is triggered after the report is executed
 
-#### `build`
+#### [`build`](https://hyperse-io.github.io/track/docs/api/adapter-builder#build)
 
 Return adapter instance
 
@@ -187,22 +183,22 @@ Return adapter instance
 
 A builder for track. Provides the ability to load track corresponding hooks
 
-#### `init`
+#### [`init`](https://hyperse-io.github.io/track/docs/api/track-builder#init)
 
 Track builder initialization, which loads the adapter into the track
 
-#### `before`
+#### [`before`](https://hyperse-io.github.io/track/docs/api/track-builder#before)
 
 A function that is executed before tracking
 
-#### `after`
+#### [`after`](https://hyperse-io.github.io/track/docs/api/track-builder#after)
 
 A function that is executed after a track event
 
-#### `select`
+#### [`select`](https://hyperse-io.github.io/track/docs/api/track-builder#select)
 
 Selects track adapter from a given context, event data, and adapter map.
 
-#### `track`
+#### [`track`](https://hyperse-io.github.io/track/docs/api/track-builder#track)
 
 Event reporting activation function
