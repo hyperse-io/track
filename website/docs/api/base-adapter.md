@@ -68,7 +68,7 @@ Reports the event to the adapter.
 
 - **ctx** : `Context` - The track context.
 - **reportData** : `AdapterReportData` - The data to report.
-- **setupData** : `Required<AdapterOptions>['setup'] extends (...args: any) => any ? Awaited<ReturnType<Required<AdapterOptions>['setup']> : undefined` - The setup data.
+- **setupData** : `Required<AdapterOptions>['setup'] extends (...args: any) => any ? Awaited<ReturnType<Required<AdapterOptions>['setup']> : undefined` - The setup data. It is often useful to extend the report method by configuring some additional data to be used in the report phase without the transform processing
 
 #### Returns
 

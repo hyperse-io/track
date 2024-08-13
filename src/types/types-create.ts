@@ -55,11 +55,13 @@ export type TrackAdapterOptions<
    * Executes before the report function is called
    *
    * @param ctx - The track context.
+   * @param eventType - The event type.
    * @param eventData - The event data.
    * @returns A value or a promise that resolves to a value.
    */
-  setup?: (
+  setup?: <EventType extends keyof EventData>(
     ctx: Context,
-    eventData: EventData[keyof EventData]
+    eventType: EventType,
+    eventData: EventData[EventType]
   ) => any | Promise<any>;
 };

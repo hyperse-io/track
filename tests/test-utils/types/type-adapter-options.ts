@@ -1,7 +1,8 @@
 export type AdapterOptions<Context, EventData> = {
-  setup?: (
+  setup?: <EventType extends keyof EventData>(
     ctx: Context,
-    eventData: EventData[keyof EventData]
+    eventTYpe: EventType,
+    eventData: EventData[EventType]
   ) => Promise<{
     name: 'setup' | 'setup1' | 'setup2';
     timeStamp: number;

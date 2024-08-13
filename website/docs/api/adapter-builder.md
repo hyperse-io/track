@@ -18,17 +18,23 @@ export class AdapterBuilder<
 
 ### `setup`
 
-`Function`
+`<EventType extends keyof EventData>(
+    ctx: Context,
+    eventType: EventType,
+    eventData: EventData[EventType]
+  ) => any | Promise<any>`
 
-Sets up the adapter.
+The setup data. It is often useful to extend the report method by configuring some additional data to be used in the report phase without the transform processing
 
 #### Props
 
 - **ctx** : `Context` - The track context.
+- **eventType** : `EventType` - The event type.
+- **eventData** : `EventData[EventType]` - The event data.
 
 #### Returns
 
-- `Promise<void>` - A promise that resolves when the adapter is set up.
+- `any` | `Promise<void>` - A value or a promise that resolves to a value.
 
 #### Example
 

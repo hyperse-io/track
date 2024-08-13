@@ -52,7 +52,7 @@ describe('test-adapter.spec', () => {
       AdapterOptions<TrackContext<TrackData>, EventDataOption>
     >(reportAdapter);
 
-    const setupFun = vi.fn((ctx, eventData) => {
+    const setupFun = vi.fn((ctx, eventType, eventData) => {
       return Promise.resolve({
         name: 'setup' as const,
         timeStamp: new Date().getTime(),
@@ -89,7 +89,8 @@ describe('test-adapter.spec', () => {
     expect(setupFun.mock.lastCall?.[0]).toMatchObject({
       data: trackData,
     });
-    expect(setupFun.mock.lastCall?.[1]).toMatchObject({ ...eventData.addCart });
+    expect(setupFun.mock.lastCall?.[1]).toBe('addCart');
+    expect(setupFun.mock.lastCall?.[2]).toMatchObject({ ...eventData.addCart });
     expect(setupFun.mock.results[0].value).toBeDefined();
     expect(setupFun.mock.results?.[0].value).toMatchObject(
       Promise.resolve({
