@@ -23,7 +23,7 @@
 
 A typed, smart, scalable , powerful data collection engine written in typescript
 
-<video autoPlay loop muted width="100%" height="100%">
+<video controls autoPlay loop muted width="100%" height="100%">
   <source src="https://github.com/hyperse-io/track/blob/feat/track/website/static/media/code.mp4" type="video/mp4"/>
 </video>
 
