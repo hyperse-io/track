@@ -5,6 +5,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
+import DynamicCoding from '@site/src/components/Amimate/DynamicCoding';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import LogoDark from '@site/static/img/logo-dark.svg';
 import LogoWhite from '@site/static/img/logo-white.svg';
@@ -34,24 +35,24 @@ function HomepageHeader() {
         <div className={clsx(styles.buttons, 'my-4 gap-4')}>
           <Link
             className="button button--primary md:py-3 md:px-4 rounded-2xl dark:text-white"
-            to="/docs/getting-started"
+            to="/docs/intro/introducing"
           >
             Watch
           </Link>
           <Link
             className="button button--danger md:py-3 md:px-4 rounded-2xl dark:text-white"
-            to="/docs/getting-started"
+            to="/docs/intro/introducing"
           >
             Get Started
           </Link>
           <Link
             className="button button--warning md:py-3 md:px-4 rounded-2xl"
-            to="/docs/getting-started"
+            to="/docs/intro/introducing"
           >
             Donate
           </Link>
         </div>
-        <div className="my-8 mx-auto max-w-md rounded-xl border border-solid border-gray-300 dark:border-gray-100 p-2">
+        <div className="my-12 mx-auto max-w-md rounded-xl border border-solid border-gray-300 dark:border-gray-100 py-2 px-4">
           <Tabs>
             <TabItem value="npm" label="npm" default>
               <button
@@ -103,8 +104,10 @@ export default function Home() {
       title={`A typed, smart, scalable , powerful data collection engine written in typescript`}
       description={siteConfig.tagline}
     >
-      <div className={styles.topBackground} />
-      <HomepageHeader />
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 items-center">
+        <HomepageHeader />
+        <DynamicCoding />
+      </div>
       <main>
         <HomepageFeatures />
       </main>

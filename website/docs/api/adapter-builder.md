@@ -1,6 +1,6 @@
 # AdapterBuilder
 
-The `AdapterBuilder` class is used to create a new adapter instance. It is a factory class that creates a new adapter instance based on the provided configuration.
+The `AdapterBuilder` class is a factory used to create a new adapter instance for tracking events. It allows you to configure the adapter through a series of hooks that define how events are processed before, during, and after they are tracked.
 
 ```typescript title="Signature"
 class AdapterBuilder<
@@ -14,15 +14,25 @@ class AdapterBuilder<
 
 ## Hooks
 
+The `AdapterBuilder` class provides several hooks that allow you to customize the behavior of the adapter:`AdapterBuilder`
+
 ### `setup`
 
-The setup data. It is often useful to extend the report method by configuring some additional data to be used in the report phase without the transform processing
+The `setup` hook allows you to configure initial data before the event is processed. This is useful for preparing any additional data or context needed during the reporting phase.
 
-#### Props
+#### Parameters
 
-- **ctx** : `TrackContext<TrackData>` - The track context.
-- **eventType** : `keyof EventDataOption` - The event type.
-- **eventData** : `EventDataOption[keyof EventDataOption]` - The event data.
+- **ctx** : `TrackContext<TrackData>`
+
+  The context in which the tracking is occurring. This typically includes details such as user information, environment, or other contextual data relevant to the tracking event.
+
+- **eventType** : `keyof EventData`
+
+  The type of event being tracked. This is usually a key from the EventData that corresponds to specific events like click, purchase, etc.
+
+- **eventData** : `EventData[keyof EventData]`
+
+  The data associated with the event. This contains all relevant information for the specific event type.
 
 #### Example
 
@@ -30,8 +40,8 @@ The setup data. It is often useful to extend the report method by configuring so
 adapterBuilder.setup(
   (
     ctx: TrackContext<TrackData>,
-    eventType: keyof EventDataOption,
-    eventData: EventDataOption[keyof EventDataOption]
+    eventType: keyof EventData,
+    eventData: EventData[keyof EventData]
   ) => {
     return Promise.resolve({
       name: 'setup',
@@ -43,13 +53,21 @@ adapterBuilder.setup(
 
 ### `before`
 
-The adapter hook function is executed before tracking an event.
+The `before` hook is executed before tracking an event. This is where you can perform any necessary preprocessing or validation.
 
-#### Props
+#### Parameters
 
-- **ctx** : `TrackContext<TrackData>` - The track context.
-- **eventType** : `keyof EventDataOption` - The event type.
-- **eventData** : `EventDataOption[keyof EventDataOption]` - The event data.
+- **ctx** : `TrackContext<TrackData>`
+
+  The context in which the tracking is occurring. This typically includes details such as user information, environment, or other contextual data relevant to the tracking event.
+
+- **eventType** : `keyof EventData`
+
+  The type of event being tracked. This is usually a key from the EventData that corresponds to specific events like click, purchase, etc.
+
+- **eventData** : `EventData[keyof EventData]`
+
+  The data associated with the event. This contains all relevant information for the specific event type.
 
 #### Example
 
@@ -57,8 +75,8 @@ The adapter hook function is executed before tracking an event.
 adapterBuilder.before(
   (
     ctx: TrackContext<TrackData>,
-    eventType: keyof EventDataOption,
-    eventData: EventDataOption[keyof EventDataOption]
+    eventType: keyof EventData,
+    eventData: EventData[keyof EventData]
   ) => {
     //do something
   }
@@ -67,16 +85,21 @@ adapterBuilder.before(
 
 ### `transform`
 
-The adapter hook function is executed to transform the event data before tracking.
+The `transform` hook allows you to modify the event data before it is sent to the tracking system. You can use this hook to change, enrich, or sanitize the event data.
 
-#### Props
+#### Parameters
 
-- **eventType** : `keyof EventDataOption` - The event type.
+- **eventType** : `keyof EventData`
+
+  The type of event being tracked. This is usually a key from the EventData that corresponds to specific events like click, purchase, etc.
+
 - **fun** : `(
   ctx: Context,
   eventType: Key,
   eventData: LeftEventData[Key]
-) => AdapterReportData | Promise<AdapterReportData>` - The transform function.
+) => AdapterReportData | Promise<AdapterReportData>`
+
+  The function to transform the event data.
 
 #### Example
 
@@ -87,7 +110,7 @@ adapterBuilder
     (
       ctx: TrackContext<TrackData>,
       eventType: 'addCart',
-      eventData: EventDataOption['addCart']
+      eventData: EventData['addCart']
     ) => {
       return {
         ...eventData,
@@ -101,7 +124,7 @@ adapterBuilder
     (
       ctx: TrackContext<TrackData>,
       eventType: 'previewGoods',
-      eventData: EventDataOption['previewGoods']
+      eventData: EventData['previewGoods']
     ) => {
       return {
         ...eventData,
@@ -114,13 +137,21 @@ adapterBuilder
 
 ### `after`
 
-The adapter hook function is executed after report an event.
+The `after` hook is executed after the event has been reported. This is where you can perform any post-processing, such as logging or triggering additional actions based on the reported data.
 
-#### Props
+#### Parameters
 
-- **ctx** : `TrackContext<TrackData>` - The track context.
-- **eventType** : `keyof EventDataOption` - The event type.
-- **reportData** : `AdapterReportData` - The report data.
+- **ctx** : `TrackContext<TrackData>`
+
+  The context in which the tracking is occurring. This typically includes details such as user information, environment, or other contextual data relevant to the tracking event.
+
+- **eventType** : `keyof EventData`
+
+  The type of event being tracked. This is usually a key from the EventData that corresponds to specific events like click, purchase, etc.
+
+- **reportData** : `AdapterReportData`
+
+  The data that needs to be reported. This can include the event type, associated data, and any additional metadata that should be sent to the third-party service.
 
 #### Example
 
@@ -128,7 +159,7 @@ The adapter hook function is executed after report an event.
 adapterBuilder.after(
   (
     ctx: TrackContext<TrackData>,
-    eventType: keyof EventDataOption,
+    eventType: keyof EventData,
     reportData: AdapterReportData
   ) => {
     //do something
@@ -138,11 +169,13 @@ adapterBuilder.after(
 
 ### `build`
 
-Builds a adapter instance.
+The `build` method finalizes the adapter configuration and creates an instance of the adapter.
 
 #### Returns
 
-- `Adapter<Context, EventData, AdapterOptions>` - Adapter instance.
+- `Adapter<Context, EventData, AdapterOptions>`
+
+  The configured adapter instance.
 
 #### Example
 

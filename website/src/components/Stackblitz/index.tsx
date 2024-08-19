@@ -8,7 +8,7 @@ export default function Stackblitz(props: { id: string }) {
         minHeight: '500px',
         borderRadius: '8px',
       }}
-      src={`https://stackblitz.com/edit/${props.id}?ctl=1&embed=1`}
+      src={`https://stackblitz.com/edit/${props.id}?embed=1&theme=dark`}
     />
   );
 }

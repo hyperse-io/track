@@ -1,6 +1,15 @@
 # BaseAdapter
 
-BaseAdapter is an abstract class that serves as the base for implementing track adapters. It provides common functionality and hooks for tracking events.
+`BaseAdapter` is an abstract class that serves as the foundation for creating track adapters. It provides common functionality and hooks for tracking events, allowing you to extend and customize behavior for specific use cases.
+
+## Overview
+
+The `BaseAdapter` class defines two key methods:
+
+- isTrackable: This method checks if a particular event should be tracked.
+- report: This method handles the reporting of event data to a third-party service or system.
+
+Both methods are meant to be extended in a concrete implementation of the `BaseAdapter` class.
 
 ```typescript title="Signature"
 export interface TrackAdapter<
@@ -26,32 +35,40 @@ export interface TrackAdapter<
 
 ### `isTrackable`
 
-`abstract Function`
+`isTrackable` is an abstract method that checks whether a specific event should be tracked by the adapter. This method must be implemented in any subclass of `BaseAdapter`.
 
-Checks if the adapter is available.
+#### Parameters
 
-#### Props
+- **ctx** : `TrackContext<TrackData>`
 
-- **ctx** : `TrackContext<TrackData>` - The track context.
-- **eventType** : `keyof EventDataOption` - The event type.
-- **eventData** : `EventData[keyof EventDataOption]` - The data associated with the event.
+  The context in which the tracking is occurring. This typically includes details such as user information, environment, or other contextual data relevant to the tracking event.
+
+- **eventType** : `keyof EventData`
+
+  The type of event being tracked. This is usually a key from the EventData that corresponds to specific events like click, purchase, etc.
+
+- **eventData** : `EventData[keyof EventData]`
+
+  The data associated with the event. This contains all relevant information for the specific event type.
 
 #### Returns
 
-- `boolean | Promise<boolean>` - A boolean indicating if the adapter is available.
+- `boolean | Promise<boolean>` - A boolean or a promise that resolves to a boolean, indicating whether the event should be tracked. `true` means the event is trackable, while `false` means it is not.
 
 #### Example
+
+Here’s an example implementation of `isTrackable` that only tracks `addCart` events:
 
 ```typescript title="ReportAdapter.ts"
 export class ReportAdapter extends BaseAdapter<
   TrackContext<TrackData>,
-  EventDataOption,
-  AdapterOptions<TrackContext<TrackData>, EventDataOption>
+  EventData,
+  AdapterOptions<TrackContext<TrackData>, EventData>
 > {
-  isTrackable<EventType extends keyof EventDataOption>(
+  isTrackable<EventType extends keyof EventData>(
     ctx: TrackContext<TrackData>,
     eventType: EventType,
-    eventData: EventDataOption[EventType]
+    eventData: EventData[EventType]
   ): boolean | Promise<boolean> {
     return eventType === 'addCart';
   }
@@ -60,32 +77,42 @@ export class ReportAdapter extends BaseAdapter<
 
 ### `report`
 
-`protected Function`
+`report` is a protected method used to send event data to an external system or service. This method can be overridden in a subclass to customize the reporting process, such as transforming the data or adding additional logic before the report is sent.
 
-Method of reporting data to a third party, where the converted data can be obtained
+#### Parameters
 
-#### Props
+- **ctx** : `TrackContext<TrackData>`
 
-- **ctx** : `TrackContext<TrackData>` - The track context.
-- **reportData** : `AdapterReportData` - The data to report.
-- **setupData** : `Required<AdapterOptions>['setup'] extends (...args: any) => any ? Awaited<ReturnType<Required<AdapterOptions>['setup']> : undefined` - The setup data. It is often useful to extend the report method by configuring some additional data to be used in the report phase without the transform processing
+  The context in which the tracking is occurring. This typically includes details such as user information, environment, or other contextual data relevant to the tracking event.
+
+- **reportData** : `AdapterReportData`
+
+  The data that needs to be reported. This can include the event type, associated data, and any additional metadata that should be sent to the third-party service.
+
+- **setupData** : `Required<AdapterOptions>['setup'] extends (...args: any) => any ? Awaited<ReturnType<Required<AdapterOptions>['setup']> : undefined` (Optional)
+
+  The setup data, which may include configurations or preliminary data used during the report phase. This allows for additional data processing or setup before the reporting occurs.
 
 #### Returns
 
-- `void | Promise<void>` - A void or a promise that resolves to void.
+- `void | Promise<void>`
+
+  This method can either return `void` or a `Promise` that resolves to `void`, depending on whether the reporting process is asynchronous.
 
 #### Example
+
+Here’s an example implementation of the report method:
 
 ```typescript title="ReportAdapter.ts"
 export class ReportAdapter extends BaseAdapter<
   TrackContext<TrackData>,
-  EventDataOption,
-  AdapterOptions<TrackContext<TrackData>, EventDataOption>
+  EventData,
+  AdapterOptions<TrackContext<TrackData>, EventData>
 > {
     report(
         ctx: TrackContext<TrackData>,
         reportData: AdapterReportData,
-        setupData?: Awaited<ReturnType<AdapterOptions<TrackContext<TrackData>, EventDataOption>['setup']>
+        setupData?: Awaited<ReturnType<AdapterOptions<TrackContext<TrackData>, EventData>['setup']>
     ): void | Promise<void> {
         // do something
     }

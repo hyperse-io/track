@@ -14,13 +14,34 @@ const sidebars: SidebarsConfig = {
   // By default, Docusaurus generates a sidebar from the docs folder structure
   tutorialSidebar: [
     {
-      type: 'doc',
-      id: 'intro',
+      type: 'category',
       label: 'Getting Started',
+      items: [
+        {
+          type: 'doc',
+          id: 'intro/introducing',
+          label: 'Introducing',
+        },
+        {
+          type: 'doc',
+          id: 'intro/installation',
+          label: 'Installation',
+        },
+        {
+          type: 'doc',
+          id: 'intro/sample-example',
+          label: 'Sample Example',
+        },
+        {
+          type: 'doc',
+          id: 'intro/live-example',
+          label: 'Live Example',
+        },
+      ],
     },
     {
       type: 'category',
-      label: 'API',
+      label: 'How-to Guides',
       items: [
         {
           type: 'doc',
@@ -41,7 +62,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Adapters',
+      label: 'Core Plugins',
       items: [
         {
           type: 'doc',
