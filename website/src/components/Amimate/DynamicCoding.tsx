@@ -30,7 +30,10 @@ export default function DynamicCoding(): JSX.Element {
           height: 'fit-content',
         }}
       >
-        <source src="../../../static/media/code.mp4" type="video/mp4" />
+        <source
+          src="https://github.com/hyperse-io/track/blob/feat/track/website/static/media/code.mp4"
+          type="video/mp4"
+        />
       </video>
     </div>
   );

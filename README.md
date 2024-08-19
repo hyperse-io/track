@@ -23,6 +23,10 @@
 
 A typed, smart, scalable , powerful data collection engine written in typescript
 
+<video autoPlay loop muted width="100%" height="100%">
+  <source src="https://github.com/hyperse-io/track/blob/feat/track/website/static/media/code.mp4" type="video/mp4"/>
+</video>
+
 ## Install
 
 ```ts
@@ -144,61 +148,3 @@ await trackBuilder
   .select(() => ['reportAdapter'])
   .track('addCart', eventData.addCart);
 ```
-
-## Options
-
-#### [`isTrackable`](https://hyperse-io.github.io/track/docs/api/base-adapter#istrackable)
-
-Checks if the adapter is available.
-
-#### [`report`](https://hyperse-io.github.io/track/docs/api/base-adapter#istrackable)
-
-Data report
-
-### AdapterBuilder
-
-A builder for track adapter. Provides the ability to load adpater corresponding hooks
-
-#### [`setup`](https://hyperse-io.github.io/track/docs/api/adapter-builder#setup)
-
-The adapter hook Performs data consolidation against the rules defined by AdapterOptions. Passes the returned results to report. Executes before the report function is called
-
-#### [`before`](https://hyperse-io.github.io/track/docs/api/adapter-builder#before)
-
-The adapter hook function is executed before tracking an event.
-
-#### [`transform`](https://hyperse-io.github.io/track/docs/api/adapter-builder#transform)
-
-The adapter hook function that converts EventData corresponding to different EventType
-
-#### [`after`](https://hyperse-io.github.io/track/docs/api/adapter-builder#after)
-
-The adapter hook function is triggered after the report is executed
-
-#### [`build`](https://hyperse-io.github.io/track/docs/api/adapter-builder#build)
-
-Return adapter instance
-
-### TrackBuilder
-
-A builder for track. Provides the ability to load track corresponding hooks
-
-#### [`init`](https://hyperse-io.github.io/track/docs/api/track-builder#init)
-
-Track builder initialization, which loads the adapter into the track
-
-#### [`before`](https://hyperse-io.github.io/track/docs/api/track-builder#before)
-
-A function that is executed before tracking
-
-#### [`after`](https://hyperse-io.github.io/track/docs/api/track-builder#after)
-
-A function that is executed after a track event
-
-#### [`select`](https://hyperse-io.github.io/track/docs/api/track-builder#select)
-
-Selects track adapter from a given context, event data, and adapter map.
-
-#### [`track`](https://hyperse-io.github.io/track/docs/api/track-builder#track)
-
-Event reporting activation function
