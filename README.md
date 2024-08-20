@@ -1,5 +1,5 @@
 <div align="center">
-<img alt="logo" width="196px" src="https://raw.githubusercontent.com/hyperse-io/track/feat/track/website/static/img/logo-readme.svg?sanitize=true"/>
+<img alt="logo" width="196px" src="https://raw.githubusercontent.com/hyperse-io/track/main/website/static/img/logo-readme.svg?sanitize=true"/>
 <h1 align="center">hyperse data tracker engine</h1>
 </div>
 
@@ -17,14 +17,14 @@
     <img alt="Licence" src="https://img.shields.io/github/license/hyperse-io/track?style=flat-quare&labelColor=000000" />
   </a>
   <a aria-label="Discord" href="https://discord.com/invite/tj3ahjXXzM">
-    <img alt="Discord" src="https://img.shields.io/discord/1170373259133456434?label=Discord&color=5865F2" />
+    <img alt="Discord" src="https://img.shields.io/discord/1249658585227460703?label=Discord&color=5865F2" />
   </a>
   <a aria-label="Twitter" href="https://x.com/hyperse_net">
     <img alt="Twitter" src="https://img.shields.io/badge/Twitter-black?logo=x&logoColor=white" />
   </a>
 </p>
 
-<img alt="uml" src="https://raw.githubusercontent.com/hyperse-io/track/feat/track/website/static/img/uml.svg"/>
+<img alt="uml" src="https://raw.githubusercontent.com/hyperse-io/track/main/website/static/img/uml.svg"/>
 
 <!-- hyperse-vitest-coverage-reporter-marker-readme -->
 
