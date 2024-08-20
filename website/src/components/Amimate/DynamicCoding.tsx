@@ -31,7 +31,7 @@ export default function DynamicCoding(): JSX.Element {
         }}
       >
         <source
-          src="https://github.com/hyperse-io/track/blob/feat/track/website/static/media/code.mp4"
+          src="https://raw.githubusercontent.com/hyperse-io/track/main/website/static/media/code.mp4"
           type="video/mp4"
         />
       </video>
