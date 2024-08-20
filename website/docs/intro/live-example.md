@@ -14,7 +14,7 @@ Read more in [**User guide > introducing**](/docs/intro/introducing)
 
 :::
 
-<Stackblitz id="hyperse-track" />
+<Stackblitz id="next-example" />
 
 ## Congratulations !
 

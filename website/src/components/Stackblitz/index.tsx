@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default function Stackblitz(props: { id: string }) {
+const GithubUrl = {
+  'next-example': `https://stackblitz.com/fork/github/hyperse-io/track/tree/feat/track/examples/next-example?title=next-example&startScript=dev&embed=1&theme=dark`,
+};
+
+export default function Stackblitz(props: { id: keyof typeof GithubUrl }) {
   return (
     <iframe
       style={{
@@ -8,7 +12,7 @@ export default function Stackblitz(props: { id: string }) {
         minHeight: '500px',
         borderRadius: '8px',
       }}
-      src={`https://stackblitz.com/edit/${props.id}?embed=1&theme=dark`}
+      src={GithubUrl[props.id]}
     />
   );
 }

@@ -1,10 +1,10 @@
 {
-  "name": "@hyperse/track-next-example",
+  "name": "@hyperse/next-example",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
