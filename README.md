@@ -25,15 +25,7 @@
   </a>
 </p>
 
-<style type="text/css" rel="stylesheet">
-.uml-layout { 
-  background: #66757f1a; 
-  border-radius: 10px;
-  padding: 10px;
-  }
-</style>
-
-<img class="uml-layout" alt="uml" src="https://raw.githubusercontent.com/hyperse-io/track/feat/track/website/static/img/uml-dark.png"/>
+<img class="uml-layout" alt="uml" src="https://raw.githubusercontent.com/hyperse-io/track/feat/track/website/static/img/uml.svg"/>
 
 <!-- hyperse-vitest-coverage-reporter-marker-readme -->
 
