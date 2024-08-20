@@ -1,6 +1,6 @@
-<div style="display:flex;justify-content:center;align-items:center;flex-direction:column">
+<div align="center">
 
-<img alt="logo" width="128px" src="https://raw.githubusercontent.com/hyperse-io/track/feat/track/website/static/img/logo.svg?sanitize=true"/>
+<img alt="logo" width="196px" src="https://raw.githubusercontent.com/hyperse-io/track/feat/track/website/static/img/logo-readme.svg?sanitize=true"/>
 
 <h1 align="center">
 hyperse data tracker engine</h1>
