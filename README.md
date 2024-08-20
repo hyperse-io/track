@@ -1,7 +1,6 @@
 <div align="center">
 <img alt="logo" width="196px" src="https://raw.githubusercontent.com/hyperse-io/track/feat/track/website/static/img/logo-readme.svg?sanitize=true"/>
 <h1 align="center">hyperse data tracker engine</h1>
-<h4 align="center">A typed, smart, scalable , powerful data collection engine written in typescript</h4>
 </div>
 
 <p align="center">
