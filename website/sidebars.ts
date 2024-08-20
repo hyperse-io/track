@@ -62,7 +62,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Core Plugins',
+      label: 'Premium Plugins',
       items: [
         {
           type: 'doc',
