@@ -8,6 +8,10 @@
       "name": "website",
       "path": "website",
     },
+    {
+      "name": "next-example",
+      "path": "examples/next-example",
+    },
   ],
   "extensions": {
     "recommendations": [
@@ -45,6 +49,7 @@
     "eslint.workingDirectories": [
       "./",
       "./website",
+      "./examples/next-example",
     ],
     "typescript.tsdk": "root/node_modules/typescript/lib",
     "[jsonc]": {
@@ -56,8 +61,5 @@
     "i18n-ally.localesPaths": [
       "i18n"
     ],
-    "[markdown]": {
-      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    },
   },
 }
