@@ -5,9 +5,7 @@ module.exports = {
     // Avoid conflicts with antd
     preflight: false,
   },
-  content: [
-    './app/**/*.{js,tsx,md,mdx}',
-  ],
+  content: ['./app/**/*.{js,tsx,md,mdx}'],
   theme: {
     extend: {},
   },

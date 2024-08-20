@@ -131,9 +131,9 @@ const config: Config = {
       copyright: copyrightConfig,
     },
     algolia: {
-      apiKey: '441074cace987cbf4640c039ebed303c',
-      appId: 'J0EABTYI1A',
-      indexName: 'docusaurus-openapi',
+      apiKey: 'e337db95355de648d3a47a18aaee8e25',
+      appId: 'O6DZ543ZMD',
+      indexName: 'hyperse-ioio',
     },
     prism: {
       theme: themes.nightOwlLight,

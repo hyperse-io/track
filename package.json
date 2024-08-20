@@ -32,7 +32,7 @@
   ],
   "workspaces": [
     "website",
-    "examples/next-example",
+    "examples/*",
     "./"
   ],
   "scripts": {
