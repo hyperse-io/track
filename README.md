@@ -25,7 +25,7 @@
   </a>
 </p>
 
-<img class="uml-layout" alt="uml" src="https://raw.githubusercontent.com/hyperse-io/track/feat/track/website/static/img/uml.svg"/>
+<img alt="uml" src="https://raw.githubusercontent.com/hyperse-io/track/feat/track/website/static/img/uml.svg"/>
 
 <!-- hyperse-vitest-coverage-reporter-marker-readme -->
 
