@@ -2,6 +2,7 @@ import { themes } from 'prism-react-renderer';
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 import type * as Plugin from '@docusaurus/types/src/plugin';
+import { copyrightConfig } from './copyright.config';
 
 const config: Config = {
   title: 'hyperse data tracker engine',
@@ -83,6 +84,11 @@ const config: Config = {
           label: 'Discord',
           position: 'right',
         },
+        {
+          href: 'https://www.hyperse.net/blog',
+          label: 'Blog',
+          position: 'right',
+        },
       ],
     },
     footer: {
@@ -122,7 +128,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Hyperse`,
+      copyright: copyrightConfig,
     },
     algolia: {
       apiKey: '441074cace987cbf4640c039ebed303c',

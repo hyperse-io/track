@@ -5,7 +5,11 @@ module.exports = {
     // Avoid conflicts with antd
     preflight: false,
   },
-  content: ['./docs/**/*.{js,tsx,md,mdx}', './src/**/*.{js,tsx,md,mdx}'],
+  content: [
+    './docs/**/*.{js,tsx,md,mdx}',
+    './src/**/*.{js,tsx,md,mdx}',
+    './copyright.config.ts',
+  ],
   theme: {
     extend: {},
   },
