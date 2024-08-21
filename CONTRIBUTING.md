@@ -98,6 +98,6 @@ After cloning the Hyperse repo, please follow the [Development guide](./README.m
 
 ## Contributor License Agreement
 
-All contributors are required to agree to the [Contributor License Agreement](./license/CLA.md) before their contributions can be merged.
+All contributors are required to agree to the [Contributor License Agreement](https://github.com/hyperse-io/.github/blob/main/license/CLA.md) before their contributions can be merged.
 
 This is done via an automation bot which will prompt you to sign the CLA when you open a pull request.
