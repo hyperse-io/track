@@ -1,10 +1,5 @@
 import Mock from 'mockjs';
-
-export interface GoodsRecord {
-  goodsName: string;
-  goodsId: string;
-  price: number;
-}
+import { GoodsRecord } from '@/track/types';
 
 export const fetchGoodsList = (): GoodsRecord[] => {
   const data = Mock.mock({

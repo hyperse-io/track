@@ -21,10 +21,11 @@ export type ReportEventData = {
     userName: string;
     userId: string;
   };
-  addCart?: {
-    price: number;
-    goodsId: string;
-    goodsName: string;
-    count: number;
-  };
+  addCart?: GoodsRecord;
 };
+
+export interface GoodsRecord {
+  goodsName: string;
+  goodsId: string;
+  price: number;
+}

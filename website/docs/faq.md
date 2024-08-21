@@ -28,7 +28,7 @@ However we also provide some highly packaged plugins to facilitate rapid busines
 <details>
   <summary>What is Hyperse?</summary>
 
-Hyperse is an open source full stack development suites, front end, architecture, tech solutions, built with TypeScript, GraphQL and Node.js
+Leveraging a cutting-edge, robust open-source full-stack core, we deliver comprehensive and innovative architectural solutions and expert consulting services for medium to large tech enterprises. Our offerings encompass advanced front-end, back-end, big data, Android, and iOS technologies. Additionally, we specialize in crafting bespoke e-commerce platform solutions, tailored to meet the unique needs of your business.
 
 More information please see [Hyperse](https://www.hyperse.net/)
 
