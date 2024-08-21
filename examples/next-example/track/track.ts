@@ -31,13 +31,20 @@ export const reportTrack = () => {
     })
     .transform('addCart', (ctx, eventType, eventData) => {
       return {
-        ...eventData,
         eventType,
         goodName: 'ac_' + eventData?.goodsName,
+        goodsId: 'ac_' + eventData?.goodsId,
+        price: eventData?.price,
       };
     })
     .transform('pv', (ctx, eventType, eventData) => {
-      return { ...eventData, userName: 'pv_' + eventData?.userName };
+      return {
+        eventType,
+        url: eventData?.url,
+        timeStamp: 'pv_' + eventData?.timeStamp,
+        userName: 'pv_' + eventData?.userName,
+        userId: 'pv_' + eventData?.userId,
+      };
     })
     .after((ctx, eventType, reportData) => {
       console.log('after', ctx, eventType, reportData);

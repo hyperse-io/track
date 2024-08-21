@@ -25,8 +25,13 @@ export class ReportAdapter extends BaseAdapter<
       | { name: 'setup' | 'setup2' | 'setup3'; timeStamp: number }
       | undefined
   ): void | Promise<void> {
-    alert(
-      `report: \n ctx: ${JSON.stringify(ctx, null, 2)} \n reportData: ${JSON.stringify(reportData, null, 2)} \n setupData: ${JSON.stringify(setupData, null, 2)}`
-    );
+    window.postMessage({
+      type: 'report',
+      data: {
+        ctx,
+        reportData,
+        setupData,
+      },
+    });
   }
 }

@@ -52,7 +52,7 @@ yarn add @hyperse/track
 ## Development
 
 > [!IMPORTANT]
-> The following instructions are for those who want to develop the hyperse related framework or plugins (e.g. if you intend to make a pull request). For instructions on how to build a project _using_ Hyperse, please see the [Getting Started guide](https://hyperse-io.github.io/track/docs/intro/installation).
+> The following instructions are for those who want to develop the hyperse related framework or plugins (e.g. if you intend to make a pull request). For instructions on how to build a project _using_ Hyperse, please see the [Getting Started guide](https://hyperse-io.github.io/track/docs/community/contributing).
 
 ## Documentation
 

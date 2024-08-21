@@ -8,10 +8,26 @@ import { fetchGoodsList } from './service';
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [text, setText] = useState<string>();
+  const [data] = useState<GoodsRecord[]>(fetchGoodsList());
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const listener = (event: MessageEvent) => {
+      const { data } = event;
+      if (data && data.type === 'report') {
+        setText(`${JSON.stringify(data.data, null, 2)}`);
+      }
+    };
+
+    window.addEventListener('message', listener);
+    return () => {
+      window.removeEventListener('message', listener);
+    };
+  }, [mounted]);
 
   useEffect(() => {
     if (!mounted) {
@@ -41,7 +57,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between gap-4">
       {mounted &&
-        fetchGoodsList().map((item, index: number) => {
+        data.map((item, index: number) => {
           return (
             <div
               key={index}
@@ -68,6 +84,20 @@ export default function Home() {
             </div>
           );
         })}
+
+      <div id="modal" style={{ display: text ? 'block' : 'none' }}>
+        <div id="head">
+          <div id="title">Report Data</div>
+          <div id="close" onClick={() => setText(undefined)}>
+            x
+          </div>
+        </div>
+        <div id="pre">
+          <pre>
+            <code>{text}</code>
+          </pre>
+        </div>
+      </div>
     </main>
   );
 }
