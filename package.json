@@ -1,6 +1,6 @@
 {
   "name": "@hyperse/track",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A typed, smart, scalable, powerful data collection engine written in typescript",
   "keywords": [
     "hyperse",

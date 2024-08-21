@@ -1,4 +1,4 @@
-# @hyperse/track-docs
+# @hyperse/next-example
 
 ## 1.0.1
 
