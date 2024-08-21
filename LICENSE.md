@@ -1,9 +1,11 @@
 # License
+
 Copyright (C) Hyperse (Yuantai Information Technology (Shanghai) Co., Ltd)
 
 This software is available under two different licenses:
-* GNU General Public License version 3 (GPLv3) as Hyperse Community Edition
-* Hyperse Commercial License (HCL)
+
+- GNU General Public License version 3 (GPLv3) as Hyperse Community Edition
+- Hyperse Commercial License (HCL)
 
 The default Hyperse license, without a valid Hyperse Commercial License agreement, is the Open-Source GPLv3 license.
 
@@ -18,11 +20,11 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ## Hyperse Commercial License (HCL)
 
