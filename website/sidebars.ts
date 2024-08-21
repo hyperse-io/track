@@ -109,6 +109,11 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
+      type: 'link',
+      label: 'LICENSE',
+      href: 'https://github.com/hyperse-io/track/blob/main/LICENSE',
+    },
+    {
       type: 'doc',
       id: 'faq',
       label: "FAQ's",

@@ -80,7 +80,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://discord.com/invite/tj3ahjXXzM',
+          href: 'https://www.hyperse.net/community',
           label: 'Discord',
           position: 'right',
         },
@@ -115,7 +115,7 @@ const config: Config = {
           items: [
             {
               label: 'Discord',
-              href: 'https://discord.com/invite/tj3ahjXXzM',
+              href: 'https://www.hyperse.net/community',
             },
             {
               label: 'Twitter',

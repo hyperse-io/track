@@ -16,7 +16,7 @@
   <a aria-label="Licence" href="https://github.com/hyperse-io/track/blob/main/LICENSE">
     <img alt="Licence" src="https://img.shields.io/github/license/hyperse-io/track?style=flat-quare&labelColor=000000" />
   </a>
-  <a aria-label="Discord" href="https://discord.com/invite/tj3ahjXXzM">
+  <a aria-label="Discord" href="https://www.hyperse.net/community">
     <img alt="Discord" src="https://img.shields.io/discord/1249658585227460703?label=Discord&color=5865F2" />
   </a>
   <a aria-label="Twitter" href="https://x.com/hyperse_net">
