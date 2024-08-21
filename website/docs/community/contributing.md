@@ -89,16 +89,7 @@ Add any other context or screenshots about the feature request here.
 
 Contributing to projects through a pull request (PR) is a valuable way to improve existing documentation or code. This guide will walk you through the process step by step, ensuring clarity and ease of understanding, especially for those new to GitHub and git operations.
 
-For complex operations, you can also check the [closed pull requests](https://github.com/hyperse-io/track/pulls?q=is%3Apr+is%3Aclosed) for grammar reference. For example,
-
-- [Added Ecosystem Page + Video](https://github.com/hyperse-io/track/pull/392) shows how to add an article with video reference.
-- [feat: template example](https://github.com/hyperse-io/track/pull/410) shows how to make use of mdx's feature to create similar pages using template.
-
-:::note
-
-This process does not apply to [TRANSLATIONS](#provide-translation).
-
-:::
+For complex operations, you can also check the [closed pull requests](https://github.com/hyperse-io/track/pulls?q=is%3Apr+is%3Aclosed) for grammar reference.
 
 ### Local Development for Substantial Changes
 
