@@ -5,10 +5,10 @@ import {
   TrackAdapterOptions,
   TrackContext,
 } from '../src/types/types-create.js';
-import { ReportAdapter } from './fixtures/adapter/report-adapter.js';
-import { ConsoleLogger } from './fixtures/console-logger.js';
-import { EventDataOption } from './fixtures/types/type-event.js';
-import { TrackData } from './fixtures/types/type-track-data.js';
+import { ReportAdapter } from './test-utils/adapter/report-adapter.js';
+import { ConsoleLogger } from './test-utils/console-logger.js';
+import { EventDataOption } from './test-utils/types/type-event.js';
+import { TrackData } from './test-utils/types/type-track-data.js';
 
 describe('test-track-logger.spec', () => {
   const trackData: TrackData = {

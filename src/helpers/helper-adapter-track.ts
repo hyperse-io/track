@@ -1,5 +1,6 @@
 import { TrackContext } from '../types/types-create.js';
 import { TrackAdapterMap, TrackEventDataBase } from '../types/types-track.js';
+import { executeFunction } from './helper-execute.js';
 
 /**
  * Executes the track function of each adapter in the adapterMap for the given eventType and result.
@@ -22,7 +23,18 @@ export const executeAdapterTrack = async <
   eventType: EventType,
   result: EventData[EventType]
 ): Promise<EventData> => {
-  for (const adapter of Object.values(adapterMap)) {
+  for (const [adapterName, adapter] of Object.entries(adapterMap)) {
+    const isTrackable = await executeFunction(
+      adapter.isTrackable,
+      ctx,
+      eventType,
+      result
+    );
+
+    if (!isTrackable) {
+      ctx.logger?.warn(`Adapter is not trackable: ${adapterName}`);
+      continue;
+    }
     await adapter.track<EventType>(ctx, eventType, result);
   }
   return result;

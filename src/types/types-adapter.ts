@@ -81,9 +81,16 @@ export interface TrackAdapter<
 
   /**
    * Checks if the adapter is available.
+   * @param ctx The track context.
+   * @param eventType The type of the event.
+   * @param eventData The data associated with the event.
    * @returns A boolean indicating if the adapter is available.
    */
-  isTrackable(): boolean | Promise<boolean>;
+  isTrackable<EventType extends keyof EventData>(
+    ctx: Context,
+    eventType: EventType,
+    eventData: EventData[EventType]
+  ): boolean | Promise<boolean>;
 
   /**
    * Tracks an event.

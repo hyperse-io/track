@@ -43,9 +43,8 @@ export const executeSelect = async <
 
   const lasterAdapterMap: TrackAdapterMap<Context, EventData> = {};
   for (const [adapterName, adapter] of Object.entries(adapterMap)) {
-    const isTrackable = await executeFunction(adapter.isTrackable);
-    if (isTrackable && names.includes(adapterName)) {
-      lasterAdapterMap[adapterName] = adapterMap[adapterName];
+    if (names.includes(adapterName)) {
+      lasterAdapterMap[adapterName] = adapter;
     }
   }
   return lasterAdapterMap;

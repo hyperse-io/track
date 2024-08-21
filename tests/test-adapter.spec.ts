@@ -1,9 +1,9 @@
 import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
 import { TrackContext } from '../src/types/types-create.js';
-import { ReportAdapter } from './fixtures/adapter/report-adapter.js';
-import { AdapterOptions } from './fixtures/types/type-adapter-options.js';
-import { EventDataOption } from './fixtures/types/type-event.js';
-import { TrackData } from './fixtures/types/type-track-data.js';
+import { ReportAdapter } from './test-utils/adapter/report-adapter.js';
+import { AdapterOptions } from './test-utils/types/type-adapter-options.js';
+import { EventDataOption } from './test-utils/types/type-event.js';
+import { TrackData } from './test-utils/types/type-track-data.js';
 
 describe('test-adapter.spec', () => {
   const trackData: TrackData = {
@@ -33,6 +33,16 @@ describe('test-adapter.spec', () => {
     },
   };
 
+  it('test adapter is undefined', async () => {
+    expect(() =>
+      createAdapterBuilder<
+        TrackContext<TrackData>,
+        EventDataOption,
+        AdapterOptions<TrackContext<TrackData>, EventDataOption>
+      >(undefined as unknown as ReportAdapter)
+    ).toThrowError('Adapter is required');
+  });
+
   it('test adapter hook', async () => {
     const reportAdapter = new ReportAdapter();
 
@@ -42,7 +52,7 @@ describe('test-adapter.spec', () => {
       AdapterOptions<TrackContext<TrackData>, EventDataOption>
     >(reportAdapter);
 
-    const setupFun = vi.fn((ctx, eventData) => {
+    const setupFun = vi.fn((ctx, eventType, eventData) => {
       return Promise.resolve({
         name: 'setup' as const,
         timeStamp: new Date().getTime(),
@@ -79,7 +89,8 @@ describe('test-adapter.spec', () => {
     expect(setupFun.mock.lastCall?.[0]).toMatchObject({
       data: trackData,
     });
-    expect(setupFun.mock.lastCall?.[1]).toMatchObject({ ...eventData.addCart });
+    expect(setupFun.mock.lastCall?.[1]).toBe('addCart');
+    expect(setupFun.mock.lastCall?.[2]).toMatchObject({ ...eventData.addCart });
     expect(setupFun.mock.results[0].value).toBeDefined();
     expect(setupFun.mock.results?.[0].value).toMatchObject(
       Promise.resolve({

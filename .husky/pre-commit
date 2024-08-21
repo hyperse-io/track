@@ -1,5 +1,7 @@
 #!/bin/sh
-. "$(dirname -- "$0")/_/husky.sh"
 
+yarn run test:coverage 
+yarn generate-coverage-report --type readme
+git add .
 yarn lint-staged-files --debug
 

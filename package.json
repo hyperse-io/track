@@ -32,6 +32,7 @@
   ],
   "workspaces": [
     "website",
+    "examples/*",
     "./"
   ],
   "scripts": {
@@ -46,6 +47,7 @@
     "lint-staged-files": "lint-staged --allow-empty",
     "changeset": "changeset",
     "release": "yarn build && changeset publish",
+    "test:coverage": "vitest run --coverage",
     "cz": "cz",
     "prepare": "husky"
   },
@@ -64,6 +66,7 @@
     "@commitlint/config-conventional": "19.2.2",
     "@hyperse/eslint-config-hyperse": "^1.0.12",
     "@hyperse/exec-program": "^1.0.10",
+    "@hyperse/vitest-coverage-reporter": "^1.0.13",
     "@types/lodash": "^4",
     "@types/node": "^22.1.0",
     "@types/react": "^18.3.3",

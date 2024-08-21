@@ -1,6 +1,10 @@
 import { executeSelect } from '../src/helpers/helper-select-adapter.js';
-import { defaultAdapter } from './fixtures/adapter/default-adapter.js';
-import { defaultTackInstance } from './fixtures/adapter/default-tack-instance.js';
+import { createTrackBuilder } from '../src/index.js';
+import { TrackContext } from '../src/types/types-create.js';
+import { defaultAdapter } from './test-utils/adapter/default-adapter.js';
+import { ConsoleLogger } from './test-utils/console-logger.js';
+import { EventDataOption } from './test-utils/types/type-event.js';
+import { TrackData } from './test-utils/types/type-track-data.js';
 
 describe('test-track-execute-select.spec', () => {
   const ctx = {
@@ -10,6 +14,25 @@ describe('test-track-execute-select.spec', () => {
       ip: '0.0.0.0',
       userId: 'uuid_10001',
       bizMode: 'test',
+    },
+  };
+
+  const eventData: EventDataOption = {
+    registry: {
+      userName: 'testUser',
+      mobile: '1234567890',
+      pwd: 'password123',
+      email: 'testuser@example.com',
+    },
+    previewGoods: {
+      goodsId: 'g123',
+      goodsName: 'Sample Goods',
+    },
+    addCart: {
+      price: 99.99,
+      goodsId: 'g123',
+      goodsName: 'Sample Goods',
+      count: 2,
     },
   };
 
@@ -169,11 +192,24 @@ describe('test-track-execute-select.spec', () => {
   });
 
   it('executeSelect isTrackable', async () => {
+    const logger = new ConsoleLogger();
+    const print = vi.fn((message: any, context?: string) => {
+      return message;
+    });
+    vi.spyOn(logger, 'warn').mockImplementation(print);
+
     const adapter1 = defaultAdapter();
     const adapter2 = defaultAdapter();
     const adapter3 = defaultAdapter();
     const adapter4 = defaultAdapter();
     const adapter5 = defaultAdapter();
+
+    const trackBuilder = createTrackBuilder<
+      TrackContext<TrackData>,
+      EventDataOption
+    >({
+      logger: logger,
+    });
 
     vi.spyOn(adapter1, 'isTrackable').mockReturnValue(true);
     vi.spyOn(adapter2, 'isTrackable').mockReturnValue(true);
@@ -188,16 +224,10 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter4,
       businessAdapter: adapter5,
     };
-    let lastAdapterMap = await executeSelect(ctx, adapterMap, undefined);
 
-    expect(Object.keys(lastAdapterMap).length).toBe(5);
-    expect(lastAdapterMap).toMatchObject({
-      consoleAdapter: adapter1,
-      analyzerAdapter: adapter2,
-      reportAdapter: adapter3,
-      logAdapter: adapter4,
-      businessAdapter: adapter5,
-    });
+    await trackBuilder.init(adapterMap).track('addCart', eventData.addCart);
+    expect(print.mock.calls).toHaveLength(0);
+    expect(print.mock.results).toHaveLength(0);
 
     vi.spyOn(adapter1, 'isTrackable').mockReturnValue(true);
     vi.spyOn(adapter2, 'isTrackable').mockReturnValue(false);
@@ -212,31 +242,21 @@ describe('test-track-execute-select.spec', () => {
       logAdapter: adapter4,
       businessAdapter: adapter5,
     };
-    lastAdapterMap = await executeSelect(ctx, adapterMap, undefined);
-    expect(Object.keys(lastAdapterMap).length).toBe(1);
-    expect(lastAdapterMap).toMatchObject({
-      consoleAdapter: adapter1,
-    });
+    await trackBuilder.init(adapterMap).track('addCart', eventData.addCart);
 
-    vi.spyOn(adapter1, 'isTrackable').mockReturnValue(true);
-    vi.spyOn(adapter2, 'isTrackable').mockReturnValue(true);
-    vi.spyOn(adapter3, 'isTrackable').mockReturnValue(true);
-    vi.spyOn(adapter4, 'isTrackable').mockReturnValue(false);
-    vi.spyOn(adapter5, 'isTrackable').mockReturnValue(false);
-
-    adapterMap = {
-      consoleAdapter: adapter1,
-      analyzerAdapter: adapter2,
-      reportAdapter: adapter3,
-      logAdapter: adapter4,
-      businessAdapter: adapter5,
-    };
-    lastAdapterMap = await executeSelect(ctx, adapterMap, () => {
-      return Promise.resolve(['reportAdapter']);
-    });
-    expect(Object.keys(lastAdapterMap).length).toBe(1);
-    expect(lastAdapterMap).toMatchObject({
-      reportAdapter: adapter3,
-    });
+    expect(print.mock.calls).toHaveLength(4);
+    expect(print.mock.results).toHaveLength(4);
+    expect(print.mock.results?.[0].value).toBe(
+      'Adapter is not trackable: analyzerAdapter'
+    );
+    expect(print.mock.results?.[1].value).toBe(
+      'Adapter is not trackable: reportAdapter'
+    );
+    expect(print.mock.results?.[2].value).toBe(
+      'Adapter is not trackable: logAdapter'
+    );
+    expect(print.mock.results?.[3].value).toBe(
+      'Adapter is not trackable: businessAdapter'
+    );
   });
 });

@@ -2,6 +2,7 @@ import { themes } from 'prism-react-renderer';
 import type * as Preset from '@docusaurus/preset-classic';
 import type { Config } from '@docusaurus/types';
 import type * as Plugin from '@docusaurus/types/src/plugin';
+import { copyrightConfig } from './copyright.config';
 
 const config: Config = {
   title: 'hyperse data tracker engine',
@@ -11,7 +12,7 @@ const config: Config = {
   baseUrl: '/track',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: '/icon/favicon.ico',
+  favicon: '/icon/favicon.svg',
   organizationName: 'Hyperse',
   projectName: 'hyperse tracker',
   presets: [
@@ -47,7 +48,8 @@ const config: Config = {
     },
     docs: {
       sidebar: {
-        hideable: true,
+        hideable: false,
+        autoCollapseCategories: true,
       },
     },
     navbar: {
@@ -63,9 +65,14 @@ const config: Config = {
       items: [
         {
           type: 'doc',
-          docId: 'intro',
+          docId: 'intro/introducing',
           position: 'left',
-          label: 'Documentation',
+          label: 'User Guide',
+        },
+        {
+          href: 'https://www.npmjs.com/package/@hyperse/track',
+          label: 'NPM',
+          position: 'right',
         },
         {
           href: 'https://github.com/hyperse-io/track',
@@ -73,29 +80,60 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://www.npmjs.com/package/@hyperse/track',
-          label: 'NPM',
+          href: 'https://discord.com/invite/tj3ahjXXzM',
+          label: 'Discord',
+          position: 'right',
+        },
+        {
+          href: 'https://www.hyperse.net/blog',
+          label: 'Blog',
           position: 'right',
         },
       ],
     },
     footer: {
-      style: 'dark',
-      logo: {
-        alt: 'Hyperse',
-        src: '/img/logo.svg',
-        height: 40,
-        style: {
-          borderRadius: '2px',
+      links: [
+        {
+          title: 'Resources',
+          items: [
+            {
+              label: 'hyperse',
+              href: 'https://www.hyperse.net/',
+            },
+            {
+              label: 'hyperse blog',
+              href: 'https://www.hyperse.net/blog',
+            },
+            {
+              label: 'hyperse devutils',
+              href: 'https://devutils.hyperse.net/',
+            },
+          ],
         },
-        href: 'https://github.com/hyperse-io',
-      },
-      copyright: `Copyright © ${new Date().getFullYear()} Hyperse`,
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Discord',
+              href: 'https://discord.com/invite/tj3ahjXXzM',
+            },
+            {
+              label: 'Twitter',
+              href: 'https://x.com/hyperse_net',
+            },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/hyperse-io',
+            },
+          ],
+        },
+      ],
+      copyright: copyrightConfig,
     },
     algolia: {
-      apiKey: '441074cace987cbf4640c039ebed303c',
-      appId: 'J0EABTYI1A',
-      indexName: 'docusaurus-openapi',
+      apiKey: 'e337db95355de648d3a47a18aaee8e25',
+      appId: 'O6DZ543ZMD',
+      indexName: 'hyperse-ioio',
     },
     prism: {
       theme: themes.nightOwlLight,

@@ -9,5 +9,11 @@ export default defineConfig({
       '@/': new URL('./src/', import.meta.url).pathname,
     },
     include: ['**/?(*.){test,spec}.?(c|m)[jt]s?(x)'],
+    coverage: {
+      include: ['src/**'],
+      provider: 'istanbul',
+      reporter: ['text', 'json-summary', 'json'],
+      reportOnFailure: true,
+    },
   },
 });

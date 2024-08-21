@@ -24,7 +24,11 @@ export abstract class BaseAdapter<
 
   private afterHook?: AdapterAfterFunction<Context, EventData>;
 
-  abstract isTrackable(): boolean | Promise<boolean>;
+  abstract isTrackable<EventType extends keyof EventData>(
+    ctx: Context,
+    eventType: EventType,
+    eventData: EventData[EventType]
+  ): boolean | Promise<boolean>;
 
   protected report(
     ctx: Context,
@@ -78,14 +82,15 @@ export abstract class BaseAdapter<
     return result;
   };
 
-  private executeReport = async <ReportData>(
+  private executeReport = async <ReportData, EventType extends keyof EventData>(
     ctx: Context,
-    eventData: EventData[keyof EventData],
+    eventType: EventType,
+    eventData: EventData[EventType],
     reportData: ReportData
   ): Promise<ReportData> => {
     let setupResult;
     if (this.setupHook) {
-      setupResult = await this.setupHook(ctx, eventData);
+      setupResult = await this.setupHook(ctx, eventType, eventData);
     }
     await this.report(ctx, reportData, setupResult);
     return reportData;
@@ -109,7 +114,7 @@ export abstract class BaseAdapter<
         await executeFunction(this.beforeHook, ctx, eventType, eventData),
       async () => await this.executeTransform(ctx, eventType, eventData),
       async (reportData) =>
-        await this.executeReport(ctx, eventData, reportData),
+        await this.executeReport(ctx, eventType, eventData, reportData),
       async (reportData) =>
         await executeFunction(this.afterHook, ctx, eventType, reportData)
     )();
