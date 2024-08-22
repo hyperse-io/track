@@ -1,28 +1,63 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { fetchGoodsList, GoodsRecord } from './service';
+import mockjs from 'mockjs';
+import { reportTrack } from '@/track/track';
+import { GoodsRecord } from '@/track/types';
+import { fetchGoodsList } from './service';
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const [text, setText] = useState<string>();
+  const [data] = useState<GoodsRecord[]>(fetchGoodsList());
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const listener = (event: MessageEvent) => {
+      const { data } = event;
+      if (data && data.type === 'report') {
+        setText(`${JSON.stringify(data.data, null, 2)}`);
+      }
+    };
+
+    window.addEventListener('message', listener);
+    return () => {
+      window.removeEventListener('message', listener);
+    };
+  }, [mounted]);
+
+  useEffect(() => {
+    if (!mounted) {
+      return;
+    }
+    reportTrack()
+      .select('reportAdapter')
+      .track(
+        'pv',
+        mockjs.mock({
+          timeStamp: Date.now(),
+          url: '@url()',
+          userName: '@name()',
+          userId: '@id(12)',
+        })
+      );
+  }, [mounted]);
+
   const onAddToCart = (item: GoodsRecord) => {
-    console.log('onAddToCart', JSON.stringify(item));
-    // await reportTrack().select('reportAdapter').track('addCart', {
-    //   price: 25.99,
-    //   goodsId: '23432252',
-    //   goodsName: 'Long Chair',
-    //   count: 1,
-    // });
+    reportTrack()
+      .select('reportAdapter')
+      .track('addCart', {
+        ...item,
+      });
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between gap-4">
       {mounted &&
-        fetchGoodsList().map((item, index: number) => {
+        data.map((item, index: number) => {
           return (
             <div
               key={index}
@@ -49,6 +84,20 @@ export default function Home() {
             </div>
           );
         })}
+
+      <div id="modal" style={{ display: text ? 'block' : 'none' }}>
+        <div id="head">
+          <div id="title">Report Data</div>
+          <div id="close" onClick={() => setText(undefined)}>
+            x
+          </div>
+        </div>
+        <div id="pre">
+          <pre>
+            <code>{text}</code>
+          </pre>
+        </div>
+      </div>
     </main>
   );
 }

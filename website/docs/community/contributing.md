@@ -1,135 +1,103 @@
-## All contributions are welcome!
+# Contribution Guidelines
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+Hi! Thank you for taking the time to contribute to Hyperse!
 
-:::info
+In order to make the best use of both your time and that of the Hyperse maintainers, please follow the guidelines in this document.
 
-Thank you for your interest in contributing to our documentation site! We appreciate your support and value the insights and expertise of our community. This page outlines the guidelines and process for contributing, as well as the rewards you can earn for your efforts.
+## Branches
 
-:::
+There are 3 important branches to know about:
 
-We welcome contributions in a variety of forms, including but not limited to:
+- `master` - the default branch
+- `minor` - a branch for commits which introduce new features which would go in the next [SemVer minor](https://semver.org/) release.
+- `major` - a branch for commits which introduce breaking changes which would go in the next [SemVer major](https://semver.org/) release.
 
-1. Pointing out a mistake/typo and (optionally) providing a solution
-2. Providing translation
-3. Creating or improving diagrams, charts, or visual aids
-4. Suggesting improvements to the documentation structure or organization
-5. Writing or updating a tutorial or guide
-6. Creating or updating code samples, examples, or demos
-7. Polishing or improving document writing
+Bug fixes should go direct in the `master` branch, from which new patch releases will be made regularly. Periodically the master branch will be merged into the `minor` and `major` branches.
 
-To make a contribution, please take one of the following actions:
+## Bug fixes
 
-- **Report an Issue**: If you spot a problem or is willing to suggest improvements, [create an issue](https://github.com/hyperse-io/track/issues/new/choose) to let us know.
-- **Submit Changes**: For direct contributions to content, [create a pull request](https://github.com/hyperse-io/track/compare).
+If you would like to contribute a bugfix, please first create an issue detailing the bug, and indicate that you intend to fix it. When creating commits, please follow the commit message format below.
 
-## Create an Issue
+## New features
 
-You can create an issue for the following purposes:
+Again, please create a feature request detailing the functionality you intend to add, and state that you would like to implement it. When creating commits, please follow the commit message format below. New feature pull requests should be made against the `minor` branch.
 
-- To report any mistakes or typos.
-- To request new content or improvements to current content.
+When adding new public APIs to support your new feature, add a `@since 1.2.0` tag (where "1.2.0" corresponds to what will be the next minor version) to the doc block. This will let readers of the documentation know the version in which the API was introduced. See the [docs readme](https://github.com/hyperse-io/track/blob/main/README.md) for more details on the valid docs tags.
 
-You can typically create an issue directly through the [GitHub web page](https://github.com/hyperse-io/track/issues/new/choose). Here, you'll find various templates to guide your issue submission.
+```TypeScript
+/**
+ * @description
+ * Sets the value of the new API thing.
+ *
+ * @since 1.2.0
+ */
+myNewApi: number;
+```
 
-If you're able to address the issue yourself, we encourage you to take the initiative. When creating an issue, you can indicate your willingness to resolve it. For bug reports, select the option “I'd be willing to fix this issue myself” in the BUG template. For feature requests, select “I'd be willing to contribute this feature myself” in the Feature Request template.
+## Commit message format
 
-<Tabs>
-<TabItem value="Bug" label="Bug report" className="bg-[#011627] p-[var(--ifm-pre-padding)] rounded overflow-hidden">
+This repo uses [Conventional Commits](https://www.conventionalcommits.org).
 
-**Describe the bug**
+```
+type(scope): Message in present tense
+```
 
-A clear and concise description of what the bug is.
+`type` may be one of:
 
-**To Reproduce**
+- **feat** (A new feature)
+- **fix** (A bug fix)
+- **docs** (Documentation only changes)
+- **style** (Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc))
+- **refactor** (A code change that neither fixes a bug nor adds a feature)
+- **perf** (A code change that improves performance)
+- **test** (Adding missing tests or correcting existing tests)
+- **chore** (Other changes that don't modify src or test file)
 
-Steps to reproduce the behavior:
+`scope` indicates the package affected by the commit:
 
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+- website
+- core
+- common
+- etc.
 
-**Expected behavior**
+If a commit affects more than one package, separate them with a comma:
 
-A clear and concise description of what you expected to happen.
+```shell
+fix(core,common): Fix the thing
+```
 
-**Environment (please complete the following information):**
+```shell
+You can use `yarn g:cz` to interactively prompt you on how to commit.
+```
 
-- @hyperse/track version:
-- Nodejs version
+If a commit applies to no particular package (e.g. a tooling change in the root package.json), the scope can be omitted.
 
-**Additional context**
+#### Breaking Changes
 
-Add any other context about the problem here.
-</TabItem>
-<TabItem value="Feature" label="Feature request" className="bg-[#011627] p-[var(--ifm-pre-padding)] rounded overflow-hidden">
+If your contribution includes any breaking changes (including any backwards-incompatible changes; backwards-incompatible changes to current behavior), please include a `BREAKING CHANGE` section in your commit message as per the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/#commit-message-with-both-and-breaking-change-footer).
 
-**Is your feature request related to a problem? Please describe.**
+Please also make your pull request against the `major` branch rather than `master` in the case of breaking changes.
 
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+Example:
 
-**Describe the solution you'd like**
+```shell
+feat(core): Add new field to Customer
 
-A clear and concise description of what you want to happen.
+Relates to #123. This commit adds the "foo" field to the Custom entity.
 
-**Describe alternatives you've considered**
+BREAKING CHANGE: A DB migration will be required in order to add the new "foo" field to the customer table.
+```
 
-A clear and concise description of any alternative solutions or features you've considered.
+#### Linting
 
-**Additional context**
+Commit messages are linted on commit, so you'll know if your message is not quite right.
 
-Add any other context or screenshots about the feature request here.
+## Setting up the dev environment
 
-</TabItem>
-</Tabs>
+After cloning the Hyperse repo, please follow the [Development guide](https://github.com/hyperse-io/track/blob/main/README.md#development) in the README for instructions on how to get up and running locally.
 
-## Create a Pull Request
+## Contributor License Agreement
 
-Contributing to projects through a pull request (PR) is a valuable way to improve existing documentation or code. This guide will walk you through the process step by step, ensuring clarity and ease of understanding, especially for those new to GitHub and git operations.
+All contributors are required to agree to the [Contributor License Agreement](https://github.com/hyperse-io/.github/blob/main/license/CLA.md) before their contributions can be merged.
 
-For complex operations, you can also check the [closed pull requests](https://github.com/hyperse-io/track/pulls?q=is%3Apr+is%3Aclosed) for grammar reference.
-
-### Local Development for Substantial Changes
-
-:::tip
-
-Refer to [Github's tutorial](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) if you are not familiar with git or Github operations.
-
-:::
-
-For more significant contributions like adding a new page or extensive revisions:
-
-1. Setting Up:
-
-   - Ensure you have [node.js](https://nodejs.org/en) (version `>= 18`) and [yarn](https://yarnpkg.com/getting-started/install) installed.
-   - Fork and clone the [hyperse-io/track](https://github.com/hyperse-io/track)repository. Detailed instructions for forking and cloning are available on GitHub's help pages.
-
-2. Making Changes Locally:
-
-- Run `yarn` in your terminal to preview the project.
-- Complete the place you need to change and provide the corresponding UT.
-- Run `yarn test` command to check whether the function is complete.
-- Navigate to the `website/**` folder and complete documentation for new features.
-
-3. Submitting Your Changes:
-
-- After making changes, run `npx changeset add` to improve the changelog.
-- Commit your changes with a meaningful message, then push to your forked repository. Initiate a pull request on GitHub by comparing your branch to the original repository.
-
-### Working on an Existing Issue
-
-To avoid overlapping efforts and streamline contributions, it is suggested to follow these steps:
-
-1. Check for Accepted Issues:
-
-- Look for issues labeled "ACCEPTED" or similarly indicating readiness for contributions. If unsure, ask in the issue comments.
-
-2. Announce Your Intentions:
-
-- Comment on the issue stating that you are working on it. This helps prevent duplicate efforts.
-
-3. (Optional)Link Your Contributions:
-
-- When committing your changes, reference the issue number in your commit message, e.g., `fix: typo. Ref #123456`.
+This is done via an automation bot which will prompt you to sign the CLA when you open a pull request.
