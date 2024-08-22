@@ -111,7 +111,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'link',
       label: 'LICENSE',
-      href: 'https://github.com/hyperse-io/track/blob/main/LICENSE',
+      href: 'https://github.com/hyperse-io/track/blob/main/LICENSE.md',
     },
     {
       type: 'doc',

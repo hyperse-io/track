@@ -12,7 +12,7 @@ Regardless of cjs for the time being. Track is a library based on esm implementa
 
 Track has transitioned to a new licensing model, which impacts how the software can be used, particularly in commercial settings. The new license aims to balance the needs of open-source community use with the commercial sustainability of the project.
 
-This change includes specifics on usage rights, redistribution, and potential costs for commercial entities. More information please see [LICENSE](https://github.com/hyperse-io/track/blob/main/LICENSE)
+This change includes specifics on usage rights, redistribution, and potential costs for commercial entities. More information please see [LICENSE](https://github.com/hyperse-io/track/blob/main/LICENSE.md)
 
 </details>
 

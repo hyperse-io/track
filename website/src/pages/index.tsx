@@ -5,13 +5,13 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
-import DynamicCoding from '@site/src/components/Amimate/DynamicCoding';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import LogoDark from '@site/static/img/logo-dark.svg';
 import LogoWhite from '@site/static/img/logo-white.svg';
 import Layout from '@theme/Layout';
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
+import DynamicCoding from '../components/Amimate/DynamicCoding';
 import styles from './index.module.css';
 
 function HomepageHeader() {
@@ -104,6 +104,7 @@ export default function Home() {
       title={`A typed, smart, scalable , powerful data collection engine written in typescript`}
       description={siteConfig.tagline}
     >
+      <div className={styles.topBackground} />
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 items-center">
         <HomepageHeader />
         <DynamicCoding />
