@@ -80,7 +80,9 @@ describe('test-track-error.spec', () => {
 
     adapterBuilder = defaultAdapterBuilder();
     adapter = adapterBuilder
-      .transform('previewGoods', () => {})
+      .transform('previewGoods', (ctx, eventType, eventData) => {
+        return eventData;
+      })
       .after(() => {
         throw new Error('after Error');
       })

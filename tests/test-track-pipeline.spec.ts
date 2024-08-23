@@ -49,23 +49,16 @@ describe('test-track-pipeline.spec', () => {
         console.log('before');
       })
       .transform('addCart', (ctx, eventType, eventData) => {
-        return {
-          ...eventData,
-          pay: {
-            payId: 'p123',
-            payName: 'Sample Pay',
-            payType: 'credit',
-          },
-          timeStamp: '2024-09-01T00:00:00Z',
-        };
+        return eventData;
       })
-      .transform('previewGoods', (ctx, eventType, eventData) => {})
-      .transform('registry', (ctx, eventType, eventData) => {})
-      .transform('timeStamp', (ctx, eventType, eventData) => {})
+      .transform('previewGoods', (ctx, eventType, eventData) => {
+        return eventData;
+      })
+      .transform('registry', (ctx, eventType, eventData) => eventData)
+      .transform('timeStamp', (ctx, eventType, eventData) => eventData)
       .after(async (ctx, eventType, eventData) => {
         console.log('after', eventData);
-      })
-      .build();
+      });
 
     const trackBuilder = createTrackBuilder<
       TrackContext<TrackData>,

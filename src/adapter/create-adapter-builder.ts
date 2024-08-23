@@ -13,15 +13,19 @@ import { AdapterBuilder } from './adapter-builder.js';
 export function createAdapterBuilder<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
-  AdapterOptions extends TrackAdapterOptions<Context, EventData>,
->(adapter: TrackAdapter<Context, EventData, AdapterOptions>) {
+  AdapterOptions extends TrackAdapterOptions<Context, EventData, RealEventData>,
+  RealEventData extends TrackEventDataBase = EventData,
+>(adapter: TrackAdapter<Context, EventData, AdapterOptions, RealEventData>) {
   if (!adapter) {
     throw new Error('Adapter is required');
   }
 
-  const adapterBuilder = new AdapterBuilder<Context, EventData, AdapterOptions>(
-    adapter
-  );
+  const adapterBuilder = new AdapterBuilder<
+    Context,
+    EventData,
+    AdapterOptions,
+    RealEventData
+  >(adapter);
 
   return adapterBuilder.init();
 }

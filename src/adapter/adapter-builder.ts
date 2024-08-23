@@ -2,8 +2,10 @@ import { UnionToTuple } from '../types/type-union-tuple.js';
 import {
   AdapterAfterFunction,
   AdapterBeforeFunction,
-  AdapterReportData,
   TrackAdapter,
+  TransformEventData,
+  TransformEventType,
+  TransformReturns,
 } from '../types/types-adapter.js';
 import { TrackAdapterOptions, TrackContext } from '../types/types-create.js';
 import { TrackEventDataBase } from '../types/types-track.js';
@@ -18,11 +20,19 @@ import { TrackEventDataBase } from '../types/types-track.js';
 export class AdapterBuilder<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
-  AdapterOptions extends TrackAdapterOptions<Context, EventData>,
+  AdapterOptions extends TrackAdapterOptions<Context, EventData, RealEventData>,
+  RealEventData extends TrackEventDataBase = EventData,
 > {
-  private adapter: TrackAdapter<Context, EventData, AdapterOptions>;
+  private adapter: TrackAdapter<
+    Context,
+    EventData,
+    AdapterOptions,
+    RealEventData
+  >;
 
-  constructor(_adapter: TrackAdapter<Context, EventData, AdapterOptions>) {
+  constructor(
+    _adapter: TrackAdapter<Context, EventData, AdapterOptions, RealEventData>
+  ) {
     this.adapter = _adapter;
   }
 
@@ -84,52 +94,69 @@ export class AdapterBuilder<
   }
 
   private mountTransformHook = <
-    Key extends keyof LeftEventData,
+    Key extends
+      | keyof LeftEventData
+      | [keyof LeftEventData, keyof RealEventData],
     LeftEventData = EventData,
   >(
     eventType: Key,
     fun: (
       ctx: Context,
-      eventType: Key,
-      eventData: LeftEventData[Key]
-    ) => AdapterReportData | Promise<AdapterReportData>
+      eventType: TransformEventType<Key, RealEventData, LeftEventData>,
+      eventData: TransformEventData<Key, RealEventData, LeftEventData>
+    ) => TransformReturns<Key, RealEventData, LeftEventData>
   ) => {
     this.adapter._mountTransformHook(
-      eventType as keyof EventData,
-      fun as (...args: any[]) => AdapterReportData | Promise<AdapterReportData>
+      eventType as keyof EventData | [keyof EventData, keyof RealEventData],
+      fun as (
+        ...args: any[]
+      ) => TransformReturns<keyof EventData, RealEventData, EventData>
     );
+
     const transform = <
-      RightKey extends keyof RightEventData,
-      RightEventData = Omit<LeftEventData, Key>,
+      RightKey extends
+        | keyof RightEventData
+        | [keyof RightEventData, keyof RealEventData],
+      RightEventData = Key extends keyof LeftEventData
+        ? Omit<LeftEventData, Key>
+        : Key extends [keyof LeftEventData, keyof RealEventData]
+          ? Omit<LeftEventData, Key[0]>
+          : never,
     >(
       eventType: RightKey,
       fun: (
         ctx: Context,
-        eventType: RightKey,
-        eventData: RightEventData[RightKey]
-      ) => AdapterReportData | Promise<AdapterReportData>
+        eventType: TransformEventType<RightKey, RealEventData, RightEventData>,
+        eventData: TransformEventData<RightKey, RealEventData, RightEventData>
+      ) => TransformReturns<RightKey, RealEventData, RightEventData>
     ) => {
       this.adapter._mountTransformHook(
-        eventType as keyof EventData,
+        eventType as keyof EventData | [keyof EventData, keyof RealEventData],
         fun as (
           ...args: any[]
-        ) => AdapterReportData | Promise<AdapterReportData>
+        ) => TransformReturns<keyof EventData, RealEventData, EventData>
       );
       return this.mountTransformHook<RightKey, RightEventData>(eventType, fun);
     };
+
     const result = {
       transform: transform,
       ...this.buildTransformChainer(),
     };
 
     return result as UnionToTuple<
-      Exclude<keyof LeftEventData, Key>
+      Exclude<
+        keyof LeftEventData,
+        TransformEventType<Key, RealEventData, LeftEventData>
+      >
     >['length'] extends 0
       ? ReturnType<typeof this.buildTransformChainer>
       : typeof result;
   };
 
-  private mountAfterHook = (fun: AdapterAfterFunction<Context, EventData>) => {
+  private mountAfterHook = (
+    fun: AdapterAfterFunction<Context, RealEventData, EventData>
+  ) => {
     this.adapter._mountAfterHook(fun);
     return this.buildAfterChainer();
   };

@@ -12,20 +12,29 @@ The `BaseAdapter` class defines two key methods:
 Both methods are meant to be extended in a concrete implementation of the `BaseAdapter` class.
 
 ```typescript title="Signature"
-export interface TrackAdapter<
+export abstract class BaseAdapter<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
-  AdapterOptions extends TrackAdapterOptions<Context, EventData>,
-> {
-   abstract isTrackable<EventType extends keyof EventData>(
+  AdapterOptions extends TrackAdapterOptions<Context, EventData, RealEventData>,
+  RealEventData extends TrackEventDataBase = EventData,
+> implements TrackAdapter<Context, EventData, AdapterOptions, RealEventData>
+{
+  abstract isTrackable<
+    EventType extends CheckUndefined<RealEventData, EventData>,
+  >(
     ctx: Context,
-    eventType: EventType,
-    eventData: EventData[EventType]
+    eventType: CheckUndefined<RealEventData, EventData>,
+    reportData?:
+      | AdapterReportData<RealEventData, EventData, EventType>
+      | Awaited<AdapterReportData<RealEventData, EventData, EventType>>
   ): boolean | Promise<boolean>;
 
-  protected report(
+  protected report<EventType extends CheckUndefined<RealEventData, EventData>>(
     ctx: Context,
-    reportData: AdapterReportData,
+    eventType: CheckUndefined<RealEventData, EventData>,
+    reportData?:
+      | AdapterReportData<RealEventData, EventData, EventType>
+      | Awaited<AdapterReportData<RealEventData, EventData, EventType>>,
     setupData?: Required<AdapterOptions>['setup'] extends (...args: any) => any
       ? Awaited<ReturnType<Required<AdapterOptions>['setup']>>
       : undefined
@@ -43,13 +52,13 @@ export interface TrackAdapter<
 
   The context in which the tracking is occurring. This typically includes details such as user information, environment, or other contextual data relevant to the tracking event.
 
-- **eventType** : `keyof EventData`
+- **eventType** : `keyof RealEventDataOption`
 
   The type of event being tracked. This is usually a key from the EventData that corresponds to specific events like click, purchase, etc.
 
-- **eventData** : `EventData[keyof EventData]`
+- **reportData** : `AdapterReportData<RealEventDataOption, EventDataOption, EventType> | Awaited<AdapterReportData<RealEventDataOption, EventDataOption, EventType>> | undefined`
 
-  The data associated with the event. This contains all relevant information for the specific event type.
+  The data that needs to be reported. This can include the event type, associated data, and any additional metadata that should be sent to the third-party service.
 
 #### Returns
 
@@ -62,13 +71,19 @@ Here’s an example implementation of `isTrackable` that only tracks `addCart` e
 ```typescript title="ReportAdapter.ts"
 export class ReportAdapter extends BaseAdapter<
   TrackContext<TrackData>,
-  EventData,
-  AdapterOptions<TrackContext<TrackData>, EventData>
+  EventDataOption,
+  AdapterOptions<TrackContext<TrackData>, EventDataOption, RealEventDataOption>,
+  RealEventDataOption
 > {
-  isTrackable<EventType extends keyof EventData>(
+  isTrackable<EventType extends keyof RealEventDataOption>(
     ctx: TrackContext<TrackData>,
-    eventType: EventType,
-    eventData: EventData[EventType]
+    eventType: keyof RealEventDataOption,
+    reportData?:
+      | AdapterReportData<RealEventDataOption, EventDataOption, EventType>
+      | Awaited<
+          AdapterReportData<RealEventDataOption, EventDataOption, EventType>
+        >
+      | undefined
   ): boolean | Promise<boolean> {
     return eventType === 'addCart';
   }
@@ -85,7 +100,11 @@ export class ReportAdapter extends BaseAdapter<
 
   The context in which the tracking is occurring. This typically includes details such as user information, environment, or other contextual data relevant to the tracking event.
 
-- **reportData** : `AdapterReportData`
+- **eventType** : `keyof RealEventDataOption`
+
+  The type of event being tracked. This is usually a key from the EventData that corresponds to specific events like click, purchase, etc.
+
+- **reportData** : `AdapterReportData<RealEventDataOption, EventDataOption, EventType> | Awaited<AdapterReportData<RealEventDataOption, EventDataOption, EventType>> | undefined`
 
   The data that needs to be reported. This can include the event type, associated data, and any additional metadata that should be sent to the third-party service.
 
@@ -106,15 +125,28 @@ Here’s an example implementation of the report method:
 ```typescript title="ReportAdapter.ts"
 export class ReportAdapter extends BaseAdapter<
   TrackContext<TrackData>,
-  EventData,
-  AdapterOptions<TrackContext<TrackData>, EventData>
+  EventDataOption,
+  AdapterOptions<TrackContext<TrackData>, EventDataOption, RealEventDataOption>,
+  RealEventDataOption
 > {
-    report(
-        ctx: TrackContext<TrackData>,
-        reportData: AdapterReportData,
-        setupData?: Awaited<ReturnType<AdapterOptions<TrackContext<TrackData>, EventData>['setup']>
-    ): void | Promise<void> {
-        // do something
-    }
+  protected report<EventType extends keyof RealEventDataOption>(
+    ctx: TrackContext<TrackData>,
+    eventType: keyof RealEventDataOption,
+    reportData?:
+      | AdapterReportData<RealEventDataOption, EventDataOption, EventType>
+      | Awaited<
+          AdapterReportData<RealEventDataOption, EventDataOption, EventType>
+        >
+      | undefined,
+    setupData?:
+      | {
+          name: 'setup' | 'setup1' | 'setup2';
+          timeStamp: number;
+          user?: string;
+        }
+      | undefined
+  ): void | Promise<void> {
+    //do something with the report data
+  }
 }
 ```
