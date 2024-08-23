@@ -45,6 +45,13 @@ describe('test-track-pipeline.spec', () => {
     >(adapter);
 
     adapterBuilder
+      .setup((ctx, eventType, eventData) => {
+        return Promise.resolve({
+          name: 'setup',
+          user: 'admin',
+          timeStamp: Date.now(),
+        });
+      })
       .before(async (ctx, eventType, eventData) => {
         console.log('before');
       })

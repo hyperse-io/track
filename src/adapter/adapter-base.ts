@@ -39,6 +39,16 @@ export abstract class BaseAdapter<
       | Awaited<AdapterReportData<RealEventData, EventData, EventType>>
   ): boolean | Promise<boolean>;
 
+  protected isEventOfReportDataEqual<
+    EventType extends CheckUndefined<RealEventData, EventData>,
+  >(
+    eventType: CheckUndefined<RealEventData, EventData>,
+    reportData: RealEventData[keyof RealEventData] | EventData[keyof EventData],
+    K: EventType
+  ): reportData is AdapterReportData<RealEventData, EventData, EventType> {
+    return eventType === K;
+  }
+
   protected report<EventType extends CheckUndefined<RealEventData, EventData>>(
     ctx: Context,
     eventType: CheckUndefined<RealEventData, EventData>,

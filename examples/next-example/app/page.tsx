@@ -54,6 +54,16 @@ export default function Home() {
       });
   };
 
+  const onAddToMultiCart = (item: GoodsRecord) => {
+    reportTrack()
+      .select('reportAdapter')
+      .track('addCartList', [
+        {
+          ...item,
+        },
+      ]);
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between gap-4">
       {mounted &&
@@ -76,7 +86,13 @@ export default function Home() {
                 </div>
                 <button
                   className="rounded-md bg-sky-800 py-2 text-gray-50 hover:bg-sky-700"
-                  onClick={() => onAddToCart(item)}
+                  onClick={() => {
+                    if (index % 2 === 1) {
+                      onAddToCart(item);
+                    } else {
+                      onAddToMultiCart(item);
+                    }
+                  }}
                 >
                   Add to cart
                 </button>

@@ -24,7 +24,7 @@ export class AnalyzerAdapter extends BaseAdapter<
         >
       | undefined
   ): boolean | Promise<boolean> {
-    return eventType !== '_timeStamp';
+    return !this.isEventOfReportDataEqual(eventType, reportData, '_timeStamp');
   }
 
   report<EventType extends keyof RealEventDataOption>(

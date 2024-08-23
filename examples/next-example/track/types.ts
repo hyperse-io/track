@@ -1,11 +1,13 @@
-export type ReportAdapterOptions<Context, EventData> = {
+import { CheckUndefined } from '@hyperse/track';
+
+export type ReportAdapterOptions<Context, EventData, RealEventData> = {
   setup?: <EventType extends keyof EventData>(
     ctx: Context,
-    eventTYpe: EventType,
+    eventType: CheckUndefined<RealEventData, EventData>,
     eventData: EventData[EventType]
-  ) => Promise<{
+  ) => {
     timeStamp: number;
-  }>;
+  };
 };
 
 export type ReportTrackData = {
@@ -22,6 +24,17 @@ export type ReportEventData = {
     userId: string;
   };
   addCart?: GoodsRecord;
+  addCartList: GoodsRecord[];
+};
+
+export type ReportRealEventData = {
+  pageView?: {
+    url: string;
+    timeStamp: number;
+    userName: string;
+    userId: string;
+  };
+  addCart?: GoodsRecord[];
 };
 
 export interface GoodsRecord {
