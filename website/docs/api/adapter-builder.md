@@ -189,7 +189,7 @@ The `after` hook is executed after the event has been reported. This is where yo
 adapterBuilder.after(
   (
     ctx: Context,
-    eventType: CheckUndefined<RealEventData, EventData>,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     reportData?:
       | AdapterReportData<RealEventData, EventData>
       | Awaited<AdapterReportData<RealEventData, EventData>>

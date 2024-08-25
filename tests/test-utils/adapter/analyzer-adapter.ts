@@ -1,7 +1,7 @@
 import {
   AdapterReportData,
   BaseAdapter,
-  CheckUndefined,
+  GetSafeRealEventTypes,
 } from '../../../src/index.js';
 import { TrackContext } from '../../../src/types/types-create.js';
 import { AdapterRealOptions } from '../types/type-adapter-options.js';
@@ -19,21 +19,21 @@ export class AnalyzerAdapter extends BaseAdapter<
   RealEventDataOption
 > {
   testIsEventOfReportDataEqual<
-    EventType extends
-      | CheckUndefined<RealEventDataOption, EventDataOption>
-      | CheckUndefined<RealEventDataOption, EventDataOption>[],
+    EventType extends GetSafeRealEventTypes<
+      RealEventDataOption,
+      EventDataOption
+    >,
   >(
-    eventType: CheckUndefined<RealEventDataOption, EventDataOption>,
+    eventType: GetSafeRealEventTypes<RealEventDataOption, EventDataOption>,
     reportData:
       | RealEventDataOption[keyof RealEventDataOption]
       | EventDataOption[keyof EventDataOption],
     realEventType: EventType
-  ): reportData is EventType extends CheckUndefined<
+  ): reportData is AdapterReportData<
     RealEventDataOption,
-    EventDataOption
-  >[]
-    ? AdapterReportData<RealEventDataOption, EventDataOption, EventType[number]>
-    : AdapterReportData<RealEventDataOption, EventDataOption, EventType> {
+    EventDataOption,
+    EventType
+  > {
     return this.isEventOfReportDataEqual(eventType, reportData, realEventType);
   }
 
@@ -47,9 +47,7 @@ export class AnalyzerAdapter extends BaseAdapter<
         >
       | undefined
   ): boolean | Promise<boolean> {
-    return !this.isEventOfReportDataEqual(eventType, reportData, [
-      '_timeStamp',
-    ]);
+    return !this.isEventOfReportDataEqual(eventType, reportData, '_timeStamp');
   }
 
   report<EventType extends keyof RealEventDataOption>(

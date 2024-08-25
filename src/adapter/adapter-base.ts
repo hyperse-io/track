@@ -5,7 +5,7 @@ import {
   AdapterBeforeFunction,
   AdapterReportData,
   AdapterTransformFunction,
-  CheckUndefined,
+  GetSafeRealEventTypes,
   TrackAdapter,
 } from '../types/types-adapter.js';
 import { TrackAdapterOptions, TrackContext } from '../types/types-create.js';
@@ -30,35 +30,30 @@ export abstract class BaseAdapter<
   private afterHook?: AdapterAfterFunction<Context, RealEventData, EventData>;
 
   abstract isTrackable<
-    EventType extends CheckUndefined<RealEventData, EventData>,
+    EventType extends GetSafeRealEventTypes<RealEventData, EventData>,
   >(
     ctx: Context,
-    eventType: CheckUndefined<RealEventData, EventData>,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     reportData?:
       | AdapterReportData<RealEventData, EventData, EventType>
       | Awaited<AdapterReportData<RealEventData, EventData, EventType>>
   ): boolean | Promise<boolean>;
 
   protected isEventOfReportDataEqual<
-    EventType extends
-      | CheckUndefined<RealEventData, EventData>
-      | CheckUndefined<RealEventData, EventData>[],
+    EventType extends GetSafeRealEventTypes<RealEventData, EventData>,
   >(
-    eventType: CheckUndefined<RealEventData, EventData>,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     reportData: RealEventData[keyof RealEventData] | EventData[keyof EventData],
     realEventType: EventType
-  ): reportData is EventType extends CheckUndefined<RealEventData, EventData>[]
-    ? AdapterReportData<RealEventData, EventData, EventType[number]>
-    : AdapterReportData<RealEventData, EventData, EventType> {
-    if (Array.isArray(realEventType)) {
-      return realEventType.map(String).includes(`${eventType}`);
-    }
+  ): reportData is AdapterReportData<RealEventData, EventData, EventType> {
     return eventType === realEventType;
   }
 
-  protected report<EventType extends CheckUndefined<RealEventData, EventData>>(
+  protected report<
+    EventType extends GetSafeRealEventTypes<RealEventData, EventData>,
+  >(
     ctx: Context,
-    eventType: CheckUndefined<RealEventData, EventData>,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     reportData?:
       | AdapterReportData<RealEventData, EventData, EventType>
       | Awaited<AdapterReportData<RealEventData, EventData, EventType>>,
@@ -108,26 +103,20 @@ export abstract class BaseAdapter<
   }
 
   private executeTransform = async <EventType extends keyof EventData>(
+    adapterName: string,
     ctx: Context,
     eventType: EventType,
     eventData: EventData[EventType]
   ) => {
-    if (Object.keys(this.transformHookMap).length < 1) {
-      ctx.logger?.warn('Adapter transform hook is not defined');
-      return {
-        reportData: eventData,
-        realEventType: eventType as unknown as CheckUndefined<
-          RealEventData,
-          EventData
-        >,
-      };
-    }
     const transformHook = this.transformHookMap[eventType];
 
     if (!transformHook) {
+      ctx.logger?.debug(
+        `Adapter ${adapterName}: transform hook is not defined`
+      );
       return {
         reportData: eventData,
-        realEventType: eventType as unknown as CheckUndefined<
+        realEventType: eventType as unknown as GetSafeRealEventTypes<
           RealEventData,
           EventData
         >,
@@ -143,19 +132,20 @@ export abstract class BaseAdapter<
 
     return {
       reportData,
-      realEventType: transformHook.realEventType as unknown as CheckUndefined<
-        RealEventData,
-        EventData
-      >,
+      realEventType:
+        transformHook.realEventType as unknown as GetSafeRealEventTypes<
+          RealEventData,
+          EventData
+        >,
     };
   };
 
   private executeReport = async <
-    EventType extends CheckUndefined<RealEventData, EventData>,
+    EventType extends GetSafeRealEventTypes<RealEventData, EventData>,
   >(
     adapterName: string,
     ctx: Context,
-    realEventType: CheckUndefined<RealEventData, EventData>,
+    realEventType: GetSafeRealEventTypes<RealEventData, EventData>,
     eventData: EventData[keyof EventData],
     reportData?:
       | AdapterReportData<RealEventData, EventData, EventType>
@@ -169,7 +159,7 @@ export abstract class BaseAdapter<
     );
 
     if (!isTrackable) {
-      ctx.logger?.warn(`Adapter is not trackable: ${adapterName}`);
+      ctx.logger?.warn(`Adapter ${adapterName}: is not trackable`);
       return;
     }
 
@@ -198,7 +188,8 @@ export abstract class BaseAdapter<
     await pipe(
       async () =>
         await executeFunction(this.beforeHook, ctx, eventType, eventData),
-      async () => await this.executeTransform(ctx, eventType, eventData),
+      async () =>
+        await this.executeTransform(adapterName, ctx, eventType, eventData),
       async ({ reportData, realEventType }) => {
         await this.executeReport(
           adapterName,

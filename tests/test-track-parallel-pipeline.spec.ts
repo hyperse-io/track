@@ -129,7 +129,7 @@ const mockAdapter = (
 ): [
   Mock<(ctx: any, reportData: any, setupData: any) => any>,
   Mock<(adapterName: string) => string>,
-  TrackAdapter<TrackContext<TrackData>, EventDataOption, any, EventDataOption>,
+  TrackAdapter<TrackContext<TrackData>, EventDataOption, any, any>,
 ] => {
   const reportAdapterBuilder = createAdapterBuilder<
     TrackContext<TrackData>,

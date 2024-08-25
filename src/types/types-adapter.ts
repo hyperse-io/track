@@ -22,7 +22,7 @@ export type TransformEventData<Key, RealEventData, EventData> =
       ? EventData[Key[0]]
       : never;
 
-export type CheckUndefined<RealEventData, EventData> =
+export type GetSafeRealEventTypes<RealEventData, EventData> =
   RealEventData extends undefined ? keyof EventData : keyof RealEventData;
 
 /**
@@ -31,7 +31,7 @@ export type CheckUndefined<RealEventData, EventData> =
 export type AdapterReportData<
   RealEventData,
   EventData,
-  EventType = CheckUndefined<RealEventData, EventData>,
+  EventType = GetSafeRealEventTypes<RealEventData, EventData>,
 > = EventType extends keyof EventData
   ? EventData[EventType]
   : EventType extends keyof RealEventData
@@ -59,7 +59,7 @@ export type AdapterBeforeFunction<Context, EventData> = (
  */
 export type AdapterAfterFunction<Context, RealEventData, EventData> = (
   ctx: Context,
-  eventType: CheckUndefined<RealEventData, EventData>,
+  eventType: GetSafeRealEventTypes<RealEventData, EventData>,
   reportData?:
     | AdapterReportData<RealEventData, EventData>
     | Awaited<AdapterReportData<RealEventData, EventData>>
@@ -136,7 +136,9 @@ export interface TrackAdapter<
    *                    it uses data from `EventData`; otherwise, it uses data from `RealEventData`.
    * @returns A boolean or a promise that resolves to a boolean indicating whether the event is trackable.
    */
-  isTrackable<EventType extends CheckUndefined<RealEventData, EventData>>(
+  isTrackable<
+    EventType extends GetSafeRealEventTypes<RealEventData, EventData>,
+  >(
     ctx: Context,
     eventType: EventType,
     reportData?:

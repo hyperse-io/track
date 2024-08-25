@@ -1,4 +1,5 @@
 import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
+import { createTrackBuilder } from '../src/index.js';
 import { TrackContext } from '../src/types/types-create.js';
 import { AnalyzerAdapter } from './test-utils/adapter/analyzer-adapter.js';
 import { ConsoleLogger } from './test-utils/console-logger.js';
@@ -331,6 +332,11 @@ describe('test-real-transform.spec', () => {
       eventData.timeStamp
     );
 
+    const trackBuilder = createTrackBuilder<
+      TrackContext<TrackData>,
+      EventDataOption
+    >();
+
     expect(isTrackableFun.mock.lastCall).toBeDefined();
     expect(isTrackableFun.mock.lastCall?.[0]).toMatchObject({
       data: trackData,
@@ -358,15 +364,7 @@ describe('test-real-transform.spec', () => {
       analyzerAdapter.testIsEventOfReportDataEqual(
         '_registry',
         eventData?.registry,
-        ['_registry']
-      )
-    ).toBeTruthy();
-
-    expect(
-      analyzerAdapter.testIsEventOfReportDataEqual(
-        '_registry',
-        eventData?.registry,
-        ['_addCart']
+        '_addCart'
       )
     ).toBe(false);
   });

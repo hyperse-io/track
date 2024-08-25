@@ -1,4 +1,4 @@
-import { CheckUndefined } from './types-adapter.js';
+import { GetSafeRealEventTypes } from './types-adapter.js';
 import { TrackLogger } from './types-logger.js';
 import { TrackEventDataBase } from './types-track.js';
 
@@ -64,7 +64,7 @@ export type TrackAdapterOptions<
    */
   setup?: <EventType extends keyof EventData>(
     ctx: Context,
-    eventType: CheckUndefined<RealEventData, EventData>,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     eventData: EventData[EventType]
   ) => any | Promise<any>;
 };

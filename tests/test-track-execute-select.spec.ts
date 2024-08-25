@@ -247,16 +247,16 @@ describe('test-track-execute-select.spec', () => {
     expect(print.mock.calls).toHaveLength(4);
     expect(print.mock.results).toHaveLength(4);
     expect(print.mock.results?.[0].value).toBe(
-      'Adapter is not trackable: analyzerAdapter'
+      'Adapter analyzerAdapter: is not trackable'
     );
     expect(print.mock.results?.[1].value).toBe(
-      'Adapter is not trackable: reportAdapter'
+      'Adapter reportAdapter: is not trackable'
     );
     expect(print.mock.results?.[2].value).toBe(
-      'Adapter is not trackable: logAdapter'
+      'Adapter logAdapter: is not trackable'
     );
     expect(print.mock.results?.[3].value).toBe(
-      'Adapter is not trackable: businessAdapter'
+      'Adapter businessAdapter: is not trackable'
     );
   });
 });

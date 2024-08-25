@@ -20,18 +20,20 @@ export abstract class BaseAdapter<
 > implements TrackAdapter<Context, EventData, AdapterOptions, RealEventData>
 {
   abstract isTrackable<
-    EventType extends CheckUndefined<RealEventData, EventData>,
+    EventType extends GetSafeRealEventTypes<RealEventData, EventData>,
   >(
     ctx: Context,
-    eventType: CheckUndefined<RealEventData, EventData>,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     reportData?:
       | AdapterReportData<RealEventData, EventData, EventType>
       | Awaited<AdapterReportData<RealEventData, EventData, EventType>>
   ): boolean | Promise<boolean>;
 
-  protected report<EventType extends CheckUndefined<RealEventData, EventData>>(
+  protected report<
+    EventType extends GetSafeRealEventTypes<RealEventData, EventData>,
+  >(
     ctx: Context,
-    eventType: CheckUndefined<RealEventData, EventData>,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     reportData?:
       | AdapterReportData<RealEventData, EventData, EventType>
       | Awaited<AdapterReportData<RealEventData, EventData, EventType>>,

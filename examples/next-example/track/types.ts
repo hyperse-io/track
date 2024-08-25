@@ -1,9 +1,9 @@
-import { CheckUndefined } from '@hyperse/track';
+import { GetSafeRealEventTypes } from '@hyperse/track';
 
 export type ReportAdapterOptions<Context, EventData, RealEventData> = {
   setup?: <EventType extends keyof EventData>(
     ctx: Context,
-    eventType: CheckUndefined<RealEventData, EventData>,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     eventData: EventData[EventType]
   ) => {
     timeStamp: number;

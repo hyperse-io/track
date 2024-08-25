@@ -58,5 +58,5 @@ export type TrackAdapterMap<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
 > = {
-  [name: string]: TrackAdapter<Context, EventData, any, EventData>;
+  [name: string]: TrackAdapter<Context, EventData, any, any>;
 };

@@ -1,4 +1,4 @@
-import { CheckUndefined } from '../../../src/index.js';
+import { GetSafeRealEventTypes } from '../../../src/index.js';
 
 export interface AdapterOptions<Context, EventData> {
   setup?: <EventType extends keyof EventData>(
@@ -15,7 +15,7 @@ export interface AdapterOptions<Context, EventData> {
 export type AdapterRealOptions<Context, EventData, RealEventData> = {
   setup?: <EventType extends keyof EventData>(
     ctx: Context,
-    eventType: CheckUndefined<RealEventData, EventData>,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     eventData: EventData[EventType]
   ) => {
     name: 'setup' | 'setup1' | 'setup2';
