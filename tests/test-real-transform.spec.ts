@@ -342,4 +342,32 @@ describe('test-real-transform.spec', () => {
     // The report function should not be called because the event type is not trackable
     expect(reportFun.mock.lastCall).toBeUndefined();
   });
+
+  it(`test IsEventOfReportDataEqual`, async () => {
+    reportFun.mockClear();
+    isTrackableFun.mockClear();
+    expect(
+      analyzerAdapter.testIsEventOfReportDataEqual(
+        '_registry',
+        eventData?.registry,
+        '_registry'
+      )
+    ).toBeTruthy();
+
+    expect(
+      analyzerAdapter.testIsEventOfReportDataEqual(
+        '_registry',
+        eventData?.registry,
+        ['_registry']
+      )
+    ).toBeTruthy();
+
+    expect(
+      analyzerAdapter.testIsEventOfReportDataEqual(
+        '_registry',
+        eventData?.registry,
+        ['_addCart']
+      )
+    ).toBe(false);
+  });
 });

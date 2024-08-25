@@ -30,14 +30,14 @@
 
 ## Coverage Report
 
-<table> <thead> <tr> <th align="center">Status</th> <th align="left">Category</th> <th align="right">Percentage</th> <th align="right">Covered / Total</th> </tr> </thead> <tbody> <tr> <td align="center">🔵</td> <td align="left">Lines</td> <td align="right">100%</td> <td align="right">185 / 185</td> </tr> <tr> <td align="center">🔵</td> <td align="left">Statements</td> <td align="right">100%</td> <td align="right">185 / 185</td> </tr> <tr> <td align="center">🔵</td> <td align="left">Functions</td> <td align="right">98.18%</td> <td align="right">54 / 55</td> </tr> <tr> <td align="center">🔵</td> <td align="left">Branches</td> <td align="right">93.75%</td> <td align="right">75 / 80</td> </tr> </tbody> </table>
+<table> <thead> <tr> <th align="center">Status</th> <th align="left">Category</th> <th align="right">Percentage</th> <th align="right">Covered / Total</th> </tr> </thead> <tbody> <tr> <td align="center">🔵</td> <td align="left">Lines</td> <td align="right">100%</td> <td align="right">191 / 191</td> </tr> <tr> <td align="center">🔵</td> <td align="left">Statements</td> <td align="right">100%</td> <td align="right">191 / 191</td> </tr> <tr> <td align="center">🔵</td> <td align="left">Functions</td> <td align="right">98.21%</td> <td align="right">55 / 56</td> </tr> <tr> <td align="center">🔵</td> <td align="left">Branches</td> <td align="right">93.02%</td> <td align="right">80 / 86</td> </tr> </tbody> </table>
 
 ## Prerequisites
 
 Before you begin, make sure you have the following installed:
 
-- Node.js (recommended version 16.x or higher)
-- npm (comes with Node.js)
+* Node.js (recommended version 16.x or higher)
+* npm (comes with Node.js)
 
 ## Installation
 
@@ -51,8 +51,8 @@ yarn add @hyperse/track
 
 ## Development
 
-> [!IMPORTANT]
-> The following instructions are for those who want to develop the hyperse related framework or plugins (e.g. if you intend to make a pull request). For instructions on how to build a project _using_ Hyperse, please see the [Getting Started guide](https://hyperse-io.github.io/track/docs/community/contributing).
+> \[!IMPORTANT]
+> The following instructions are for those who want to develop the hyperse related framework or plugins (e.g. if you intend to make a pull request). For instructions on how to build a project *using* Hyperse, please see the [Getting Started guide](https://hyperse-io.github.io/track/docs/community/contributing).
 
 ### 1. Clone project to the local directory
 
@@ -74,9 +74,9 @@ npm install
 
 The root directory has a `package.json` which contains build-related dependencies for tasks including:
 
-- Building & deploying the docs
-- Project for online presentation
-- Linting, formatting & testing tasks to run on git commit & push
+* Building & deploying the docs
+* Project for online presentation
+* Linting, formatting & testing tasks to run on git commit & push
 
 ### 3. Testing
 

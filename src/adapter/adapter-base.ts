@@ -20,7 +20,7 @@ export abstract class BaseAdapter<
 {
   private setupHook?: AdapterOptions['setup'];
   private beforeHook?: AdapterBeforeFunction<Context, EventData>;
-  transformHookMap: {
+  private transformHookMap: {
     [K in keyof EventData]?: {
       realEventType: keyof RealEventData | keyof EventData;
       execute: AdapterTransformFunction<Context, K, EventData, RealEventData>;

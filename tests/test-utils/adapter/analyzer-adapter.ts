@@ -1,4 +1,8 @@
-import { AdapterReportData, BaseAdapter } from '../../../src/index.js';
+import {
+  AdapterReportData,
+  BaseAdapter,
+  CheckUndefined,
+} from '../../../src/index.js';
 import { TrackContext } from '../../../src/types/types-create.js';
 import { AdapterRealOptions } from '../types/type-adapter-options.js';
 import { EventDataOption, RealEventDataOption } from '../types/type-event.js';
@@ -14,6 +18,25 @@ export class AnalyzerAdapter extends BaseAdapter<
   >,
   RealEventDataOption
 > {
+  testIsEventOfReportDataEqual<
+    EventType extends
+      | CheckUndefined<RealEventDataOption, EventDataOption>
+      | CheckUndefined<RealEventDataOption, EventDataOption>[],
+  >(
+    eventType: CheckUndefined<RealEventDataOption, EventDataOption>,
+    reportData:
+      | RealEventDataOption[keyof RealEventDataOption]
+      | EventDataOption[keyof EventDataOption],
+    realEventType: EventType
+  ): reportData is EventType extends CheckUndefined<
+    RealEventDataOption,
+    EventDataOption
+  >[]
+    ? AdapterReportData<RealEventDataOption, EventDataOption, EventType[number]>
+    : AdapterReportData<RealEventDataOption, EventDataOption, EventType> {
+    return this.isEventOfReportDataEqual(eventType, reportData, realEventType);
+  }
+
   isTrackable<EventType extends keyof RealEventDataOption>(
     ctx: TrackContext<TrackData>,
     eventType: keyof RealEventDataOption,
