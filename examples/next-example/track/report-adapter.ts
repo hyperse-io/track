@@ -26,10 +26,7 @@ export class ReportAdapter extends BaseAdapter<
         >
       | undefined
   ): boolean | Promise<boolean> {
-    return this.isEventOfReportDataEqual(eventType, reportData, [
-      'addCart',
-      'pageView',
-    ]);
+    return true;
   }
 
   protected report<EventType extends keyof ReportRealEventData>(
