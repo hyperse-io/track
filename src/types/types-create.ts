@@ -1,3 +1,4 @@
+import { GetSafeRealEventTypes } from './types-adapter.js';
 import { TrackLogger } from './types-logger.js';
 import { TrackEventDataBase } from './types-track.js';
 
@@ -44,10 +45,12 @@ export type TrackContext<TrackData> = {
  *
  * @template Context - The type of the track context.
  * @template EventData - The type of the track event data.
+ * @template RealEventData - The type of the real track event data.
  */
 export type TrackAdapterOptions<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
+  RealEventData extends TrackEventDataBase = EventData,
 > = {
   /**
    * The adapter hook Performs data consolidation against the rules defined by AdapterOptions
@@ -61,7 +64,7 @@ export type TrackAdapterOptions<
    */
   setup?: <EventType extends keyof EventData>(
     ctx: Context,
-    eventType: EventType,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
     eventData: EventData[EventType]
   ) => any | Promise<any>;
 };

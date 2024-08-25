@@ -7,6 +7,7 @@ import { ReportAdapter } from './report-adapter';
 import {
   ReportAdapterOptions,
   ReportEventData,
+  ReportRealEventData,
   ReportTrackData,
 } from './types';
 
@@ -16,35 +17,34 @@ export const reportTrack = () => {
   const adapterBuilder = createAdapterBuilder<
     TrackContext<ReportTrackData>,
     ReportEventData,
-    ReportAdapterOptions<TrackContext<ReportTrackData>, ReportEventData>
+    ReportAdapterOptions<
+      TrackContext<ReportTrackData>,
+      ReportEventData,
+      ReportRealEventData
+    >,
+    ReportRealEventData
   >(reportAdapter);
 
   const adapter = adapterBuilder
     .setup(() => {
-      return Promise.resolve({
-        name: 'setup',
+      return {
         timeStamp: Date.now(),
-      });
+      };
     })
     .before((ctx, eventType, eventData) => {
       console.log('before', ctx, eventType, eventData);
     })
-    .transform('addCart', (ctx, eventType, eventData) => {
-      return {
-        eventType,
-        goodName: 'ac_' + eventData?.goodsName,
-        goodsId: 'ac_' + eventData?.goodsId,
-        price: eventData?.price,
-      };
+    .transform(['addCart', 'addCart'], (ctx, eventType, eventData) => {
+      if (eventData) {
+        return [eventData];
+      }
+      return [];
+    })
+    .transform(['addCartList', 'addCart'], (ctx, eventType, eventData) => {
+      return eventData || [];
     })
     .transform('pv', (ctx, eventType, eventData) => {
-      return {
-        eventType,
-        url: eventData?.url,
-        timeStamp: 'pv_' + eventData?.timeStamp,
-        userName: 'pv_' + eventData?.userName,
-        userId: 'pv_' + eventData?.userId,
-      };
+      return eventData;
     })
     .after((ctx, eventType, reportData) => {
       console.log('after', ctx, eventType, reportData);

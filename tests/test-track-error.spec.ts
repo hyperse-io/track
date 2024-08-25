@@ -80,7 +80,9 @@ describe('test-track-error.spec', () => {
 
     adapterBuilder = defaultAdapterBuilder();
     adapter = adapterBuilder
-      .transform('previewGoods', () => {})
+      .transform('previewGoods', (ctx, eventType, eventData) => {
+        return eventData;
+      })
       .after(() => {
         throw new Error('after Error');
       })
@@ -98,7 +100,8 @@ describe('test-track-error.spec', () => {
     adapter: TrackAdapter<
       TrackContext<TrackData>,
       EventDataOption,
-      AdapterOptions<TrackContext<TrackData>, EventDataOption>
+      AdapterOptions<TrackContext<TrackData>, EventDataOption>,
+      EventDataOption
     >
   ) => {
     const logger = new ConsoleLogger();

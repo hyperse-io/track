@@ -103,8 +103,8 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'link',
-          label: 'Hyperse gh-pages starter',
-          href: 'https://hyperse-io.github.io/gh-pages-starter/',
+          label: 'Hyperse Docusaurus Starter',
+          href: 'https://hyperse-io.github.io/docusaurus-mono-starter/',
         },
       ],
     },

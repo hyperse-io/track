@@ -84,21 +84,30 @@ export class ReportAdapter extends BaseAdapter<
 > {
   isTrackable<EventType extends keyof ReportEventData>(
     ctx: TrackContext<ReportTrackData>,
-    eventType: EventType,
-    eventData: ReportEventData[EventType]
+    eventType: keyof ReportEventData,
+    reportData?:
+      | AdapterReportData<ReportEventData, ReportEventData, EventType>
+      | Awaited<AdapterReportData<ReportEventData, ReportEventData, EventType>>
+      | undefined
   ): boolean | Promise<boolean> {
     return true;
   }
 
-  protected report(
+  protected report<EventType extends keyof ReportEventData>(
     ctx: TrackContext<ReportTrackData>,
-    reportData: AdapterReportData,
+    eventType: keyof ReportEventData,
+    reportData?:
+      | AdapterReportData<ReportEventData, ReportEventData, EventType>
+      | Awaited<AdapterReportData<ReportEventData, ReportEventData, EventType>>
+      | undefined,
     setupData?:
-      | { name: 'setup' | 'setup2' | 'setup3'; timeStamp: number }
+      | {
+          name: 'setup' | 'setup1' | 'setup2';
+          timeStamp: number;
+          user?: string;
+        }
       | undefined
-  ): void | Promise<void> {
-    console.log('report', ctx, reportData, setupData);
-  }
+  ): void | Promise<void> {}
 }
 ```
 

@@ -7,8 +7,11 @@ class AdapterBuilder<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
   AdapterOptions extends TrackAdapterOptions<Context, EventData>,
+  RealEventData extends TrackEventDataBase = EventData,
 > {
-  constructor(adapter: TrackAdapter<Context, EventData, AdapterOptions>);
+  constructor(
+    adapter: TrackAdapter<Context, EventData, AdapterOptions, RealEventData>
+  );
 }
 ```
 
@@ -85,42 +88,47 @@ adapterBuilder.before(
 
 ### `transform`
 
-The `transform` hook allows you to modify the event data before it is sent to the tracking system. You can use this hook to change, enrich, or sanitize the event data.
+The `transform` hook allows you to modify the event data before it is sent to the tracking system. This hook is highly flexible, enabling you to change, enrich, or sanitize the event data according to your specific needs. It also supports scenarios where `RealEventData` is a mapped object of `EventData`.
 
 #### Parameters
 
-- **eventType** : `keyof EventData`
+- **eventType** : `keyof EventData | [keyof EventData, keyof RealEventData]`
 
-  The type of event being tracked. This is usually a key from the EventData that corresponds to specific events like click, purchase, etc.
+  The type of event being tracked. Typically, this is a key from the `EventData` that corresponds to specific events like click, purchase, etc. When `RealEventData` is used, it allows you to map the `EventData` to a corresponding event type in `RealEventData`.
 
 - **fun** : `(
   ctx: Context,
-  eventType: Key,
-  eventData: LeftEventData[Key]
+  eventType: EventType,
+  eventData: EventData[keyof EventType]
 ) => AdapterReportData | Promise<AdapterReportData>`
 
-  The function to transform the event data.
+  A function that transforms the event data. The function receives the event type and data, and should return the modified data, either directly or as a promise.
 
 #### Example
 
+The following examples illustrate how to use the `transform` hook to modify event data for different scenarios:
+
 ```typescript title="AdapterBuilder.ts"
+// Example 1: Simple event transformation for a single event type
+adapterBuilder.transform(
+  'addCart',
+  (
+    ctx: TrackContext<TrackData>,
+    eventType: 'addCart',
+    eventData: EventData['addCart']
+  ) => {
+    return {
+      ...eventData,
+      goodsName: 'ac_' + eventData?.goodsName,
+      timeStamp: Date.now(),
+    };
+  }
+);
+
+// Example 2: Using RealEventData to map and transform data between different event types
 adapterBuilder
   .transform(
-    'addCart',
-    (
-      ctx: TrackContext<TrackData>,
-      eventType: 'addCart',
-      eventData: EventData['addCart']
-    ) => {
-      return {
-        ...eventData,
-        goodName: 'ac_' + eventData?.goodsName,
-        timeStamp: Date.now(),
-      };
-    }
-  )
-  .transform(
-    'previewGoods',
+    ['previewGoods', '_previewGoods'],
     (
       ctx: TrackContext<TrackData>,
       eventType: 'previewGoods',
@@ -128,12 +136,34 @@ adapterBuilder
     ) => {
       return {
         ...eventData,
-        goodName: 'pg_' + eventData?.goodsName,
+        goodsName: 'pg_' + eventData?.goodsName,
+        timeStamp: Date.now(),
+      };
+    }
+  )
+  .transform(
+    ['checkout', '_checkout'],
+    (
+      ctx: TrackContext<TrackData>,
+      eventType: 'checkout',
+      eventData: RealEventData['_checkout']
+    ) => {
+      return {
+        ...eventData,
+        totalAmount: eventData.amount * 1.2, // Applying tax or additional charges
         timeStamp: Date.now(),
       };
     }
   );
 ```
+
+:::note
+• eventType: When using a tuple like [keyof EventData, keyof RealEventData], the first element should map to the key in EventData and the second to the corresponding key in RealEventData.
+
+• fun: Ensure the transformation function handles asynchronous operations properly when returning a `Promise<AdapterReportData>`.
+
+• This approach provides a flexible and powerful way to map and modify events, making it easier to adapt the event data for various tracking systems and scenarios.
+:::
 
 ### `after`
 
@@ -149,7 +179,7 @@ The `after` hook is executed after the event has been reported. This is where yo
 
   The type of event being tracked. This is usually a key from the EventData that corresponds to specific events like click, purchase, etc.
 
-- **reportData** : `AdapterReportData`
+- **reportData** : `AdapterReportData<RealEventDataOption, EventDataOption, EventType> | Awaited<AdapterReportData<RealEventDataOption, EventDataOption, EventType>> | undefined`
 
   The data that needs to be reported. This can include the event type, associated data, and any additional metadata that should be sent to the third-party service.
 
@@ -158,9 +188,11 @@ The `after` hook is executed after the event has been reported. This is where yo
 ```typescript title="AdapterBuilder.ts"
 adapterBuilder.after(
   (
-    ctx: TrackContext<TrackData>,
-    eventType: keyof EventData,
-    reportData: AdapterReportData
+    ctx: Context,
+    eventType: GetSafeRealEventTypes<RealEventData, EventData>,
+    reportData?:
+      | AdapterReportData<RealEventData, EventData>
+      | Awaited<AdapterReportData<RealEventData, EventData>>
   ) => {
     //do something
   }
