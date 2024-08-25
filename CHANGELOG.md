@@ -1,5 +1,11 @@
 # @hyperse/track
 
+## 1.0.3
+
+### Patch Changes
+
+- [#7](https://github.com/hyperse-io/track/pull/7) [`391c000`](https://github.com/hyperse-io/track/commit/391c000317034eae8f3d7e8fc5bd8219cddae700) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - 1、Supports mapping evenType based on RealEventData
+
 ## 1.0.2
 
 ### Patch Changes
