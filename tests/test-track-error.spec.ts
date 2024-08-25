@@ -100,7 +100,8 @@ describe('test-track-error.spec', () => {
     adapter: TrackAdapter<
       TrackContext<TrackData>,
       EventDataOption,
-      AdapterOptions<TrackContext<TrackData>, EventDataOption>
+      AdapterOptions<TrackContext<TrackData>, EventDataOption>,
+      EventDataOption
     >
   ) => {
     const logger = new ConsoleLogger();

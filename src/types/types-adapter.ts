@@ -88,7 +88,7 @@ export interface TrackAdapter<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
   AdapterOptions extends TrackAdapterOptions<Context, EventData, RealEventData>,
-  RealEventData extends TrackEventDataBase = EventData,
+  RealEventData extends TrackEventDataBase,
 > {
   /**
    * The adapter hook Performs data consolidation against the rules defined by AdapterOptions

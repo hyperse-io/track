@@ -7,8 +7,11 @@ class AdapterBuilder<
   Context extends TrackContext<any>,
   EventData extends TrackEventDataBase,
   AdapterOptions extends TrackAdapterOptions<Context, EventData>,
+  RealEventData extends TrackEventDataBase = EventData,
 > {
-  constructor(adapter: TrackAdapter<Context, EventData, AdapterOptions>);
+  constructor(
+    adapter: TrackAdapter<Context, EventData, AdapterOptions, RealEventData>
+  );
 }
 ```
 

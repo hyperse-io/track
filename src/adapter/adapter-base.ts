@@ -40,13 +40,20 @@ export abstract class BaseAdapter<
   ): boolean | Promise<boolean>;
 
   protected isEventOfReportDataEqual<
-    EventType extends CheckUndefined<RealEventData, EventData>,
+    EventType extends
+      | CheckUndefined<RealEventData, EventData>
+      | CheckUndefined<RealEventData, EventData>[],
   >(
     eventType: CheckUndefined<RealEventData, EventData>,
     reportData: RealEventData[keyof RealEventData] | EventData[keyof EventData],
-    K: EventType
-  ): reportData is AdapterReportData<RealEventData, EventData, EventType> {
-    return eventType === K;
+    realEventType: EventType
+  ): reportData is EventType extends CheckUndefined<RealEventData, EventData>[]
+    ? AdapterReportData<RealEventData, EventData, EventType[number]>
+    : AdapterReportData<RealEventData, EventData, EventType> {
+    if (Array.isArray(realEventType)) {
+      return realEventType.map(String).includes(`${eventType}`);
+    }
+    return eventType === realEventType;
   }
 
   protected report<EventType extends CheckUndefined<RealEventData, EventData>>(
