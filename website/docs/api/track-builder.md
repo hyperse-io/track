@@ -95,7 +95,7 @@ The `select` method is used to choose which adapters should be used during the t
 
   The context in which the tracking is occurring. This typically includes details such as user information, environment, or other contextual data relevant to the tracking event.
 
-- **adapterMap** : `Record<string, TrackAdapter<Context, EventData>>`
+- **adapterMap** : `Record<string, TrackAdapter<Context, EventData, AdapterOptions, RealEventData>>`
 
   A map of available adapters, where the key is the adapter name and the value is the adapter instance.
 
