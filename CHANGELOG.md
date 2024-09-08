@@ -1,5 +1,13 @@
 # @hyperse/track
 
+## 1.0.4
+
+### Patch Changes
+
+- [#10](https://github.com/hyperse-io/track/pull/10) [`7d69927`](https://github.com/hyperse-io/track/commit/7d69927595c7bd37cbd9683782d5d93f6fe60440) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - Fix to transform recursive call,typescript type missing
+
+- [#10](https://github.com/hyperse-io/track/pull/10) [`04964cf`](https://github.com/hyperse-io/track/commit/04964cf86f928be670e3f1fa800b72d23f300eef) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - fix typing
+
 ## 1.0.3
 
 ### Patch Changes
