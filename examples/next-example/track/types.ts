@@ -34,8 +34,8 @@ export type ReportRealEventData = {
     userName: string;
     userId: string;
   };
-  addCart?: GoodsRecord[];
-};
+  real_addCart?: GoodsRecord[];
+} & ReportEventData;
 
 export interface GoodsRecord {
   goodsName: string;

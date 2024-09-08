@@ -1,4 +1,3 @@
-import { UnionToTuple } from '../types/type-union-tuple.js';
 import {
   AdapterAfterFunction,
   AdapterBeforeFunction,
@@ -9,6 +8,7 @@ import {
 } from '../types/types-adapter.js';
 import { TrackAdapterOptions, TrackContext } from '../types/types-create.js';
 import { TrackEventDataBase } from '../types/types-track.js';
+import { TransformHook } from '../types/types-transform-hook.js';
 
 /**
  * A builder for creating a track adapter.
@@ -44,7 +44,12 @@ export class AdapterBuilder<
     return {
       setup: this.mountSetupHook,
       before: this.mountBeforeHook,
-      transform: this.mountTransformHook,
+      transform: this.mountTransformHook as TransformHook<
+        ReturnType<typeof this.buildTransformChainer>,
+        Context,
+        EventData,
+        RealEventData
+      >,
       build: this.executeBuild,
     };
   }
@@ -52,14 +57,24 @@ export class AdapterBuilder<
   private buildSetupChainer() {
     return {
       before: this.mountBeforeHook,
-      transform: this.mountTransformHook,
+      transform: this.mountTransformHook as TransformHook<
+        ReturnType<typeof this.buildTransformChainer>,
+        Context,
+        EventData,
+        RealEventData
+      >,
       build: this.executeBuild,
     };
   }
 
   private buildBeforeChainer() {
     return {
-      transform: this.mountTransformHook,
+      transform: this.mountTransformHook as TransformHook<
+        ReturnType<typeof this.buildTransformChainer>,
+        Context,
+        EventData,
+        RealEventData
+      >,
       build: this.executeBuild,
     };
   }
@@ -139,19 +154,10 @@ export class AdapterBuilder<
       return this.mountTransformHook<RightKey, RightEventData>(eventType, fun);
     };
 
-    const result = {
+    return {
       transform: transform,
       ...this.buildTransformChainer(),
     };
-
-    return result as UnionToTuple<
-      Exclude<
-        keyof LeftEventData,
-        TransformEventType<Key, RealEventData, LeftEventData>
-      >
-    >['length'] extends 0
-      ? ReturnType<typeof this.buildTransformChainer>
-      : typeof result;
   };
 
   private mountAfterHook = (

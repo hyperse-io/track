@@ -34,13 +34,13 @@ export const reportTrack = () => {
     .before((ctx, eventType, eventData) => {
       console.log('before', ctx, eventType, eventData);
     })
-    .transform(['addCart', 'addCart'], (ctx, eventType, eventData) => {
+    .transform(['addCart', 'real_addCart'], (ctx, eventType, eventData) => {
       if (eventData) {
         return [eventData];
       }
       return [];
     })
-    .transform(['addCartList', 'addCart'], (ctx, eventType, eventData) => {
+    .transform(['addCartList', 'real_addCart'], (ctx, eventType, eventData) => {
       return eventData || [];
     })
     .transform('pv', (ctx, eventType, eventData) => {
@@ -63,10 +63,8 @@ export const reportTrack = () => {
   });
 
   return trackBuilder
-    .init(() => {
-      return {
-        reportAdapter: adapter,
-      };
+    .init({
+      reportAdapter: adapter,
     })
     .before((ctx) => {
       console.log('before track', ctx);
