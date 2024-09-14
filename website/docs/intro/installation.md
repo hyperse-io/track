@@ -6,14 +6,8 @@
 
 ## Install
 
-```bash
+```bash npm2yarn
 npm install @hyperse/track --save
-```
-
-or you can use **yarn**
-
-```bash
-yarn add @hyperse/track
 ```
 
 We have completed installing the package.

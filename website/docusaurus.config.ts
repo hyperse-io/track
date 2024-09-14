@@ -1,5 +1,6 @@
 import { themes } from 'prism-react-renderer';
 import type * as Preset from '@docusaurus/preset-classic';
+import Mpm2yarn from '@docusaurus/remark-plugin-npm2yarn';
 import type { Config } from '@docusaurus/types';
 import type * as Plugin from '@docusaurus/types/src/plugin';
 import { copyrightConfig } from './copyright.config';
@@ -15,6 +16,9 @@ const config: Config = {
   favicon: '/icon/favicon.svg',
   organizationName: 'Hyperse',
   projectName: 'hyperse tracker',
+  markdown: {
+    format: 'mdx',
+  },
   presets: [
     [
       'classic',
@@ -23,6 +27,7 @@ const config: Config = {
           routeBasePath: '/docs',
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/hyperse-io/track',
+          remarkPlugins: [[Mpm2yarn, { sync: true }]],
         },
         blog: false,
         theme: {
@@ -68,6 +73,12 @@ const config: Config = {
           docId: 'intro/introducing',
           position: 'left',
           label: 'User Guide',
+        },
+        {
+          type: 'doc',
+          docId: 'plugins/google-adapter',
+          position: 'left',
+          label: 'Premium Plugins',
         },
         {
           href: 'https://www.npmjs.com/package/@hyperse/track',
@@ -146,6 +157,7 @@ const config: Config = {
       return {
         name: 'docusaurus-tailwindcss',
         configurePostCss(postcssOptions) {
+          console.log(postcssOptions);
           // Appends TailwindCSS and AutoPrefixer.
           postcssOptions.plugins.push(require.resolve('tailwindcss'));
           postcssOptions.plugins.push(require.resolve('autoprefixer'));

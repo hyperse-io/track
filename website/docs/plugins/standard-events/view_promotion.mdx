@@ -1,0 +1,63 @@
+---
+title: view_promotion
+description: view_promotion
+hide_table_of_contents: false
+toc_max_heading_level: 4
+---
+
+<NpmLink name="common" />
+This event signifies a promotion was viewed from a list.
+
+### currency
+
+<Property /> `string` <Required required />
+
+USD Currency of the items associated with the event, in 3-letter ISO 4217 format.
+
+If you set value then currency is required for revenue metrics to be computed accurately.
+
+### value
+
+<Property /> `number` <Required required />
+
+The monetary value of the event.
+
+- Set value to the sum of (price \* quantity) for all items in items. Don't include shipping or tax.
+- value is typically required for meaningful reporting. If you mark the event as a key event then it's recommended you set value.
+- currency is required if you set value.
+
+### creative_name
+
+<Property /> `string`
+
+The name of the promotional creative.
+
+### creative_slot
+
+<Property /> `string`
+
+The name of the promotional creative slot associated with the event.
+
+### promotion_id
+
+<Property /> `string`
+
+The ID of the promotion associated with the event.
+
+### promotion_name
+
+<Property /> `string`
+
+The name of the promotion associated with the event.
+
+### location_id
+
+<Property /> `string`
+
+The ID of the location.
+
+### items
+
+<Property /> [Item](../types/standard-goods-item.mdx)[] <Required required />
+
+The items for the event.
