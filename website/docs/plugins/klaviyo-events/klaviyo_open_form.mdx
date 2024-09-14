@@ -1,0 +1,33 @@
+---
+title: klaviyo_open_form
+description: klaviyo_open_form
+hide_table_of_contents: false
+toc_max_heading_level: 4
+---
+
+<FlexLayout>
+  <NpmLink name="klaviyo" noMarginBottom />
+  <Platform>Klaviyo</Platform>
+</FlexLayout>
+
+Access the open form code
+
+More information on the Klaviyo snippet can be found [Klaviyo](https://developers.klaviyo.com/en/docs/how_to_custom_trigger_a_popup_or_flyout_form#customize-the-open-form-code)
+
+:::tip
+
+**It is important to note the following:**
+
+- Your form must be live in order for it to open.
+
+- When a form has an ongoing A/B test, this API simply triggers the form’s display. It is your A/B testing logic, which is separate, that determines which variation displays.
+
+  If you have an A/B test where a variation of your form has a custom trigger, you will still need to add custom trigger code to your site.
+
+:::
+
+## Parameters
+
+<Property /> `string`
+
+The FormID will be the ID of your form, which can be found at the end of the form editor URL.
