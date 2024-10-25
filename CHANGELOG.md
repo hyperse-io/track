@@ -1,5 +1,12 @@
 # @hyperse/track
 
+## 1.0.5
+
+### Patch Changes
+
+- [#13](https://github.com/hyperse-io/track/pull/13) [`c54d1c6`](https://github.com/hyperse-io/track/commit/c54d1c6de91b21c1b783fe4f4cb025895c9368cd) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - 1、adjust ts rules
+  2、fix typing error
+
 ## 1.0.4
 
 ### Patch Changes
