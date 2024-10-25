@@ -1,10 +1,7 @@
-import {
-  createAdapterBuilder,
-  createTrackBuilder,
-  TrackContext,
-} from '@hyperse/track';
+import type { TrackContext } from '@hyperse/track';
+import { createAdapterBuilder, createTrackBuilder } from '@hyperse/track';
 import { ReportAdapter } from './report-adapter';
-import {
+import type {
   ReportAdapterOptions,
   ReportEventData,
   ReportRealEventData,
@@ -34,16 +31,16 @@ export const reportTrack = () => {
     .before((ctx, eventType, eventData) => {
       console.log('before', ctx, eventType, eventData);
     })
-    .transform(['addCart', 'real_addCart'], (ctx, eventType, eventData) => {
+    .transform(['addCart', 'real_addCart'], (_, __, eventData) => {
       if (eventData) {
         return [eventData];
       }
       return [];
     })
-    .transform(['addCartList', 'real_addCart'], (ctx, eventType, eventData) => {
+    .transform(['addCartList', 'real_addCart'], (_, __, eventData) => {
       return eventData || [];
     })
-    .transform('pv', (ctx, eventType, eventData) => {
+    .transform('pv', (_, __, eventData) => {
       return eventData;
     })
     .after((ctx, eventType, reportData) => {

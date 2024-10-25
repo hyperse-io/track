@@ -1,5 +1,5 @@
-import { TrackEventDataBase } from '../types/index.js';
-import {
+import type { TrackEventDataBase } from '../types/index.js';
+import type {
   TrackContext,
   TrackCreateDataFunction,
 } from '../types/types-create.js';

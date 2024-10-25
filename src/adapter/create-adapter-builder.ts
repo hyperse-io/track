@@ -1,6 +1,9 @@
-import { TrackAdapter } from '../types/types-adapter.js';
-import { TrackAdapterOptions, TrackContext } from '../types/types-create.js';
-import { TrackEventDataBase } from '../types/types-track.js';
+import type { TrackAdapter } from '../types/types-adapter.js';
+import type {
+  TrackAdapterOptions,
+  TrackContext,
+} from '../types/types-create.js';
+import type { TrackEventDataBase } from '../types/types-track.js';
 import { AdapterBuilder } from './adapter-builder.js';
 
 /**

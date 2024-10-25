@@ -1,7 +1,7 @@
 import { createTrackBuilder } from '../../../src/index.js';
-import { TrackContext } from '../../../src/types/types-create.js';
+import type { TrackContext } from '../../../src/types/types-create.js';
 import { ConsoleLogger } from '../console-logger.js';
-import { TrackData } from '../types/type-track-data.js';
+import type { TrackData } from '../types/type-track-data.js';
 
 export const defaultTackInstance = () => {
   const configuration = {

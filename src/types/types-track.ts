@@ -1,5 +1,5 @@
-import { TrackAdapter } from './types-adapter.js';
-import { TrackContext } from './types-create.js';
+import type { TrackAdapter } from './types-adapter.js';
+import type { TrackContext } from './types-create.js';
 
 /**
  * A function that is executed before tracking

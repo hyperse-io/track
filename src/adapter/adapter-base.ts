@@ -1,6 +1,6 @@
 import { pipe } from '@hyperse/pipeline';
 import { executeFunction } from '../helpers/helper-execute.js';
-import {
+import type {
   AdapterAfterFunction,
   AdapterBeforeFunction,
   AdapterReportData,
@@ -8,8 +8,11 @@ import {
   GetSafeRealEventTypes,
   TrackAdapter,
 } from '../types/types-adapter.js';
-import { TrackAdapterOptions, TrackContext } from '../types/types-create.js';
-import { TrackEventDataBase } from '../types/types-track.js';
+import type {
+  TrackAdapterOptions,
+  TrackContext,
+} from '../types/types-create.js';
+import type { TrackEventDataBase } from '../types/types-track.js';
 
 export abstract class BaseAdapter<
   Context extends TrackContext<any>,

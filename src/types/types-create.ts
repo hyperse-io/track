@@ -1,6 +1,6 @@
-import { GetSafeRealEventTypes } from './types-adapter.js';
-import { TrackLogger } from './types-logger.js';
-import { TrackEventDataBase } from './types-track.js';
+import type { GetSafeRealEventTypes } from './types-adapter.js';
+import type { TrackLogger } from './types-logger.js';
+import type { TrackEventDataBase } from './types-track.js';
 
 /**
  * A function that creates track data.

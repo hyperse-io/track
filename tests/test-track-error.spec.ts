@@ -1,11 +1,11 @@
 import { createTrackBuilder } from '../src/core/create-track-builder.js';
-import { TrackAdapter } from '../src/types/types-adapter.js';
-import { TrackContext } from '../src/types/types-create.js';
+import type { TrackAdapter } from '../src/types/types-adapter.js';
+import type { TrackContext } from '../src/types/types-create.js';
 import { defaultAdapterBuilder } from './test-utils/adapter/default-adapter-builder.js';
 import { ConsoleLogger } from './test-utils/console-logger.js';
-import { AdapterOptions } from './test-utils/types/type-adapter-options.js';
-import { EventDataOption } from './test-utils/types/type-event.js';
-import { TrackData } from './test-utils/types/type-track-data.js';
+import type { AdapterOptions } from './test-utils/types/type-adapter-options.js';
+import type { EventDataOption } from './test-utils/types/type-event.js';
+import type { TrackData } from './test-utils/types/type-track-data.js';
 
 describe('test-track-error.spec', () => {
   const trackData: TrackData = {

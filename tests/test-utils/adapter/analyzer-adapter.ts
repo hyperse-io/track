@@ -1,12 +1,15 @@
-import {
+import type {
   AdapterReportData,
-  BaseAdapter,
   GetSafeRealEventTypes,
 } from '../../../src/index.js';
-import { TrackContext } from '../../../src/types/types-create.js';
-import { AdapterRealOptions } from '../types/type-adapter-options.js';
-import { EventDataOption, RealEventDataOption } from '../types/type-event.js';
-import { TrackData } from '../types/type-track-data.js';
+import { BaseAdapter } from '../../../src/index.js';
+import type { TrackContext } from '../../../src/types/types-create.js';
+import type { AdapterRealOptions } from '../types/type-adapter-options.js';
+import type {
+  EventDataOption,
+  RealEventDataOption,
+} from '../types/type-event.js';
+import type { TrackData } from '../types/type-track-data.js';
 
 export class AnalyzerAdapter extends BaseAdapter<
   TrackContext<TrackData>,

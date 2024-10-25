@@ -1,5 +1,6 @@
-import { AdapterReportData, BaseAdapter, TrackContext } from '@hyperse/track';
-import {
+import type { AdapterReportData, TrackContext } from '@hyperse/track';
+import { BaseAdapter } from '@hyperse/track';
+import type {
   ReportAdapterOptions,
   ReportEventData,
   ReportRealEventData,
@@ -16,16 +17,7 @@ export class ReportAdapter extends BaseAdapter<
   >,
   ReportRealEventData
 > {
-  isTrackable<EventType extends keyof ReportRealEventData>(
-    ctx: TrackContext<ReportTrackData>,
-    eventType: keyof ReportRealEventData,
-    reportData?:
-      | AdapterReportData<ReportRealEventData, ReportEventData, EventType>
-      | Awaited<
-          AdapterReportData<ReportRealEventData, ReportEventData, EventType>
-        >
-      | undefined
-  ): boolean | Promise<boolean> {
+  isTrackable(): boolean | Promise<boolean> {
     return true;
   }
 

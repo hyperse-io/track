@@ -1,14 +1,14 @@
 import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
 import { createTrackBuilder } from '../src/index.js';
-import { TrackContext } from '../src/types/types-create.js';
+import type { TrackContext } from '../src/types/types-create.js';
 import { AnalyzerAdapter } from './test-utils/adapter/analyzer-adapter.js';
 import { ConsoleLogger } from './test-utils/console-logger.js';
-import { AdapterRealOptions } from './test-utils/types/type-adapter-options.js';
-import {
+import type { AdapterRealOptions } from './test-utils/types/type-adapter-options.js';
+import type {
   EventDataOption,
   RealEventDataOption,
 } from './test-utils/types/type-event.js';
-import { TrackData } from './test-utils/types/type-track-data.js';
+import type { TrackData } from './test-utils/types/type-track-data.js';
 
 describe('test-real-transform.spec', () => {
   const trackData: TrackData = {

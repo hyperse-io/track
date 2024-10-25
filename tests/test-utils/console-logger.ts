@@ -1,5 +1,5 @@
 import { DEFAULT_CONTEXT } from '../../src/index.js';
-import { TrackLogger } from '../../src/types/types-logger.js';
+import type { TrackLogger } from '../../src/types/types-logger.js';
 
 const ensureString = (message: any): string => {
   return typeof message === 'string'
