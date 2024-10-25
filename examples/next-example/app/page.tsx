@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import mockjs from 'mockjs';
 import { reportTrack } from '@/track/track';
-import { GoodsRecord } from '@/track/types';
+import type { GoodsRecord } from '@/track/types';
 import { fetchGoodsList } from './service';
 
 export default function Home() {

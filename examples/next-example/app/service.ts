@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-import { GoodsRecord } from '@/track/types';
+import type { GoodsRecord } from '@/track/types';
 
 export const fetchGoodsList = (): GoodsRecord[] => {
   const data = Mock.mock({

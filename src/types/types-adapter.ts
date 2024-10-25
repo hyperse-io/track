@@ -1,5 +1,5 @@
-import { TrackAdapterOptions, TrackContext } from './types-create.js';
-import { TrackEventDataBase } from './types-track.js';
+import type { TrackAdapterOptions, TrackContext } from './types-create.js';
+import type { TrackEventDataBase } from './types-track.js';
 
 export type TransformReturns<Key, RealEventData, EventData> =
   Key extends keyof EventData

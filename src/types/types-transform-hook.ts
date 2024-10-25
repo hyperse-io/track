@@ -1,11 +1,11 @@
-import { UnionToTuple } from './type-union-tuple.js';
-import {
+import type { UnionToTuple } from './type-union-tuple.js';
+import type {
   TransformEventData,
   TransformEventType,
   TransformReturns,
 } from './types-adapter.js';
-import { TrackContext } from './types-create.js';
-import { TrackEventDataBase } from './types-track.js';
+import type { TrackContext } from './types-create.js';
+import type { TrackEventDataBase } from './types-track.js';
 
 /**
  * Represents the return type of the TransformHookReturns function.

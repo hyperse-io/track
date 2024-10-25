@@ -1,4 +1,4 @@
-import { GetSafeRealEventTypes } from '@hyperse/track';
+import type { GetSafeRealEventTypes } from '@hyperse/track';
 
 export type ReportAdapterOptions<Context, EventData, RealEventData> = {
   setup?: <EventType extends keyof EventData>(

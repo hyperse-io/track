@@ -1,4 +1,4 @@
-import { GetSafeRealEventTypes } from '../../../src/index.js';
+import type { GetSafeRealEventTypes } from '../../../src/index.js';
 
 export interface AdapterOptions<Context, EventData> {
   setup?: <EventType extends keyof EventData>(

@@ -1,5 +1,5 @@
-import { TrackContext } from '../types/types-create.js';
-import {
+import type { TrackContext } from '../types/types-create.js';
+import type {
   TrackAdapterMap,
   TrackEventDataBase,
   TrackSelectFunction,

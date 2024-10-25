@@ -5,12 +5,12 @@ import { deepMerge } from '../helpers/helper-deep-merge.js';
 import { executeFunction } from '../helpers/helper-execute.js';
 import { isFunction } from '../helpers/helper-is-function.js';
 import { executeSelect } from '../helpers/helper-select-adapter.js';
-import {
+import type {
   TrackContext,
   TrackCreateDataFunction,
   TrackCreateOptions,
 } from '../types/types-create.js';
-import {
+import type {
   TrackAdapterMap,
   TrackAfterFunction,
   TrackBeforeFunction,

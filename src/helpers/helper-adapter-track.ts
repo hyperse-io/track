@@ -1,5 +1,8 @@
-import { TrackContext } from '../types/types-create.js';
-import { TrackAdapterMap, TrackEventDataBase } from '../types/types-track.js';
+import type { TrackContext } from '../types/types-create.js';
+import type {
+  TrackAdapterMap,
+  TrackEventDataBase,
+} from '../types/types-track.js';
 
 /**
  * Executes the track function of each adapter in the adapterMap for the given eventType and result.

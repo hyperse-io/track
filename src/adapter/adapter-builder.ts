@@ -1,4 +1,4 @@
-import {
+import type {
   AdapterAfterFunction,
   AdapterBeforeFunction,
   TrackAdapter,
@@ -6,9 +6,12 @@ import {
   TransformEventType,
   TransformReturns,
 } from '../types/types-adapter.js';
-import { TrackAdapterOptions, TrackContext } from '../types/types-create.js';
-import { TrackEventDataBase } from '../types/types-track.js';
-import { TransformHook } from '../types/types-transform-hook.js';
+import type {
+  TrackAdapterOptions,
+  TrackContext,
+} from '../types/types-create.js';
+import type { TrackEventDataBase } from '../types/types-track.js';
+import type { TransformHook } from '../types/types-transform-hook.js';
 
 /**
  * A builder for creating a track adapter.

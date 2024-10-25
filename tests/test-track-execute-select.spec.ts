@@ -1,10 +1,10 @@
 import { executeSelect } from '../src/helpers/helper-select-adapter.js';
 import { createTrackBuilder } from '../src/index.js';
-import { TrackContext } from '../src/types/types-create.js';
+import type { TrackContext } from '../src/types/types-create.js';
 import { defaultAdapter } from './test-utils/adapter/default-adapter.js';
 import { ConsoleLogger } from './test-utils/console-logger.js';
-import { EventDataOption } from './test-utils/types/type-event.js';
-import { TrackData } from './test-utils/types/type-track-data.js';
+import type { EventDataOption } from './test-utils/types/type-event.js';
+import type { TrackData } from './test-utils/types/type-track-data.js';
 
 describe('test-track-execute-select.spec', () => {
   const ctx = {

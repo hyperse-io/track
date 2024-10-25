@@ -1,12 +1,12 @@
-import { Mock } from 'vitest';
+import type { Mock } from 'vitest';
 import { createAdapterBuilder } from '../src/adapter/create-adapter-builder.js';
 import { createTrackBuilder } from '../src/core/create-track-builder.js';
-import { TrackAdapter } from '../src/types/types-adapter.js';
-import { TrackContext } from '../src/types/types-create.js';
+import type { TrackAdapter } from '../src/types/types-adapter.js';
+import type { TrackContext } from '../src/types/types-create.js';
 import { ReportAdapter } from './test-utils/adapter/report-adapter.js';
-import { AdapterOptions } from './test-utils/types/type-adapter-options.js';
-import { EventDataOption } from './test-utils/types/type-event.js';
-import { TrackData } from './test-utils/types/type-track-data.js';
+import type { AdapterOptions } from './test-utils/types/type-adapter-options.js';
+import type { EventDataOption } from './test-utils/types/type-event.js';
+import type { TrackData } from './test-utils/types/type-track-data.js';
 
 describe('test-track-pipeline.spec', () => {
   const eventData: EventDataOption = {

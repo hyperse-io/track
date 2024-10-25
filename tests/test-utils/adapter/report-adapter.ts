@@ -1,8 +1,9 @@
-import { AdapterReportData, BaseAdapter } from '../../../src/index.js';
-import { TrackContext } from '../../../src/types/types-create.js';
-import { AdapterOptions } from '../types/type-adapter-options.js';
-import { EventDataOption } from '../types/type-event.js';
-import { TrackData } from '../types/type-track-data.js';
+import type { AdapterReportData } from '../../../src/index.js';
+import { BaseAdapter } from '../../../src/index.js';
+import type { TrackContext } from '../../../src/types/types-create.js';
+import type { AdapterOptions } from '../types/type-adapter-options.js';
+import type { EventDataOption } from '../types/type-event.js';
+import type { TrackData } from '../types/type-track-data.js';
 
 export class ReportAdapter extends BaseAdapter<
   TrackContext<TrackData>,
