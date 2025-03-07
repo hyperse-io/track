@@ -4,13 +4,13 @@
     "baseUrl": ".",
     "rootDir": ".",
     "outDir": "dist",
-    "types": ["vitest/globals"],
     "paths": {
       "@/*": ["./src/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "types": ["vitest/globals", "node"]
   },
   "exclude": [
     "**/node_modules",
