@@ -1,5 +1,11 @@
 # @hyperse/track
 
+## 1.0.6
+
+### Patch Changes
+
+- [#15](https://github.com/hyperse-io/track/pull/15) [`fca9709`](https://github.com/hyperse-io/track/commit/fca97093bd3caa9d28c9e6283f1f7b5fea0f33ea) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - upgrade dependencies and configuration for build and development
+
 ## 1.0.5
 
 ### Patch Changes
