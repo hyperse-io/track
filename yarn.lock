@@ -4743,7 +4743,7 @@ __metadata:
   resolution: "@hyperse/next-example@workspace:examples/next-example"
   dependencies:
     "@hyperse/eslint-config-hyperse": "npm:1.2.11"
-    "@hyperse/track": "npm:^1.0.5"
+    "@hyperse/track": "npm:1.0.5"
     "@types/mockjs": "npm:^1"
     "@types/node": "npm:22.13.9"
     "@types/react": "npm:19.0.10"
@@ -4809,7 +4809,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@hyperse/track@npm:^1.0.5":
+"@hyperse/track@npm:1.0.5":
   version: 1.0.5
   resolution: "@hyperse/track@npm:1.0.5"
   dependencies:
