@@ -4743,7 +4743,7 @@ __metadata:
   resolution: "@hyperse/next-example@workspace:examples/next-example"
   dependencies:
     "@hyperse/eslint-config-hyperse": "npm:1.2.11"
-    "@hyperse/track": "npm:1.0.5"
+    "@hyperse/track": "npm:1.0.4"
     "@types/mockjs": "npm:^1"
     "@types/node": "npm:22.13.9"
     "@types/react": "npm:19.0.10"
@@ -4809,12 +4809,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@hyperse/track@npm:1.0.5":
-  version: 1.0.5
-  resolution: "@hyperse/track@npm:1.0.5"
+"@hyperse/track@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@hyperse/track@npm:1.0.4"
   dependencies:
     "@hyperse/pipeline": "npm:^1.0.4"
-  checksum: 10/f9e0af97c526f5b9b3570bfeb31e81ef99d0c40e61edc16817a1d1284e3519c69aafd01d91d8e2f71917172165458c066af48fe959e415ea0cd946f4809723cd
+  checksum: 10/c92af33ae17c45bc9f99b0d6245b5480e51c2b130870998a2122b462c886bb100c5a8f213bc6ebdd4909d25447adc22e422b16953249c98fe38df34287e73076
   languageName: node
   linkType: hard
 

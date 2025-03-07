@@ -21,7 +21,7 @@
     }
   },
   "dependencies": {
-    "@hyperse/track": "1.0.5",
+    "@hyperse/track": "1.0.4",
     "@types/node": "22.13.9",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
