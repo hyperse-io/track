@@ -48,7 +48,7 @@ export class AdapterBuilder<
       setup: this.mountSetupHook,
       before: this.mountBeforeHook,
       transform: this.mountTransformHook as TransformHook<
-        ReturnType<typeof this.buildTransformChainer>,
+        ReturnType<typeof AdapterBuilder.prototype.buildTransformChainer>,
         Context,
         EventData,
         RealEventData
@@ -61,7 +61,7 @@ export class AdapterBuilder<
     return {
       before: this.mountBeforeHook,
       transform: this.mountTransformHook as TransformHook<
-        ReturnType<typeof this.buildTransformChainer>,
+        ReturnType<typeof AdapterBuilder.prototype.buildTransformChainer>,
         Context,
         EventData,
         RealEventData
@@ -73,7 +73,7 @@ export class AdapterBuilder<
   private buildBeforeChainer() {
     return {
       transform: this.mountTransformHook as TransformHook<
-        ReturnType<typeof this.buildTransformChainer>,
+        ReturnType<typeof AdapterBuilder.prototype.buildTransformChainer>,
         Context,
         EventData,
         RealEventData

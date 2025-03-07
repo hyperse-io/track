@@ -6,5 +6,10 @@
     "moduleResolution": "nodenext",
     "paths": {}
   },
-  "exclude": ["**/*.stories.tsx", "**/*.stories.mdx", ".storybook/**", "dist"]
+  "exclude": [
+    "**/*.stories.tsx",
+    "**/*.stories.mdx",
+    ".storybook/**",
+    "**/*.d.ts"
+  ]
 }
