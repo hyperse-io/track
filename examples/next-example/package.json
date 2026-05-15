@@ -21,23 +21,22 @@
     }
   },
   "dependencies": {
-    "@hyperse/track": "1.0.6",
-    "@types/node": "22.13.9",
-    "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4",
-    "autoprefixer": "10.4.20",
-    "eslint": "^9.21.0",
-    "eslint-config-next": "15.2.1",
-    "next": "15.2.4",
-    "postcss": "8.5.3",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "tailwindcss": "^3.4.14",
-    "typescript": "5.8.2"
+    "@hyperse/track": "1.1.0",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "@hyperse/eslint-config-hyperse": "1.2.11",
+    "@hyperse/eslint-config-hyperse": "1.7.3",
+    "@tailwindcss/postcss": "^4.2.4",
     "@types/mockjs": "^1",
-    "mockjs": "^1.1.0"
+    "@types/node": "25.8.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "eslint": "^10.3.0",
+    "mockjs": "^1.1.0",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^4.2.4",
+    "typescript": "6.0.3"
   }
 }

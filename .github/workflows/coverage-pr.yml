@@ -7,26 +7,31 @@ jobs:
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24.x]
     steps:
-      - uses: actions/checkout@v4
-      - name: "Install Node"
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v5
         with:
-          node-version: "20.x"
-      - name: 📥 Install Dependencies
-        run: yarn --frozen-lockfile
+          node-version: ${{ matrix.node-version }}
+          package-manager-cache: false
 
-      - name: "Build"
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
+
+      - name: Build
         run: yarn build
 
-      - name: run coverage
+      - name: Run coverage
         run: yarn test:coverage
 
-        # Remove node_modules to see if this action runs entirely compiled
-      - name: "Remove Node Modules"
+      # Remove node_modules to see if this action runs entirely compiled
+      - name: Remove node_modules
         run: rm -rf node_modules
 
-      - name: "PR Test Reports"
+      - name: PR Test Reports
         uses: hyperse-io/vitest-coverage-reporter@v1.0.13
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

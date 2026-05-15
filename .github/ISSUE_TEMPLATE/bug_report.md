@@ -3,7 +3,7 @@ name: Bug report
 about: Something not working as it should
 title: ""
 labels: "type: bug \U0001F41B"
-assignees: tianyingchun
+assignees: hyperse-net
 ---
 
 **Describe the bug**
@@ -22,8 +22,8 @@ A clear and concise description of what you expected to happen.
 
 **Environment (please complete the following information):**
 
-- @hyperse/track version:
-- Nodejs version
+- @hyperse/* version:
+- Nodejs version:
 
 **Additional context**
 Add any other context about the problem here.

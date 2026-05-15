@@ -1,0 +1,78 @@
+name: CI-track
+
+on:
+  push:
+    branches:
+      - main
+      - major
+      - minor
+      - dev
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'examples/**'
+      - 'package.json'
+      - '*.lock'
+      - '.yarnrc.yml'
+      - 'tsconfig*.json'
+      - 'tsdown.config.ts'
+      - 'vitest.config.ts'
+      - '.prettier*'
+      - '.github/**'
+
+  pull_request:
+    branches:
+      - main
+      - major
+      - minor
+      - dev
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'examples/**'
+      - 'package.json'
+      - '*.lock'
+      - '.yarnrc.yml'
+      - 'tsconfig*.json'
+      - 'tsdown.config.ts'
+      - 'vitest.config.ts'
+      - '.prettier*'
+      - '.github/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24.x]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+          package-manager-cache: false
+
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
+
+      - name: Typecheck
+        run: |
+          yarn typecheck
+
+      - name: Linter
+        run: |
+          yarn lint
+
+      - name: Unit tests
+        run: |
+          yarn test
+
+      - name: Build
+        run: |
+          yarn build

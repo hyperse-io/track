@@ -1,4 +1,4 @@
-name: CI-unitest
+name: CI-integrity
 
 on:
   push:
@@ -6,15 +6,11 @@ on:
       - main
       - major
       - minor
-      - dev
-    # Only consider those paths to trigger the action
     paths:
-      - 'packages/**'
       - 'package.json'
       - '*.lock'
       - '.yarnrc.yml'
-      - 'tsconfig.base.json'
-      - '.prettier*'
+      - 'constraints.pro'
       - '.github/**'
 
   pull_request:
@@ -22,46 +18,39 @@ on:
       - main
       - major
       - minor
-      - dev
     types:
       - opened
       - synchronize
       - reopened
-    # Only consider those paths to trigger the action
     paths:
-      - 'packages/**'
       - 'package.json'
       - '*.lock'
       - '.yarnrc.yml'
-      - 'tsconfig.base.json'
-      - '.prettier*'
+      - 'constraints.pro'
       - '.github/**'
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [24.x]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
+          package-manager-cache: false
 
-      - name: 📥 Install Dependencies
-        run: yarn --frozen-lockfile
+      - name: 📥 Monorepo install
+        uses: ./.github/actions/yarn-nm-install
 
-      - name: Linter
+      - name: Check for duplicate dependencies in lock file
         run: |
-          yarn lint
+          yarn dedupe --check
 
-      #  build first then exec unit tests
-      - name: Unit tests
+      - name: Check for yarn constraints.pro
         run: |
-          yarn test
-
-      - name: Build
-        run: |
-          yarn build
+          yarn constraints
