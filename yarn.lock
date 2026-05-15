@@ -1550,7 +1550,7 @@ __metadata:
   resolution: "@hyperse/next-example@workspace:examples/next-example"
   dependencies:
     "@hyperse/eslint-config-hyperse": "npm:1.7.3"
-    "@hyperse/track": "npm:1.0.6"
+    "@hyperse/track": "npm:1.1.0"
     "@tailwindcss/postcss": "npm:^4.2.4"
     "@types/mockjs": "npm:^1"
     "@types/node": "npm:25.8.0"
@@ -1567,7 +1567,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@hyperse/pipeline@npm:^1.0.5, @hyperse/pipeline@npm:^1.0.6":
+"@hyperse/pipeline@npm:^1.0.6":
   version: 1.0.6
   resolution: "@hyperse/pipeline@npm:1.0.6"
   dependencies:
@@ -1618,16 +1618,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@hyperse/track@npm:1.0.6":
-  version: 1.0.6
-  resolution: "@hyperse/track@npm:1.0.6"
-  dependencies:
-    "@hyperse/pipeline": "npm:^1.0.5"
-  checksum: 10/85a0d3b8ca1757b08b513f50de6695f10e1179a06ffa0c5fde82bdab4e8161431bcc55564dba609019cf078f00686b6356c12bcb4be66f3b5c68934a943d86db
-  languageName: node
-  linkType: hard
-
-"@hyperse/track@workspace:.":
+"@hyperse/track@npm:1.1.0, @hyperse/track@workspace:.":
   version: 0.0.0-use.local
   resolution: "@hyperse/track@workspace:."
   dependencies:

@@ -60,11 +60,10 @@ const navbar = (
       <div className="flex items-center gap-2">
         <NextImage
           src={`${SITE_BASE_PATH}/logo.svg`}
-          alt=""
-          width={15}
-          height={22}
-          className="h-[22px] w-auto shrink-0 rounded-sm"
-          style={{ width: 'auto', height: 22 }}
+          alt="Hyperse Track"
+          width={24}
+          height={24}
+          className="h-6 w-6 shrink-0"
         />
         <span className="font-semibold text-white">Track</span>
       </div>

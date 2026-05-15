@@ -14,10 +14,9 @@ export const SiteFooter = () => {
               <Image
                 src={`${SITE_BASE_PATH}/logo.svg`}
                 alt="Hyperse Track"
-                width={16}
-                height={24}
-                className="h-6 w-auto shrink-0"
-                style={{ width: 'auto', height: 24 }}
+                width={28}
+                height={28}
+                className="h-7 w-7 shrink-0"
               />
               <span className="text-xl font-bold text-white">Track</span>
             </div>
