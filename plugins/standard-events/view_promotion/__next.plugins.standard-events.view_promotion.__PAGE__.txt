@@ -1,0 +1,93 @@
+1:"$Sreact.fragment"
+2:I[55169,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"TOCProvider"]
+3:I[769,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"Sidebar"]
+4:I[47486,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"ClientWrapper"]
+6:I[63894,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"HeadingAnchor"]
+1f:I[22016,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],""]
+20:I[97367,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"OutletBoundary"]
+21:"$Sreact.suspense"
+5:T501,---
+description: view_promotion
+---
+
+<NpmLink name="common" />
+This event signifies a promotion was viewed from a list.
+
+### currency
+
+<Property /> `string` <Required required />
+
+USD Currency of the items associated with the event, in 3-letter ISO 4217 format.
+
+If you set value then currency is required for revenue metrics to be computed accurately.
+
+### value
+
+<Property /> `number` <Required required />
+
+The monetary value of the event.
+
+- Set value to the sum of (price \* quantity) for all items in items. Don't include shipping or tax.
+- value is typically required for meaningful reporting. If you mark the event as a key event then it's recommended you set value.
+- currency is required if you set value.
+
+### creative_name
+
+<Property /> `string`
+
+The name of the promotional creative.
+
+### creative_slot
+
+<Property /> `string`
+
+The name of the promotional creative slot associated with the event.
+
+### promotion_id
+
+<Property /> `string`
+
+The ID of the promotion associated with the event.
+
+### promotion_name
+
+<Property /> `string`
+
+The name of the promotion associated with the event.
+
+### location_id
+
+<Property /> `string`
+
+The ID of the location.
+
+### items
+
+<Property /> [Item](/plugins/types/standard-goods-item)[] <Required required />
+
+The items for the event.0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"x:mx-auto x:flex x:max-w-(--nextra-content-width)","children":["$","$L2",null,{"value":[{"value":"currency","id":"currency","depth":3},{"value":"value","id":"value","depth":3},{"value":"creative_name","id":"creative_name","depth":3},{"value":"creative_slot","id":"creative_slot","depth":3},{"value":"promotion_id","id":"promotion_id","depth":3},{"value":"promotion_name","id":"promotion_name","depth":3},{"value":"location_id","id":"location_id","depth":3},{"value":"items","id":"items","depth":3}],"children":[["$","$L3",null,{}],["$","$L4",null,{"metadata":{"description":"view_promotion","title":"Page","filePath":"src/app/plugins/standard-events/view_promotion/page.mdx","timestamp":1778842709000},"sourceCode":"$5","children":[["$","div",null,{"id":"nextra-skip-nav"}],["$","main",null,{"data-pagefind-body":true,"children":[["$","a",null,{"href":"https://registry.hyperse.net/package/@hyperse-hub/track-plugin-common","target":"_blank","rel":"noreferrer","className":"mb-4 flex w-fit flex-row items-center justify-center gap-2 rounded-md border bg-[#ebedf0] px-2 py-0.5 no-underline hover:no-underline dark:bg-[#232323] mb-4","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":"540","height":"210","viewBox":"0 0 18 7","className":"h-[12px] w-[24px]","aria-hidden":true,"children":[["$","path",null,{"fill":"#888","d":"M0 0h18v6H9v1H5V6H0zm1 5h2V2h1v3h1V1H1zm5-4v5h2V5h2V1zm2 1h1v2H8zm3-1v4h2V2h1v3h1V3h1v3h1V1z"}],["$","path",null,{"fill":"#FFF","d":"M1 5h2V2h1v3h1V1zM6 1v5h2V5h2V1zm3 3H8V2h1zM11 1v4h2V2h1v3h1V2h1v3h1V1z"}]]}],["$","span",null,{"className":"text-[75%] font-bold","children":"@hyperse-hub/track-plugin-common"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"This event signifies a promotion was viewed from a list."}],"\n",["$","h3",null,{"id":"currency","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["currency",["$","$L6",null,{"id":"currency"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"USD Currency of the items associated with the event, in 3-letter ISO 4217 format."}],"\n","$L7","\n","$L8","\n","$L9","\n","$La","\n","$Lb","\n","$Lc","\n","$Ld","\n","$Le","\n","$Lf","\n","$L10","\n","$L11","\n","$L12","\n","$L13","\n","$L14","\n","$L15","\n","$L16","\n","$L17","\n","$L18","\n","$L19","\n","$L1a","\n","$L1b","\n","$L1c","\n","$L1d"]}]]}]]}]}],null,"$L1e"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"Q405y9JTEfNqxQwUdQQ8h"}
+7:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"If you set value then currency is required for revenue metrics to be computed accurately."}]
+8:["$","h3",null,{"id":"value","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["value",["$","$L6",null,{"id":"value"}]]}]
+9:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}]
+a:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The monetary value of the event."}]
+b:["$","ul",null,{"className":"x:[:is(ol,ul)_&]:my-[.75em] x:not-first:mt-[1.25em] x:list-disc x:ms-[1.5em]","children":["\n",["$","li",null,{"className":"x:my-[.5em]","children":"Set value to the sum of (price * quantity) for all items in items. Don’t include shipping or tax."}],"\n",["$","li",null,{"className":"x:my-[.5em]","children":"value is typically required for meaningful reporting. If you mark the event as a key event then it’s recommended you set value."}],"\n",["$","li",null,{"className":"x:my-[.5em]","children":"currency is required if you set value."}],"\n"]}]
+c:["$","h3",null,{"id":"creative_name","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["creative_name",["$","$L6",null,{"id":"creative_name"}]]}]
+d:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+e:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The name of the promotional creative."}]
+f:["$","h3",null,{"id":"creative_slot","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["creative_slot",["$","$L6",null,{"id":"creative_slot"}]]}]
+10:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+11:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The name of the promotional creative slot associated with the event."}]
+12:["$","h3",null,{"id":"promotion_id","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["promotion_id",["$","$L6",null,{"id":"promotion_id"}]]}]
+13:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+14:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The ID of the promotion associated with the event."}]
+15:["$","h3",null,{"id":"promotion_name","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["promotion_name",["$","$L6",null,{"id":"promotion_name"}]]}]
+16:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+17:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The name of the promotion associated with the event."}]
+18:["$","h3",null,{"id":"location_id","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["location_id",["$","$L6",null,{"id":"location_id"}]]}]
+19:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+1a:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The ID of the location."}]
+1b:["$","h3",null,{"id":"items","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["items",["$","$L6",null,{"id":"items"}]]}]
+1c:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","$L1f",null,{"href":"/plugins/types/standard-goods-item","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":"Item"}],"[] ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}]
+1d:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The items for the event."}]
+1e:["$","$L20",null,{"children":["$","$21",null,{"name":"Next.MetadataOutlet","children":"$@22"}]}]
+22:null

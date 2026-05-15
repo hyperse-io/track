@@ -1,0 +1,148 @@
+1:"$Sreact.fragment"
+2:I[55169,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"TOCProvider"]
+3:I[769,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"Sidebar"]
+4:I[47486,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"ClientWrapper"]
+34:I[63894,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"HeadingAnchor"]
+35:I[22016,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],""]
+36:I[97367,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"OutletBoundary"]
+37:"$Sreact.suspense"
+5:T735,---
+description: add_to_cart
+---
+
+<NpmLink name="common" />
+
+This event signifies that an item was added to a cart for purchase.
+
+## Parameters
+
+### currency
+
+<Property /> `string` <Required required />
+
+USD Currency of the items associated with the event, in 3-letter ISO 4217 format.
+
+If you set value then currency is required for revenue metrics to be computed accurately.
+
+### value
+
+<Property /> `number` <Required required />
+
+The monetary value of the event.
+
+- Set value to the sum of (price \* quantity) for all items in items. Don't include shipping or tax.
+- value is typically required for meaningful reporting. If you mark the event as a key event then it's recommended you set value.
+- currency is required if you set value.
+
+### items
+
+<Property /> [Item](/plugins/types/standard-goods-item)[] <Required required />
+
+The items for the event.
+
+### added_item_product_name
+
+<Property /> `string`
+
+The name of the product that was added to the cart.
+
+### added_item_product_id
+
+<Property /> `string`
+
+The ID of the product that was added to the cart.
+
+### added_item_sku
+
+<Property /> `string`
+
+The SKU of the product that was added to the cart.
+
+### added_item_categories
+
+<Property /> `string[]`
+
+An array of categories for the product that was added to the cart.
+
+### added_item_image_url
+
+<Property /> `string`
+
+The URL of the image for the product that was added to the cart.
+
+### added_item_url
+
+<Property /> `string`
+
+The URL of the product that was added to the cart.
+
+### added_item_price
+
+<Property /> `number`
+
+The price of the product that was added to the cart.
+
+### added_item_quantity
+
+<Property /> `number`
+
+The quantity of the product that was added to the cart.
+
+### item_names
+
+<Property /> `string[]`
+
+An array of product names in the cart.
+
+### checkout_url
+
+<Property /> `string`
+
+The URL of the checkout page.0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"x:mx-auto x:flex x:max-w-(--nextra-content-width)","children":["$","$L2",null,{"value":[{"value":"Parameters","id":"parameters","depth":2},{"value":"currency","id":"currency","depth":3},{"value":"value","id":"value","depth":3},{"value":"items","id":"items","depth":3},{"value":"added_item_product_name","id":"added_item_product_name","depth":3},{"value":"added_item_product_id","id":"added_item_product_id","depth":3},{"value":"added_item_sku","id":"added_item_sku","depth":3},{"value":"added_item_categories","id":"added_item_categories","depth":3},{"value":"added_item_image_url","id":"added_item_image_url","depth":3},{"value":"added_item_url","id":"added_item_url","depth":3},{"value":"added_item_price","id":"added_item_price","depth":3},{"value":"added_item_quantity","id":"added_item_quantity","depth":3},{"value":"item_names","id":"item_names","depth":3},{"value":"checkout_url","id":"checkout_url","depth":3}],"children":[["$","$L3",null,{}],["$","$L4",null,{"metadata":{"description":"add_to_cart","title":"Page","filePath":"src/app/plugins/standard-events/add_to_cart/page.mdx","timestamp":1778842709000},"sourceCode":"$5","children":[["$","div",null,{"id":"nextra-skip-nav"}],["$","main",null,{"data-pagefind-body":true,"children":[["$","a",null,{"href":"https://registry.hyperse.net/package/@hyperse-hub/track-plugin-common","target":"_blank","rel":"noreferrer","className":"mb-4 flex w-fit flex-row items-center justify-center gap-2 rounded-md border bg-[#ebedf0] px-2 py-0.5 no-underline hover:no-underline dark:bg-[#232323] mb-4","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":"540","height":"210","viewBox":"0 0 18 7","className":"h-[12px] w-[24px]","aria-hidden":true,"children":[["$","path",null,{"fill":"#888","d":"M0 0h18v6H9v1H5V6H0zm1 5h2V2h1v3h1V1H1zm5-4v5h2V5h2V1zm2 1h1v2H8zm3-1v4h2V2h1v3h1V3h1v3h1V1z"}],"$L6"]}],"$L7"]}],"\n","$L8","\n","$L9","\n","$La","\n","$Lb","\n","$Lc","\n","$Ld","\n","$Le","\n","$Lf","\n","$L10","\n","$L11","\n","$L12","\n","$L13","\n","$L14","\n","$L15","\n","$L16","\n","$L17","\n","$L18","\n","$L19","\n","$L1a","\n","$L1b","\n","$L1c","\n","$L1d","\n","$L1e","\n","$L1f","\n","$L20","\n","$L21","\n","$L22","\n","$L23","\n","$L24","\n","$L25","\n","$L26","\n","$L27","\n","$L28","\n","$L29","\n","$L2a","\n","$L2b","\n","$L2c","\n","$L2d","\n","$L2e","\n","$L2f","\n","$L30","\n","$L31","\n","$L32"]}]]}]]}]}],null,"$L33"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"Q405y9JTEfNqxQwUdQQ8h"}
+6:["$","path",null,{"fill":"#FFF","d":"M1 5h2V2h1v3h1V1zM6 1v5h2V5h2V1zm3 3H8V2h1zM11 1v4h2V2h1v3h1V2h1v3h1V1z"}]
+7:["$","span",null,{"className":"text-[75%] font-bold","children":"@hyperse-hub/track-plugin-common"}]
+8:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"This event signifies that an item was added to a cart for purchase."}]
+9:["$","h2",null,{"id":"parameters","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-10 x:border-b x:pb-1 x:text-3xl nextra-border","children":["Parameters",["$","$L34",null,{"id":"parameters"}]]}]
+a:["$","h3",null,{"id":"currency","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["currency",["$","$L34",null,{"id":"currency"}]]}]
+b:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}]
+c:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"USD Currency of the items associated with the event, in 3-letter ISO 4217 format."}]
+d:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"If you set value then currency is required for revenue metrics to be computed accurately."}]
+e:["$","h3",null,{"id":"value","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["value",["$","$L34",null,{"id":"value"}]]}]
+f:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}]
+10:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The monetary value of the event."}]
+11:["$","ul",null,{"className":"x:[:is(ol,ul)_&]:my-[.75em] x:not-first:mt-[1.25em] x:list-disc x:ms-[1.5em]","children":["\n",["$","li",null,{"className":"x:my-[.5em]","children":"Set value to the sum of (price * quantity) for all items in items. Don’t include shipping or tax."}],"\n",["$","li",null,{"className":"x:my-[.5em]","children":"value is typically required for meaningful reporting. If you mark the event as a key event then it’s recommended you set value."}],"\n",["$","li",null,{"className":"x:my-[.5em]","children":"currency is required if you set value."}],"\n"]}]
+12:["$","h3",null,{"id":"items","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["items",["$","$L34",null,{"id":"items"}]]}]
+13:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","$L35",null,{"href":"/plugins/types/standard-goods-item","className":"x:focus-visible:nextra-focus x:text-primary-600 x:underline x:hover:no-underline x:decoration-from-font x:[text-underline-position:from-font]","children":"Item"}],"[] ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}]
+14:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The items for the event."}]
+15:["$","h3",null,{"id":"added_item_product_name","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["added_item_product_name",["$","$L34",null,{"id":"added_item_product_name"}]]}]
+16:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+17:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The name of the product that was added to the cart."}]
+18:["$","h3",null,{"id":"added_item_product_id","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["added_item_product_id",["$","$L34",null,{"id":"added_item_product_id"}]]}]
+19:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+1a:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The ID of the product that was added to the cart."}]
+1b:["$","h3",null,{"id":"added_item_sku","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["added_item_sku",["$","$L34",null,{"id":"added_item_sku"}]]}]
+1c:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+1d:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The SKU of the product that was added to the cart."}]
+1e:["$","h3",null,{"id":"added_item_categories","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["added_item_categories",["$","$L34",null,{"id":"added_item_categories"}]]}]
+1f:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string[]"}]]}]
+20:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"An array of categories for the product that was added to the cart."}]
+21:["$","h3",null,{"id":"added_item_image_url","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["added_item_image_url",["$","$L34",null,{"id":"added_item_image_url"}]]}]
+22:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+23:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The URL of the image for the product that was added to the cart."}]
+24:["$","h3",null,{"id":"added_item_url","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["added_item_url",["$","$L34",null,{"id":"added_item_url"}]]}]
+25:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+26:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The URL of the product that was added to the cart."}]
+27:["$","h3",null,{"id":"added_item_price","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["added_item_price",["$","$L34",null,{"id":"added_item_price"}]]}]
+28:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]]}]
+29:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The price of the product that was added to the cart."}]
+2a:["$","h3",null,{"id":"added_item_quantity","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["added_item_quantity",["$","$L34",null,{"id":"added_item_quantity"}]]}]
+2b:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]]}]
+2c:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The quantity of the product that was added to the cart."}]
+2d:["$","h3",null,{"id":"item_names","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["item_names",["$","$L34",null,{"id":"item_names"}]]}]
+2e:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string[]"}]]}]
+2f:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"An array of product names in the cart."}]
+30:["$","h3",null,{"id":"checkout_url","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["checkout_url",["$","$L34",null,{"id":"checkout_url"}]]}]
+31:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}]
+32:["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The URL of the checkout page."}]
+33:["$","$L36",null,{"children":["$","$37",null,{"name":"Next.MetadataOutlet","children":"$@38"}]}]
+38:null

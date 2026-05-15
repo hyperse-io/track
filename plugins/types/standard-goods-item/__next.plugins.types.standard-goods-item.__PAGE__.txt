@@ -1,0 +1,181 @@
+1:"$Sreact.fragment"
+2:I[55169,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"TOCProvider"]
+3:I[769,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"Sidebar"]
+4:I[47486,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"ClientWrapper"]
+9:I[63894,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"HeadingAnchor"]
+1d:I[97367,["/track/_next/static/chunks/0_yc_ihmobyfj.js","/track/_next/static/chunks/0x~gl-ib.0wt3.js","/track/_next/static/chunks/0rjvtcipsw5v..js","/track/_next/static/chunks/0y_tu8zu3-tzt.js","/track/_next/static/chunks/15.er2esbw709.js","/track/_next/static/chunks/0pyqhyt9w7y~0.js"],"OutletBoundary"]
+1e:"$Sreact.suspense"
+5:Tb4d,---
+description: standard_goods_item
+---
+
+# standard_goods_item
+
+<NpmLink name="common" />
+
+Product details
+
+### Parameters
+
+- #### item_id
+
+  <Property /> `string` <Required required />
+
+  The ID of the item.
+
+  One of item_id or item_name is required.
+
+- #### item_name
+
+  <Property /> `string` <Required required />
+
+  The name of the item.
+
+  One of item_id or item_name is required.
+
+- #### affiliation
+
+  <Property /> `string`
+
+  A product affiliation to designate a supplying company or brick and mortar store location.
+
+- #### coupon
+
+  <Property /> `string`
+
+  The coupon name/code associated with the item.
+
+  Event-level and item-level coupon parameters are independent.
+
+- #### discount
+
+  <Property /> `number`
+
+  The unit monetary discount value associated with the item.
+
+- #### index
+
+  <Property /> `number`
+
+  The index/position of the item in a list.
+
+- #### item_brand
+
+  <Property /> `string`
+
+  The brand of the item.
+
+- #### item_category
+
+  <Property /> `string`
+
+  The category of the item. If used as part of a category hierarchy or taxonomy then this will be the first category.
+
+- #### item_category2
+
+  <Property /> `string`
+
+  The second category hierarchy or additional taxonomy for the item.
+
+- #### item_category3
+
+  <Property /> `string`
+
+  The third category hierarchy or additional taxonomy for the item.
+
+- #### item_category4
+
+  <Property /> `string`
+
+  The fourth category hierarchy or additional taxonomy for the item.
+
+- #### item_category5
+
+  <Property /> `string`
+
+  The fifth category hierarchy or additional taxonomy for the item.
+
+- #### item_list_id
+
+  <Property /> `string`
+
+  The ID of the list in which the item was presented to the user.
+
+- #### item_list_name
+
+  <Property /> `string`
+
+  The name of the list in which the item was presented to the user.
+
+- #### item_variant
+
+  <Property /> `string`
+
+  The item variant or unique code or description for additional item details/options.
+
+- #### location_id
+
+  <Property /> `string`
+
+  The physical location associated with the item (e.g. the physical store location). It's recommended to use the Google Place ID that corresponds to the associated item. A custom location ID can also be used.
+
+- #### price
+
+  <Property /> `number`
+
+  01 The monetary unit price of the item, in units of the specified currency parameter.
+
+  If a discount applies to the item, set price to the discounted unit price and specify the unit price discount in the discount parameter.
+
+- #### quantity
+
+  <Property /> `number`
+
+  Item quantity.
+
+- #### image_url
+
+  <Property /> `string`
+
+  The URL of the product image.
+
+- #### url
+
+  <Property /> `string`
+
+  The URL of the product page.
+
+- #### compare_at_price
+
+  <Property /> `number`
+
+  The original price of the product, used for comparing with the current price.
+
+- #### row_total
+
+  <Property /> `number`
+
+  The total price of the product based on quantity.0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"x:mx-auto x:flex x:max-w-(--nextra-content-width)","children":["$","$L2",null,{"value":[{"value":"Parameters","id":"parameters","depth":3},{"value":"item_id","id":"item_id","depth":4},{"value":"item_name","id":"item_name","depth":4},{"value":"affiliation","id":"affiliation","depth":4},{"value":"coupon","id":"coupon","depth":4},{"value":"discount","id":"discount","depth":4},{"value":"index","id":"index","depth":4},{"value":"item_brand","id":"item_brand","depth":4},{"value":"item_category","id":"item_category","depth":4},{"value":"item_category2","id":"item_category2","depth":4},{"value":"item_category3","id":"item_category3","depth":4},{"value":"item_category4","id":"item_category4","depth":4},{"value":"item_category5","id":"item_category5","depth":4},{"value":"item_list_id","id":"item_list_id","depth":4},{"value":"item_list_name","id":"item_list_name","depth":4},{"value":"item_variant","id":"item_variant","depth":4},{"value":"location_id","id":"location_id","depth":4},{"value":"price","id":"price","depth":4},{"value":"quantity","id":"quantity","depth":4},{"value":"image_url","id":"image_url","depth":4},{"value":"url","id":"url","depth":4},{"value":"compare_at_price","id":"compare_at_price","depth":4},{"value":"row_total","id":"row_total","depth":4}],"children":[["$","$L3",null,{}],["$","$L4",null,{"metadata":{"description":"standard_goods_item","title":"standard_goods_item","filePath":"src/app/plugins/types/standard-goods-item/page.mdx","timestamp":1778842709000},"sourceCode":"$5","children":["$L6","$L7"]}]]}]}],null,"$L8"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"Q405y9JTEfNqxQwUdQQ8h"}
+6:["$","div",null,{"id":"nextra-skip-nav"}]
+7:["$","main",null,{"data-pagefind-body":true,"children":[["$","h1",null,{"className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-bold x:mt-2 x:text-4xl","children":["standard_goods_item","$undefined"]}],"\n",["$","a",null,{"href":"https://registry.hyperse.net/package/@hyperse-hub/track-plugin-common","target":"_blank","rel":"noreferrer","className":"mb-4 flex w-fit flex-row items-center justify-center gap-2 rounded-md border bg-[#ebedf0] px-2 py-0.5 no-underline hover:no-underline dark:bg-[#232323] mb-4","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":"540","height":"210","viewBox":"0 0 18 7","className":"h-[12px] w-[24px]","aria-hidden":true,"children":[["$","path",null,{"fill":"#888","d":"M0 0h18v6H9v1H5V6H0zm1 5h2V2h1v3h1V1H1zm5-4v5h2V5h2V1zm2 1h1v2H8zm3-1v4h2V2h1v3h1V3h1v3h1V1z"}],["$","path",null,{"fill":"#FFF","d":"M1 5h2V2h1v3h1V1zM6 1v5h2V5h2V1zm3 3H8V2h1zM11 1v4h2V2h1v3h1V2h1v3h1V1z"}]]}],["$","span",null,{"className":"text-[75%] font-bold","children":"@hyperse-hub/track-plugin-common"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Product details"}],"\n",["$","h3",null,{"id":"parameters","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-2xl","children":["Parameters",["$","$L9",null,{"id":"parameters"}]]}],"\n",["$","ul",null,{"className":"x:[:is(ol,ul)_&]:my-[.75em] x:not-first:mt-[1.25em] x:list-disc x:ms-[1.5em]","children":["\n",["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_id","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_id",["$","$L9",null,{"id":"item_id"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The ID of the item."}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"One of item_id or item_name is required."}],"\n"]}],"\n",["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_name","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_name",["$","$L9",null,{"id":"item_name"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The name of the item."}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"One of item_id or item_name is required."}],"\n"]}],"\n",["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"affiliation","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["affiliation",["$","$L9",null,{"id":"affiliation"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"A product affiliation to designate a supplying company or brick and mortar store location."}],"\n"]}],"\n","$La","\n","$Lb","\n","$Lc","\n","$Ld","\n","$Le","\n","$Lf","\n","$L10","\n","$L11","\n","$L12","\n","$L13","\n","$L14","\n","$L15","\n","$L16","\n","$L17","\n","$L18","\n","$L19","\n","$L1a","\n","$L1b","\n","$L1c","\n"]}]]}]
+8:["$","$L1d",null,{"children":["$","$1e",null,{"name":"Next.MetadataOutlet","children":"$@1f"}]}]
+a:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"coupon","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["coupon",["$","$L9",null,{"id":"coupon"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The coupon name/code associated with the item."}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Event-level and item-level coupon parameters are independent."}],"\n"]}]
+b:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"discount","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["discount",["$","$L9",null,{"id":"discount"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The unit monetary discount value associated with the item."}],"\n"]}]
+c:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"index","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["index",["$","$L9",null,{"id":"index"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The index/position of the item in a list."}],"\n"]}]
+d:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_brand","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_brand",["$","$L9",null,{"id":"item_brand"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The brand of the item."}],"\n"]}]
+e:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_category","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_category",["$","$L9",null,{"id":"item_category"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The category of the item. If used as part of a category hierarchy or taxonomy then this will be the first category."}],"\n"]}]
+f:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_category2","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_category2",["$","$L9",null,{"id":"item_category2"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The second category hierarchy or additional taxonomy for the item."}],"\n"]}]
+10:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_category3","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_category3",["$","$L9",null,{"id":"item_category3"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The third category hierarchy or additional taxonomy for the item."}],"\n"]}]
+11:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_category4","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_category4",["$","$L9",null,{"id":"item_category4"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The fourth category hierarchy or additional taxonomy for the item."}],"\n"]}]
+12:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_category5","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_category5",["$","$L9",null,{"id":"item_category5"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The fifth category hierarchy or additional taxonomy for the item."}],"\n"]}]
+13:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_list_id","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_list_id",["$","$L9",null,{"id":"item_list_id"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The ID of the list in which the item was presented to the user."}],"\n"]}]
+14:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_list_name","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_list_name",["$","$L9",null,{"id":"item_list_name"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The name of the list in which the item was presented to the user."}],"\n"]}]
+15:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"item_variant","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["item_variant",["$","$L9",null,{"id":"item_variant"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The item variant or unique code or description for additional item details/options."}],"\n"]}]
+16:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"location_id","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["location_id",["$","$L9",null,{"id":"location_id"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The physical location associated with the item (e.g. the physical store location). It’s recommended to use the Google Place ID that corresponds to the associated item. A custom location ID can also be used."}],"\n"]}]
+17:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"price","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["price",["$","$L9",null,{"id":"price"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"01 The monetary unit price of the item, in units of the specified currency parameter."}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"If a discount applies to the item, set price to the discounted unit price and specify the unit price discount in the discount parameter."}],"\n"]}]
+18:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"quantity","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["quantity",["$","$L9",null,{"id":"quantity"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"Item quantity."}],"\n"]}]
+19:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"image_url","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["image_url",["$","$L9",null,{"id":"image_url"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The URL of the product image."}],"\n"]}]
+1a:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"url","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["url",["$","$L9",null,{"id":"url"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"string"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The URL of the product page."}],"\n"]}]
+1b:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"compare_at_price","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["compare_at_price",["$","$L9",null,{"id":"compare_at_price"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The original price of the product, used for comparing with the current price."}],"\n"]}]
+1c:["$","li",null,{"className":"x:my-[.5em]","children":["\n",["$","h4",null,{"id":"row_total","className":"x:tracking-tight x:text-slate-900 x:dark:text-slate-100 x:font-semibold x:target:animate-[fade-in_1.5s] x:mt-8 x:text-xl","children":["row_total",["$","$L9",null,{"id":"row_total"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"className":"nextra-code","dir":"ltr","children":"number"}]]}],"\n",["$","p",null,{"className":"x:not-first:mt-[1.25em] x:leading-7","children":"The total price of the product based on quantity."}],"\n"]}]
+1f:null
