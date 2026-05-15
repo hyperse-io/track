@@ -1,5 +1,16 @@
 # @hyperse/next-example
 
+## 1.1.0
+
+### Minor Changes
+
+- [`8d75846`](https://github.com/hyperse-io/track/commit/8d75846da950fd5a336c49fd076b4912943580b5) Thanks [@tianyingchun](https://github.com/tianyingchun)! - update Yarn to version 4.14.1, add tsdown configuration, and remove flatjs-forge config; enhance ESLint and Tailwind CSS settings in workspace
+
+### Patch Changes
+
+- Updated dependencies [[`8d75846`](https://github.com/hyperse-io/track/commit/8d75846da950fd5a336c49fd076b4912943580b5)]:
+  - @hyperse/track@1.1.0
+
 ## 1.0.1
 
 ### Patch Changes
