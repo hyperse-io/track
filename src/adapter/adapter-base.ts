@@ -19,8 +19,7 @@ export abstract class BaseAdapter<
   EventData extends TrackEventDataBase,
   AdapterOptions extends TrackAdapterOptions<Context, EventData, RealEventData>,
   RealEventData extends TrackEventDataBase = EventData,
-> implements TrackAdapter<Context, EventData, AdapterOptions, RealEventData>
-{
+> implements TrackAdapter<Context, EventData, AdapterOptions, RealEventData> {
   private setupHook?: AdapterOptions['setup'];
   private beforeHook?: AdapterBeforeFunction<Context, EventData>;
   private transformHookMap: {

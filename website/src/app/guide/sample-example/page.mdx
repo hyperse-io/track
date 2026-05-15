@@ -16,55 +16,58 @@ Here is a simple usage for using the component:
 export const reportTrack = () => {
   const reportAdapter = new ReportAdapter();
 
-  const adapterBuilder = createAdapterBuilder<
-    TrackContext<ReportTrackData>,
-    ReportEventData,
-    ReportAdapterOptions<TrackContext<ReportTrackData>, ReportEventData>
-  >(reportAdapter);
+const adapterBuilder = createAdapterBuilder<
+TrackContext<ReportTrackData>,
+ReportEventData,
+ReportAdapterOptions<TrackContext<ReportTrackData>, ReportEventData>
 
-  const adapter = adapterBuilder
-    .setup(() => {
-      return Promise.resolve({
-        name: 'setup',
-        timeStamp: Date.now(),
-      });
-    })
-    .before((ctx, eventType, eventData) => {
-      console.log('before', ctx, eventType, eventData);
-    })
-    .transform('addCart', (ctx, eventType, eventData) => {
-      return {
-        ...eventData,
-        goodName: 'ac_' + eventData?.goodsName,
-      };
-    })
-    .transform('registry', (ctx, eventType, eventData) => {
-      return { ...eventData, userName: 'rg_' + eventData?.userName };
-    })
-    .after((ctx, eventType, reportData) => {
-      console.log('after', ctx, eventType, reportData);
-    })
-    .build();
+> (reportAdapter);
 
-  const trackBuilder = createTrackBuilder<
-    TrackContext<ReportTrackData>,
-    ReportEventData
-  >();
-
-  return trackBuilder
-    .init(() => {
-      return {
-        reportAdapter: adapter,
-      };
-    })
-    .before((ctx) => {
-      console.log('before track', ctx);
-    })
-    .after((ctx) => {
-      console.log('after track', ctx);
-    });
+const adapter = adapterBuilder
+.setup(() => {
+return Promise.resolve({
+name: 'setup',
+timeStamp: Date.now(),
+});
+})
+.before((ctx, eventType, eventData) => {
+console.log('before', ctx, eventType, eventData);
+})
+.transform('addCart', (ctx, eventType, eventData) => {
+return {
+...eventData,
+goodName: 'ac*' + eventData?.goodsName,
 };
-```
+})
+.transform('registry', (ctx, eventType, eventData) => {
+return { ...eventData, userName: 'rg*' + eventData?.userName };
+})
+.after((ctx, eventType, reportData) => {
+console.log('after', ctx, eventType, reportData);
+})
+.build();
+
+const trackBuilder = createTrackBuilder<
+TrackContext<ReportTrackData>,
+ReportEventData
+
+> ();
+
+return trackBuilder
+.init(() => {
+return {
+reportAdapter: adapter,
+};
+})
+.before((ctx) => {
+console.log('before track', ctx);
+})
+.after((ctx) => {
+console.log('after track', ctx);
+});
+};
+
+````
   </Tabs.Tab>
   <Tabs.Tab>
 ```typescript
@@ -100,7 +103,8 @@ export class ReportAdapter extends BaseAdapter<
       | undefined
   ): void | Promise<void> {}
 }
-```
+````
+
   </Tabs.Tab>
   <Tabs.Tab>
 ```typescript

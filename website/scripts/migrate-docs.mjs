@@ -24,35 +24,30 @@ function walk(dir, files = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(full, files);
-    else if (/\.(md|mdx)$/.test(entry.name)) files.push(full);
+    else if (/\.(?:md|mdx)$/.test(entry.name)) files.push(full);
   }
   return files;
 }
 
 function titleCase(slug) {
-  return slug
-    .replace(/[-_]/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function transformContent(raw, relPath) {
   let content = raw;
 
   // Strip docusaurus-only frontmatter fields
-  content = content.replace(
-    /^---\n([\s\S]*?)\n---\n/,
-    (match, body) => {
-      const lines = body
-        .split('\n')
-        .filter(
-          (line) =>
-            !line.startsWith('title:') &&
-            !line.startsWith('hide_table_of_contents:')
-        );
-      if (lines.length === 0) return '';
-      return `---\n${lines.join('\n')}\n---\n`;
-    }
-  );
+  content = content.replace(/^---\n([\s\S]*?)\n---\n/, (match, body) => {
+    const lines = body
+      .split('\n')
+      .filter(
+        (line) =>
+          !line.startsWith('title:') &&
+          !line.startsWith('hide_table_of_contents:')
+      );
+    if (lines.length === 0) return '';
+    return `---\n${lines.join('\n')}\n---\n`;
+  });
 
   content = content.replace(
     /^import PreviewUML from '@site\/src\/components\/PreviewUML';\n\n?/m,
@@ -107,7 +102,10 @@ function writeMeta(dirRel, entries) {
     "import type { MetaRecord } from 'nextra';",
     '',
     'const meta: MetaRecord = {',
-    ...entries.map(([key, title]) => `  ${JSON.stringify(key)}: { title: ${JSON.stringify(title)} },`),
+    ...entries.map(
+      ([key, title]) =>
+        `  ${JSON.stringify(key)}: { title: ${JSON.stringify(title)} },`
+    ),
     '};',
     '',
     'export default meta;',

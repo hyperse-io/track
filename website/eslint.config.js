@@ -1,5 +1,9 @@
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, nextjs } from '@hyperse/eslint-config-hyperse';
+
+const websiteDir = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(
   [
@@ -8,7 +12,7 @@ export default defineConfig(
       extends: [eslintPluginBetterTailwindcss.configs.correctness],
       settings: {
         'better-tailwindcss': {
-          entryPoint: 'src/app/globals.css',
+          entryPoint: path.join(websiteDir, 'src/app/globals.css'),
         },
       },
     },

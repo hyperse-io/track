@@ -17,7 +17,9 @@
     "dist",
     "build",
     "**/website/**/*.ts",
-    "**/website/**/*.tsx"
+    "**/website/**/*.tsx",
+    "**/examples/**/*.ts",
+    "**/examples/**/*.tsx"
   ],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

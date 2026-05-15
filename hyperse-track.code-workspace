@@ -48,6 +48,7 @@
     ],
     "tailwindCSS.experimental.configFile": {
       "website/src/app/globals.css":"website/src/**",
+      "examples/next-example/app/globals.css":"examples/next-example/app/**",
     },
     "tailwindCSS.experimental.classRegex": [
       [

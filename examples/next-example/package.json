@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "lint-fix": "yarn lint --fix",
-    "lint-staged-files": "lint-staged --allow-empty"
+    "lint-staged-files": "lint-staged --allow-empty",
+    "typecheck": "tsc --project ./tsconfig.json --noEmit"
   },
   "repository": {
     "type": "git",

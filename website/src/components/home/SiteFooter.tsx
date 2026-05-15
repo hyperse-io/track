@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { Icon } from '@iconify/react';
 import { SITE_BASE_PATH } from '@/config/site';
+import { Icon } from '@iconify/react';
 
 const copyrightYear = new Date().getFullYear();
 

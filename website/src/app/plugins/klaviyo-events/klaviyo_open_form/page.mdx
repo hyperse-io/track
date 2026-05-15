@@ -1,8 +1,8 @@
 ---
 description: klaviyo_open_form
 ---
-import { Callout } from 'nextra/components';
 
+import { Callout } from 'nextra/components';
 
 <FlexLayout>
   <NpmLink name="klaviyo" noMarginBottom />
@@ -19,8 +19,8 @@ More information on the Klaviyo snippet can be found [Klaviyo](https://developer
 - Your form must be live in order for it to open.
 
 - When a form has an ongoing A/B test, this API simply triggers the form’s display. It is your A/B testing logic, which is separate, that determines which variation displays.
+- If you have an A/B test where a variation of your form has a custom trigger, you will still need to add custom trigger code to your site.
 
-  If you have an A/B test where a variation of your form has a custom trigger, you will still need to add custom trigger code to your site.
 </Callout>
 
 ## Parameters

@@ -40,7 +40,7 @@ describe('test-adapter.spec', () => {
         EventDataOption,
         AdapterOptions<TrackContext<TrackData>, EventDataOption>
       >(undefined as unknown as ReportAdapter)
-    ).toThrowError('Adapter is required');
+    ).toThrow('Adapter is required');
   });
 
   it('test adapter hook', async () => {

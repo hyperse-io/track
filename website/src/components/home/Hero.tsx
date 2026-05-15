@@ -73,7 +73,8 @@ export const Hero = () => {
             <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-gray-400 lg:mx-0">
               <strong className="text-gray-200">@hyperse/track</strong> is a
               scalable analytics engine for web apps—strong typing, adapter
-              plugins for Google, Facebook, and Klaviyo, and a unified event API.
+              plugins for Google, Facebook, and Klaviyo, and a unified event
+              API.
             </p>
 
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">

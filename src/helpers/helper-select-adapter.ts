@@ -25,21 +25,15 @@ export const executeSelect = async <
   adapterMap: TrackMap,
   selectRule: TrackSelectFunction<Context, EventData, TrackMap> = []
 ): Promise<TrackAdapterMap<Context, EventData>> => {
-  let names = [];
+  const selected = isFunction(selectRule)
+    ? await executeFunction(
+        selectRule as (...args: any[]) => any,
+        ctx,
+        adapterMap
+      )
+    : ensureArray(selectRule);
 
-  if (isFunction(selectRule)) {
-    names = await executeFunction(
-      selectRule as (...args: any[]) => any,
-      ctx,
-      adapterMap
-    );
-  } else {
-    names = ensureArray(selectRule);
-  }
-
-  if (names.length === 0) {
-    names = Object.keys(adapterMap);
-  }
+  const names = selected.length === 0 ? Object.keys(adapterMap) : selected;
 
   const lasterAdapterMap: TrackAdapterMap<Context, EventData> = {};
   for (const [adapterName, adapter] of Object.entries(adapterMap)) {

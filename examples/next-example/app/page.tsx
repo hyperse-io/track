@@ -1,19 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import mockjs from 'mockjs';
 import { reportTrack } from '@/track/track';
 import type { GoodsRecord } from '@/track/types';
 import { fetchGoodsList } from './service';
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false);
   const [text, setText] = useState<string>();
-  const [data] = useState<GoodsRecord[]>(fetchGoodsList());
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [data] = useState<GoodsRecord[]>(() => fetchGoodsList());
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
     const listener = (event: MessageEvent) => {
@@ -83,8 +83,8 @@ export default function Home() {
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {data.map((item, index) => (
             <li
-              key={`${item.goodsId}-${index}`}
-              className="flex animate-fade-in flex-col gap-3 rounded-2xl border border-white/10 bg-slate-900/80 p-4 shadow-lg shadow-cyan-500/5"
+              key={`${item.goodsId}`}
+              className="animate-fade-in flex flex-col gap-3 rounded-2xl border border-white/10 bg-slate-900/80 p-4 shadow-lg shadow-cyan-500/5"
             >
               <div className="h-40 rounded-xl bg-linear-to-br from-slate-700 to-slate-800" />
               <div className="flex flex-1 flex-col gap-4">
@@ -96,7 +96,8 @@ export default function Home() {
                     <p className="text-xs text-slate-400">ID: {item.goodsId}</p>
                   </div>
                   <span className="shrink-0 text-lg font-bold text-red-400">
-                    ${item.price}
+                    {'$'}
+                    {item.price}
                   </span>
                 </div>
                 <button
@@ -122,7 +123,7 @@ export default function Home() {
 
       {text ? (
         <section
-          className="fixed inset-x-0 bottom-0 z-50 flex max-h-[50dvh] flex-col border-t border-white/10 bg-slate-900 shadow-2xl animate-fade-in"
+          className="animate-fade-in fixed inset-x-0 bottom-0 z-50 flex max-h-[50dvh] flex-col border-t border-white/10 bg-slate-900 shadow-2xl"
           aria-live="polite"
         >
           <header className="relative flex items-center justify-center border-b border-white/10 px-6 py-3">
@@ -143,4 +144,4 @@ export default function Home() {
       ) : null}
     </main>
   );
-};
+}
