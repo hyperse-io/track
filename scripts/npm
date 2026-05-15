@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # changesets calls `npm publish`, which breaks Yarn workspaces that include "./".
 # Delegate publish to `yarn npm publish`, which handles the root workspace correctly.
-set -euo pipefail
+set -eo pipefail
 
 real_npm() {
   if [[ -n "${NPM_REAL:-}" ]] && [[ -x "${NPM_REAL}" ]]; then

@@ -48,7 +48,7 @@
     "typecheck-next-example": "yarn workspace @hyperse/next-example typecheck",
     "lint-staged-files": "lint-staged --allow-empty",
     "changeset": "changeset",
-    "release": "yarn build && PATH=\"$PWD/scripts:$PATH\" changeset publish",
+    "release": "yarn build && node scripts/changeset-publish.mjs",
     "test:coverage": "vitest run --coverage",
     "cz": "cz",
     "prepare": "husky"
