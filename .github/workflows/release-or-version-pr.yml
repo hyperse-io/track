@@ -43,6 +43,8 @@ jobs:
         env:
           # See https://github.com/changesets/action/issues/147
           HOME: ${{ github.workspace }}
+          # Skip husky during `npm publish` prepare (no .git in pack context)
+          HUSKY: '0'
           # Allows to download / query / comment packages
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Allows to publish packages

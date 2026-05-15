@@ -43,7 +43,7 @@
     "test-unit": "vitest run",
     "test-ui": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "typecheck": "run-s typecheck-lib typecheck-next-example",
+    "typecheck": "run-s build typecheck-lib typecheck-next-example",
     "typecheck-lib": "tsc --project ./tsconfig.json --noEmit",
     "typecheck-next-example": "yarn workspace @hyperse/next-example typecheck",
     "lint-staged-files": "lint-staged --allow-empty",

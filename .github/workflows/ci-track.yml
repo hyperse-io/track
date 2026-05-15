@@ -72,7 +72,3 @@ jobs:
       - name: Unit tests
         run: |
           yarn test
-
-      - name: Build
-        run: |
-          yarn build
