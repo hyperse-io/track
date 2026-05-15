@@ -1,13 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 18 100 60" preserveAspectRatio="xMidYMid meet" class="css-88gl6m" id="gdeebchh"> 
-  <style>
-      @media (prefers-color-scheme:dark){:root{filter:invert(100%)}}
-  </style>
-  <defs id="SvgjsDefs1310"></defs>  
-  <g id="SvgjsG1311" featurekey="symbolFeature-0"> 
-    <title xmlns="http://www.w3.org/2000/svg">Artboard 4</title>  
-    <polygon xmlns="http://www.w3.org/2000/svg" points="39.6 68.87 42.82 68.87 59.4 29.5 56.18 29.5 39.6 68.87"> </polygon>
-    <polygon xmlns="http://www.w3.org/2000/svg" points="66 29.5 66 34.14 81.13 49.17 66 64.21 66 68.84 85.8 49.17 66 29.5"></polygon>
-    <polygon xmlns="http://www.w3.org/2000/svg" points="33 68.84 33 64.21 17.87 49.17 33 34.14 33 29.5 13.2 49.17 33 68.84"></polygon>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" role="img" aria-label="Hyperse Track">
+  <title>Hyperse Track</title>
+  <defs>
+    <linearGradient id="brand" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22d3ee"/>
+      <stop offset="0.42" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#9333ea"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="16" y1="2" x2="16" y2="18" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22d3ee" stop-opacity="0.9"/>
+      <stop offset="0.5" stop-color="#3b82f6" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#a855f7" stop-opacity="0.35"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#22d3ee" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <g filter="url(#glow)">
+    <circle cx="16" cy="16" r="15" stroke="url(#ring)" stroke-width="1.5"/>
+    <rect x="3" y="3" width="26" height="26" rx="7.5" fill="url(#brand)"/>
+    <path
+      d="M3 3h26v13H3V3z"
+      fill="url(#shine)"
+    />
+    <path
+      fill="#020617"
+      d="M8 9.5h16v5.5h-4.75v9.5h-6.5v-9.5H8V9.5z"
+    />
   </g>
 </svg>
