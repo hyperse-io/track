@@ -1576,6 +1576,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hyperse/track-monorepo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@hyperse/track-monorepo@workspace:."
+  dependencies:
+    "@changesets/changelog-github": "npm:0.7.0"
+    "@changesets/cli": "npm:2.31.0"
+    "@commitlint/cli": "npm:21.0.1"
+    "@commitlint/config-conventional": "npm:21.0.1"
+    "@hyperse/eslint-config-hyperse": "npm:^1.7.3"
+    "@hyperse/exec-program": "npm:^1.2.1"
+    "@hyperse/vitest-coverage-reporter": "npm:^1.0.16"
+    "@types/react": "npm:^19.2.14"
+    "@types/react-dom": "npm:^19.2.3"
+    commitizen: "npm:4.3.1"
+    cz-conventional-changelog: "npm:3.3.0"
+    eslint: "npm:^10.3.0"
+    husky: "npm:9.1.7"
+    lint-staged: "npm:17.0.4"
+    next: "npm:16.2.6"
+    npm-run-all: "npm:^4.1.5"
+    react: "npm:^19.2.6"
+    react-dom: "npm:^19.2.6"
+    typescript: "npm:^6.0.3"
+  languageName: unknown
+  linkType: soft
+
 "@hyperse/track-website@workspace:website":
   version: 0.0.0-use.local
   resolution: "@hyperse/track-website@workspace:website"
@@ -1618,33 +1644,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@hyperse/track@npm:1.1.0, @hyperse/track@workspace:.":
+"@hyperse/track@npm:1.1.0, @hyperse/track@workspace:packages/track":
   version: 0.0.0-use.local
-  resolution: "@hyperse/track@workspace:."
+  resolution: "@hyperse/track@workspace:packages/track"
   dependencies:
-    "@changesets/changelog-github": "npm:0.7.0"
-    "@changesets/cli": "npm:2.31.0"
-    "@commitlint/cli": "npm:21.0.1"
-    "@commitlint/config-conventional": "npm:21.0.1"
     "@hyperse/eslint-config-hyperse": "npm:^1.7.3"
-    "@hyperse/exec-program": "npm:^1.2.1"
     "@hyperse/pipeline": "npm:^1.0.6"
     "@hyperse/vitest-coverage-reporter": "npm:^1.0.16"
     "@types/lodash": "npm:^4"
     "@types/node": "npm:^25.8.0"
-    "@types/react": "npm:^19.2.14"
-    "@types/react-dom": "npm:^19.2.3"
     "@vitest/coverage-istanbul": "npm:^4.1.6"
     "@vitest/ui": "npm:^4.1.6"
-    commitizen: "npm:4.3.1"
-    cz-conventional-changelog: "npm:3.3.0"
     eslint: "npm:^10.3.0"
-    husky: "npm:9.1.7"
-    lint-staged: "npm:17.0.4"
-    next: "npm:16.2.6"
     npm-run-all: "npm:^4.1.5"
-    react: "npm:^19.2.6"
-    react-dom: "npm:^19.2.6"
     tsdown: "npm:^0.22.0"
     typescript: "npm:^6.0.3"
     vite: "npm:^8.0.13"

@@ -8,6 +8,7 @@ on:
       - minor
     paths:
       - 'package.json'
+      - 'packages/*/package.json'
       - '*.lock'
       - '.yarnrc.yml'
       - 'constraints.pro'
@@ -24,6 +25,7 @@ on:
       - reopened
     paths:
       - 'package.json'
+      - 'packages/*/package.json'
       - '*.lock'
       - '.yarnrc.yml'
       - 'constraints.pro'

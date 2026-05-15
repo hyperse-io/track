@@ -1,8 +1,12 @@
 {
   "folders": [
     {
+      "name":"root",
+      "path": ".",
+    },
+    {
       "name": "track",
-      "path": "./",
+      "path": "packages/track",
     },
     {
       "name": "website",
@@ -74,7 +78,7 @@
         "mode": "auto"
       }
     ],
-    "typescript.tsdk": "root/node_modules/typescript/lib",
+    "typescript.tsdk": "node_modules/typescript/lib",
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "[jsonc]": {
       "editor.formatOnSave": false,

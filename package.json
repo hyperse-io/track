@@ -1,55 +1,30 @@
 {
-  "name": "@hyperse/track",
-  "version": "1.1.0",
-  "description": "A typed, smart, scalable, powerful data collection engine written in typescript",
-  "keywords": [
-    "hyperse",
-    "middleware",
-    "pipeline",
-    "pipe",
-    "track engine",
-    "google track",
-    "facebook track",
-    "klaviyo track"
-  ],
+  "name": "@hyperse/track-monorepo",
+  "private": true,
+  "description": "Monorepo for @hyperse/track and related packages",
   "repository": {
     "type": "git",
     "url": "git@github.com:hyperse-io/track.git"
   },
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./package.json": "./package.json"
-  },
-  "types": "./dist/index.d.ts",
-  "files": [
-    "./bin/",
-    "./dist/",
-    "./index.js"
-  ],
   "workspaces": [
+    "packages/*",
     "website",
-    "examples/*",
-    "./"
+    "examples/*"
   ],
   "scripts": {
-    "build": "tsdown",
-    "lint": "eslint .",
-    "lint-fix": "yarn lint --fix",
-    "test": "run-s test-unit",
-    "test-unit": "vitest run",
-    "test-ui": "vitest --ui",
-    "coverage": "vitest run --coverage",
-    "typecheck": "run-s build typecheck-lib typecheck-next-example",
-    "typecheck-lib": "tsc --project ./tsconfig.json --noEmit",
+    "build": "yarn workspace @hyperse/track build",
+    "lint": "yarn workspace @hyperse/track lint",
+    "lint-fix": "yarn workspace @hyperse/track lint-fix",
+    "test": "yarn workspace @hyperse/track test",
+    "test-ui": "yarn workspace @hyperse/track test-ui",
+    "coverage": "yarn workspace @hyperse/track coverage",
+    "typecheck": "run-s build typecheck-track typecheck-next-example",
+    "typecheck-track": "yarn workspace @hyperse/track typecheck",
     "typecheck-next-example": "yarn workspace @hyperse/next-example typecheck",
     "lint-staged-files": "lint-staged --allow-empty",
     "changeset": "changeset",
-    "release": "yarn build && node scripts/changeset-publish.mjs",
-    "test:coverage": "vitest run --coverage",
+    "release": "yarn build && changeset publish",
+    "test:coverage": "yarn workspace @hyperse/track test:coverage",
     "cz": "cz",
     "prepare": "husky"
   },
@@ -57,9 +32,6 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "@hyperse/pipeline": "^1.0.6"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.7.0",
@@ -69,12 +41,8 @@
     "@hyperse/eslint-config-hyperse": "^1.7.3",
     "@hyperse/exec-program": "^1.2.1",
     "@hyperse/vitest-coverage-reporter": "^1.0.16",
-    "@types/lodash": "^4",
-    "@types/node": "^25.8.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitest/coverage-istanbul": "^4.1.6",
-    "@vitest/ui": "^4.1.6",
     "commitizen": "4.3.1",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^10.3.0",
@@ -84,16 +52,10 @@
     "npm-run-all": "^4.1.5",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "tsdown": "^0.22.0",
-    "typescript": "^6.0.3",
-    "vite": "^8.0.13",
-    "vitest": "^4.1.6"
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": ">=20"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "packageManager": "yarn@4.14.1",
   "license": "MIT"

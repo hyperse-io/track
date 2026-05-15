@@ -11,15 +11,6 @@
     "jsx": "preserve",
     "types": ["vitest/globals", "node"]
   },
-  "exclude": [
-    "**/node_modules",
-    "**/.*/",
-    "dist",
-    "build",
-    "**/website/**/*.ts",
-    "**/website/**/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx"
-  ],
+  "exclude": ["**/node_modules", "**/.*/", "dist", "build"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

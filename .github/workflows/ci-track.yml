@@ -8,15 +8,12 @@ on:
       - minor
       - dev
     paths:
-      - 'src/**'
-      - 'tests/**'
+      - 'packages/track/**'
       - 'examples/**'
       - 'package.json'
+      - 'packages/*/package.json'
       - '*.lock'
       - '.yarnrc.yml'
-      - 'tsconfig*.json'
-      - 'tsdown.config.ts'
-      - 'vitest.config.ts'
       - '.prettier*'
       - '.github/**'
 
@@ -31,15 +28,12 @@ on:
       - synchronize
       - reopened
     paths:
-      - 'src/**'
-      - 'tests/**'
+      - 'packages/track/**'
       - 'examples/**'
       - 'package.json'
+      - 'packages/*/package.json'
       - '*.lock'
       - '.yarnrc.yml'
-      - 'tsconfig*.json'
-      - 'tsdown.config.ts'
-      - 'vitest.config.ts'
       - '.prettier*'
       - '.github/**'
 
