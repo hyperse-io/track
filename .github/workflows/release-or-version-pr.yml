@@ -28,14 +28,14 @@ jobs:
       - name: 📥 Monorepo install
         uses: ./.github/actions/yarn-nm-install
 
-      # @link https://github.com/changesets/action
+      # @link https://github.com/changesets/action (v2 for @changesets/cli v3)
       - name: Create Release Pull Request or Publish to npm
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
-          publish: yarn release
-          cwd: ${{ github.workspace }}
-          title: '[Release] Version packages'
+          publish-script: yarn release
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-title: '[Release] Version packages'
           # Optional, might be used in conjunction with GITHUB_TOKEN to
           # allow running the workflows on a Version package action.
           # Be aware of security implications.
@@ -46,6 +46,5 @@ jobs:
           # Skip husky during `npm publish` prepare (no .git in pack context)
           HUSKY: '0'
           # Allows to download / query / comment packages
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Allows to publish packages
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
