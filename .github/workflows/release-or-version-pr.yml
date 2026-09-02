@@ -36,6 +36,7 @@ jobs:
           publish-script: yarn release
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-title: '[Release] Version packages'
+          commit-message: 'Version Packages [skip ci]'
           # Optional, might be used in conjunction with GITHUB_TOKEN to
           # allow running the workflows on a Version package action.
           # Be aware of security implications.
