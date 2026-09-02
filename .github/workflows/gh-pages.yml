@@ -11,6 +11,7 @@ on:
 
 jobs:
   deploy:
+    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write

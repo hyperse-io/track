@@ -4,6 +4,7 @@ on:
 
 jobs:
   build-and-test:
+    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
