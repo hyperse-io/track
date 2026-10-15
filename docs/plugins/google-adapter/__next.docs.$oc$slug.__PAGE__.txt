@@ -1,0 +1,44 @@
+3:"$Sreact.fragment"
+4:"/track/_next/static/chunks/1j-6l9h3mg11r.js"
+5:"/track/_next/static/chunks/3mzrocmw_ysm5.js"
+6:I[339756,["$4","$5"],"default"]
+7:I[837457,["$4","$5"],"default"]
+c:"/track/_next/static/chunks/3ftfkgi1rhuk8.js"
+d:"/track/_next/static/chunks/1b-b0jfjw3cfa.js"
+e:"/track/_next/static/chunks/254vdtb_xxs17.js"
+f:"/track/_next/static/chunks/2416vy_hofusc.js"
+10:"/track/_next/static/chunks/3yg06nrxgrzm4.js"
+11:"/track/_next/static/chunks/1gb0i9-da82gt.js"
+12:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsPage"]
+13:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsTitle"]
+14:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsDescription"]
+15:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsBody"]
+16:I[647873,["$4","$5","$c","$d","$e","$f","$10","$11"],"default"]
+17:I[494157,["$4","$5","$c","$d","$e","$f","$10","$11"],"Heading"]
+18:I[144324,["$4","$5","$c","$d","$e","$f","$10","$11"],"CodeBlock"]
+19:I[144324,["$4","$5","$c","$d","$e","$f","$10","$11"],"Pre"]
+1f:"ViewportBoundary"
+20:I[897367,["$4","$5"],"$1f"]
+21:"MetadataBoundary"
+22:I[897367,["$4","$5"],"$21"]
+23:"$Sreact.suspense"
+9:X
+9:C
+a:X
+b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[["$","$L12",null,{"toc":[{"depth":2,"url":"#install","title":"Install"}],"children":[["$","$L13",null,{"children":"Google Adapter"}],["$","$L14",null,{"children":"GoogleAdapter"}],["$","$L15",null,{"children":[["$","p",null,{"children":"The GoogleAdapter empowers you to seamlessly integrate your Google Analytics and Google Ads event tracking within your @hyperse/track setup."}],"\n",["$","p",null,{"children":["$","strong",null,{"children":"Key Features:"}]}],"\n",["$","ul",null,{"children":["\n",["$","li",null,{"children":[["$","strong",null,{"children":"Unified Tracking:"}]," Capture and send events to both Google Analytics and Google Ads through a single, consistent interface."]}],"\n",["$","li",null,{"children":[["$","strong",null,{"children":"TypeScript Typing:"}]," Enjoy robust type safety and code completion through TypeScript definitions, ensuring accurate event data and reducing errors."]}],"\n",["$","li",null,{"children":[["$","strong",null,{"children":"Effortless Integration:"}]," Integrate the GoogleAdapter effortlessly into your @hyperse/track system, enabling fast and efficient tracking setup."]}],"\n",["$","li",null,{"children":[["$","strong",null,{"children":"Comprehensive Event Data:"}]," Track a wide range of events, including page views, form submissions, user interactions, and more, providing you with valuable insights."]}],"\n"]}],"\n",["$","p",null,{"children":["$","strong",null,{"children":"Benefits:"}]}],"\n",["$","ul",null,{"children":["\n",["$","li",null,{"children":[["$","strong",null,{"children":"Enhanced Insights:"}]," Gain a deeper understanding of your users' behavior across both Google Analytics and Google Ads."]}],"\n",["$","li",null,{"children":[["$","strong",null,{"children":"Improved Targeting:"}]," Optimize your Google Ads campaigns by leveraging accurate user behavior data from your website."]}],"\n",["$","li",null,{"children":[["$","strong",null,{"children":"Streamlined Workflow:"}]," Simplify your tracking setup and management with a unified solution for both platforms."]}],"\n",["$","li",null,{"children":[["$","strong",null,{"children":"Improved Code Quality:"}]," TypeScript types ensure accurate event data and prevent potential errors."]}],"\n"]}],"\n",["$","p",null,{"children":["$","strong",null,{"children":"With the GoogleAdapter, you can:"}]}],"\n",["$","ul",null,{"children":["\n",["$","li",null,{"children":"Track critical events on your website."}],"\n",["$","li",null,{"children":"Analyze user behavior and engagement."}],"\n",["$","li",null,{"children":"Optimize your Google Ads campaigns for better results."}],"\n"]}],"\n",["$","p",null,{"children":[["$","strong",null,{"children":"For more information on Google Analytics and Google Ads, refer to the official documentation:"}]," ",["$","$L16",null,{"href":"https://developers.google.com/analytics/devguides/collection/","children":"https://developers.google.com/analytics/devguides/collection/"}]]}],"\n",["$","p",null,{"children":["$","strong",null,{"children":"Embrace the power of data-driven decision-making with the GoogleAdapter. Enhance your tracking capabilities, streamline your workflow, and unlock valuable insights for your business."}]}],"\n",["$","$L17",null,{"as":"h2","id":"install","children":"Install"}],"\n",["$","$L18",null,{"className":"shiki shiki-themes github-light github-dark","style":{"--shiki-light":"#24292e","--shiki-dark":"#e1e4e8","--shiki-light-bg":"#fff","--shiki-dark-bg":"#24292e"},"tabIndex":"0","icon":"<svg viewBox=\"0 0 24 24\"><path d=\"m 4,4 a 1,1 0 0 0 -0.7070312,0.2929687 1,1 0 0 0 0,1.4140625 L 8.5859375,11 3.2929688,16.292969 a 1,1 0 0 0 0,1.414062 1,1 0 0 0 1.4140624,0 l 5.9999998,-6 a 1.0001,1.0001 0 0 0 0,-1.414062 L 4.7070312,4.2929687 A 1,1 0 0 0 4,4 Z m 8,14 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 8 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 z\" fill=\"currentColor\" /></svg>","children":["$","$L19",null,{"children":"$L1a"}]}]]}]]}],["$L1b","$L1c"],"$L1d"]}],"p":"$@1e","v":null,"s":"$a"}}]]
+2:[["children",{"s":{"n":"slug","t":"oc","k":"plugins/google-adapter","s":[]},"h":64,"d":{"r":["$","$3","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@8","v":"$9","s":"$a"},"c":"$Qb"}]]
+1:[["children",{"s":"docs","h":32,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L20",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L22",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Google Adapter | Track"}],["$","meta","1",{"name":"description","content":"GoogleAdapter"}],["$","meta","2",{"name":"application-name","content":"Hyperse Track"}],["$","meta","3",{"name":"generator","content":"Hyperse"}],["$","meta","4",{"name":"keywords","content":"Hyperse,Track,Analytics,TypeScript,Google Analytics,Facebook,Klaviyo,Data collection"}],["$","link","5",{"rel":"canonical","href":"https://hyperse-io.github.io/docs/plugins/google-adapter"}],["$","meta","6",{"name":"mobile-web-app-capable","content":"yes"}],["$","meta","7",{"name":"apple-mobile-web-app-title","content":"Track"}],["$","meta","8",{"name":"apple-mobile-web-app-status-bar-style","content":"default"}],["$","meta","9",{"property":"og:title","content":"Google Adapter | Track"}],["$","meta","10",{"property":"og:description","content":"GoogleAdapter"}],["$","meta","11",{"property":"og:url","content":"https://hyperse-io.github.io/docs/plugins/google-adapter"}],["$","meta","12",{"property":"og:site_name","content":"Hyperse Track"}],["$","meta","13",{"property":"og:locale","content":"en_US"}],["$","meta","14",{"property":"og:type","content":"website"}],["$","meta","15",{"name":"twitter:card","content":"summary"}],["$","meta","16",{"name":"twitter:title","content":"Google Adapter | Track"}],["$","meta","17",{"name":"twitter:description","content":"GoogleAdapter"}]]}]}],null]}],null]}],"p":"$@24","v":null,"s":"$a"}},"a":"$@25","u":"$@26","b":"-067WK0_Qbs2yIsUlEeQl"}
+27:I[897367,["$4","$5"],"OutletBoundary"]
+1a:["$","code",null,{"children":["$","span",null,{"className":"line","children":[["$","span",null,{"style":{"--shiki-light":"#6F42C1","--shiki-dark":"#B392F0"},"children":"npm"}],["$","span",null,{"style":{"--shiki-light":"#032F62","--shiki-dark":"#9ECBFF"},"children":" install"}],["$","span",null,{"style":{"--shiki-light":"#032F62","--shiki-dark":"#9ECBFF"},"children":" @hyperse-hub/track-plugin-google"}],["$","span",null,{"style":{"--shiki-light":"#005CC5","--shiki-dark":"#79B8FF"},"children":" --save"}]]}]}]
+1b:["$","script","script-0",{"src":"/track/_next/static/chunks/3yg06nrxgrzm4.js","async":true}]
+1c:["$","script","script-1",{"src":"/track/_next/static/chunks/1gb0i9-da82gt.js","async":true}]
+1d:["$","$L27",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@28"}]}]
+26:true
+a:300
+28:null
+a:C
+25:0
+8:"$undefined"
+24:"$undefined"
+1e:"$undefined"

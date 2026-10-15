@@ -1,0 +1,49 @@
+3:"$Sreact.fragment"
+4:"/track/_next/static/chunks/1j-6l9h3mg11r.js"
+5:"/track/_next/static/chunks/3mzrocmw_ysm5.js"
+6:I[339756,["$4","$5"],"default"]
+7:I[837457,["$4","$5"],"default"]
+c:"/track/_next/static/chunks/3ftfkgi1rhuk8.js"
+d:"/track/_next/static/chunks/1b-b0jfjw3cfa.js"
+e:"/track/_next/static/chunks/254vdtb_xxs17.js"
+f:"/track/_next/static/chunks/2416vy_hofusc.js"
+10:"/track/_next/static/chunks/3yg06nrxgrzm4.js"
+11:"/track/_next/static/chunks/1gb0i9-da82gt.js"
+12:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsPage"]
+13:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsTitle"]
+14:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsDescription"]
+15:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsBody"]
+16:I[494157,["$4","$5","$c","$d","$e","$f","$10","$11"],"Heading"]
+17:I[647873,["$4","$5","$c","$d","$e","$f","$10","$11"],"default"]
+24:"ViewportBoundary"
+25:I[897367,["$4","$5"],"$24"]
+26:"MetadataBoundary"
+27:I[897367,["$4","$5"],"$26"]
+28:"$Sreact.suspense"
+9:X
+9:C
+a:X
+b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[["$","$L12",null,{"toc":[{"depth":2,"url":"#parameters","title":"Parameters"},{"depth":3,"url":"#currency","title":"currency"},{"depth":3,"url":"#value","title":"value"},{"depth":3,"url":"#coupon","title":"coupon"},{"depth":3,"url":"#items","title":"items"},{"depth":3,"url":"#item_names","title":"item_names"},{"depth":3,"url":"#checkout_url","title":"checkout_url"},{"depth":3,"url":"#categories","title":"categories"}],"children":[["$","$L13",null,{"children":"Begin Checkout"}],["$","$L14",null,{"children":"begin_checkout"}],["$","$L15",null,{"children":[["$","a",null,{"href":"https://registry.hyperse.net/package/@hyperse-hub/track-plugin-common","target":"_blank","rel":"noreferrer","className":"mb-4 flex w-fit flex-row items-center justify-center gap-2 rounded-md border bg-[#ebedf0] px-2 py-0.5 no-underline hover:no-underline dark:bg-[#232323] mb-4","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":"540","height":"210","viewBox":"0 0 18 7","className":"h-[12px] w-[24px]","aria-hidden":true,"children":[["$","path",null,{"fill":"#888","d":"M0 0h18v6H9v1H5V6H0zm1 5h2V2h1v3h1V1H1zm5-4v5h2V5h2V1zm2 1h1v2H8zm3-1v4h2V2h1v3h1V3h1v3h1V1z"}],["$","path",null,{"fill":"#FFF","d":"M1 5h2V2h1v3h1V1zM6 1v5h2V5h2V1zm3 3H8V2h1zM11 1v4h2V2h1v3h1V2h1v3h1V1z"}]]}],["$","span",null,{"className":"text-[75%] font-bold","children":"@hyperse-hub/track-plugin-common"}]]}],"\n",["$","$L16",null,{"as":"h2","id":"parameters","children":"Parameters"}],"\n",["$","$L16",null,{"as":"h3","id":"currency","children":"currency"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"string"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}],"\n",["$","p",null,{"children":"USD Currency of the items associated with the event, in 3-letter ISO 4217 format."}],"\n",["$","p",null,{"children":"If you set value then currency is required for revenue metrics to be computed accurately."}],"\n",["$","$L16",null,{"as":"h3","id":"value","children":"value"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"number"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}],"\n",["$","p",null,{"children":"The monetary value of the event."}],"\n",["$","ul",null,{"children":["\n",["$","li",null,{"children":"Set value to the sum of (price * quantity) for all items in items. Don't include shipping or tax."}],"\n",["$","li",null,{"children":"value is typically required for meaningful reporting. If you mark the event as a key event then it's recommended you set value."}],"\n",["$","li",null,{"children":"currency is required if you set value."}],"\n"]}],"\n",["$","$L16",null,{"as":"h3","id":"coupon","children":"coupon"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"string"}]]}],"\n",["$","p",null,{"children":"The coupon name/code associated with the event."}],"\n",["$","p",null,{"children":"Event-level and item-level coupon parameters are independent."}],"\n",["$","$L16",null,{"as":"h3","id":"items","children":"items"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","$L17",null,{"href":"/plugins/types/standard-goods-item","children":"Item"}],"[] ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}],"\n",["$","p",null,{"children":"The items for the event."}],"\n",["$","$L16",null,{"as":"h3","id":"item_names","children":"item_names"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ","$L18"]}],"\n","$L19","\n","$L1a","\n","$L1b","\n","$L1c","\n","$L1d","\n","$L1e","\n","$L1f"]}]]}],["$L20","$L21"],"$L22"]}],"p":"$@23","v":null,"s":"$a"}}]]
+2:[["children",{"s":{"n":"slug","t":"oc","k":"plugins/standard-events/begin_checkout","s":[]},"h":64,"d":{"r":["$","$3","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@8","v":"$9","s":"$a"},"c":"$Qb"}]]
+1:[["children",{"s":"docs","h":32,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L25",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L27",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$28",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Begin Checkout | Track"}],["$","meta","1",{"name":"description","content":"begin_checkout"}],["$","meta","2",{"name":"application-name","content":"Hyperse Track"}],["$","meta","3",{"name":"generator","content":"Hyperse"}],["$","meta","4",{"name":"keywords","content":"Hyperse,Track,Analytics,TypeScript,Google Analytics,Facebook,Klaviyo,Data collection"}],["$","link","5",{"rel":"canonical","href":"https://hyperse-io.github.io/docs/plugins/standard-events/begin_checkout"}],["$","meta","6",{"name":"mobile-web-app-capable","content":"yes"}],["$","meta","7",{"name":"apple-mobile-web-app-title","content":"Track"}],["$","meta","8",{"name":"apple-mobile-web-app-status-bar-style","content":"default"}],["$","meta","9",{"property":"og:title","content":"Begin Checkout | Track"}],["$","meta","10",{"property":"og:description","content":"begin_checkout"}],["$","meta","11",{"property":"og:url","content":"https://hyperse-io.github.io/docs/plugins/standard-events/begin_checkout"}],["$","meta","12",{"property":"og:site_name","content":"Hyperse Track"}],["$","meta","13",{"property":"og:locale","content":"en_US"}],["$","meta","14",{"property":"og:type","content":"website"}],["$","meta","15",{"name":"twitter:card","content":"summary"}],["$","meta","16",{"name":"twitter:title","content":"Begin Checkout | Track"}],["$","meta","17",{"name":"twitter:description","content":"begin_checkout"}]]}]}],null]}],null]}],"p":"$@29","v":null,"s":"$a"}},"a":"$@2a","u":"$@2b","b":"-067WK0_Qbs2yIsUlEeQl"}
+2c:I[897367,["$4","$5"],"OutletBoundary"]
+18:["$","code",null,{"children":"string[]"}]
+19:["$","p",null,{"children":"An array of product names in the cart."}]
+1a:["$","$L16",null,{"as":"h3","id":"checkout_url","children":"checkout_url"}]
+1b:["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"string"}]]}]
+1c:["$","p",null,{"children":"The URL of the checkout page."}]
+1d:["$","$L16",null,{"as":"h3","id":"categories","children":"categories"}]
+1e:["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"string"}]]}]
+1f:["$","p",null,{"children":"The URL of the categories."}]
+20:["$","script","script-0",{"src":"/track/_next/static/chunks/3yg06nrxgrzm4.js","async":true}]
+21:["$","script","script-1",{"src":"/track/_next/static/chunks/1gb0i9-da82gt.js","async":true}]
+22:["$","$L2c",null,{"children":["$","$28",null,{"name":"Next.MetadataOutlet","children":"$@2d"}]}]
+2b:true
+a:300
+2d:null
+a:C
+2a:0
+8:"$undefined"
+29:"$undefined"
+23:"$undefined"

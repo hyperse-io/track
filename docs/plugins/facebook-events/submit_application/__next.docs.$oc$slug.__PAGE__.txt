@@ -1,0 +1,37 @@
+3:"$Sreact.fragment"
+4:"/track/_next/static/chunks/1j-6l9h3mg11r.js"
+5:"/track/_next/static/chunks/3mzrocmw_ysm5.js"
+6:I[339756,["$4","$5"],"default"]
+7:I[837457,["$4","$5"],"default"]
+c:"/track/_next/static/chunks/3ftfkgi1rhuk8.js"
+d:"/track/_next/static/chunks/1b-b0jfjw3cfa.js"
+e:"/track/_next/static/chunks/254vdtb_xxs17.js"
+f:"/track/_next/static/chunks/2416vy_hofusc.js"
+10:"/track/_next/static/chunks/3yg06nrxgrzm4.js"
+11:"/track/_next/static/chunks/1gb0i9-da82gt.js"
+12:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsPage"]
+13:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsTitle"]
+14:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsDescription"]
+15:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsBody"]
+16:I[494157,["$4","$5","$c","$d","$e","$f","$10","$11"],"Heading"]
+17:I[897367,["$4","$5"],"OutletBoundary"]
+18:"$Sreact.suspense"
+1b:"ViewportBoundary"
+1c:I[897367,["$4","$5"],"$1b"]
+1d:"MetadataBoundary"
+1e:I[897367,["$4","$5"],"$1d"]
+9:X
+9:C
+a:X
+b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[["$","$L12",null,{"toc":[{"depth":2,"url":"#parameters","title":"Parameters"}],"children":[["$","$L13",null,{"children":"Submit Application"}],["$","$L14",null,{"children":"submit_application"}],["$","$L15",null,{"children":[["$","a",null,{"href":"https://registry.hyperse.net/package/@hyperse-hub/track-plugin-facebook","target":"_blank","rel":"noreferrer","className":"mb-4 flex w-fit flex-row items-center justify-center gap-2 rounded-md border bg-[#ebedf0] px-2 py-0.5 no-underline hover:no-underline dark:bg-[#232323] mb-4","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":"540","height":"210","viewBox":"0 0 18 7","className":"h-[12px] w-[24px]","aria-hidden":true,"children":[["$","path",null,{"fill":"#888","d":"M0 0h18v6H9v1H5V6H0zm1 5h2V2h1v3h1V1H1zm5-4v5h2V5h2V1zm2 1h1v2H8zm3-1v4h2V2h1v3h1V3h1v3h1V1z"}],["$","path",null,{"fill":"#FFF","d":"M1 5h2V2h1v3h1V1zM6 1v5h2V5h2V1zm3 3H8V2h1zM11 1v4h2V2h1v3h1V2h1v3h1V1z"}]]}],["$","span",null,{"className":"text-[75%] font-bold","children":"@hyperse-hub/track-plugin-facebook"}]]}],"\n",["$","p",null,{"children":"When a person applies for a product, service, or program you offer."}],"\n",["$","$L16",null,{"as":"h2","id":"parameters","children":"Parameters"}],"\n",["$","p",null,{"children":"This parameter is optional and can be defined by users"}]]}]]}],[["$","script","script-0",{"src":"/track/_next/static/chunks/3yg06nrxgrzm4.js","async":true}],["$","script","script-1",{"src":"/track/_next/static/chunks/1gb0i9-da82gt.js","async":true}]],["$","$L17",null,{"children":["$","$18",null,{"name":"Next.MetadataOutlet","children":"$@19"}]}]]}],"p":"$@1a","v":null,"s":"$a"}}]]
+2:[["children",{"s":{"n":"slug","t":"oc","k":"plugins/facebook-events/submit_application","s":[]},"h":64,"d":{"r":["$","$3","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@8","v":"$9","s":"$a"},"c":"$Qb"}]]
+1:[["children",{"s":"docs","h":32,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L1c",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1e",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$18",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Submit Application | Track"}],["$","meta","1",{"name":"description","content":"submit_application"}],["$","meta","2",{"name":"application-name","content":"Hyperse Track"}],["$","meta","3",{"name":"generator","content":"Hyperse"}],["$","meta","4",{"name":"keywords","content":"Hyperse,Track,Analytics,TypeScript,Google Analytics,Facebook,Klaviyo,Data collection"}],["$","link","5",{"rel":"canonical","href":"https://hyperse-io.github.io/docs/plugins/facebook-events/submit_application"}],["$","meta","6",{"name":"mobile-web-app-capable","content":"yes"}],["$","meta","7",{"name":"apple-mobile-web-app-title","content":"Track"}],["$","meta","8",{"name":"apple-mobile-web-app-status-bar-style","content":"default"}],["$","meta","9",{"property":"og:title","content":"Submit Application | Track"}],["$","meta","10",{"property":"og:description","content":"submit_application"}],["$","meta","11",{"property":"og:url","content":"https://hyperse-io.github.io/docs/plugins/facebook-events/submit_application"}],["$","meta","12",{"property":"og:site_name","content":"Hyperse Track"}],["$","meta","13",{"property":"og:locale","content":"en_US"}],["$","meta","14",{"property":"og:type","content":"website"}],["$","meta","15",{"name":"twitter:card","content":"summary"}],["$","meta","16",{"name":"twitter:title","content":"Submit Application | Track"}],["$","meta","17",{"name":"twitter:description","content":"submit_application"}]]}]}],null]}],null]}],"p":"$@1f","v":null,"s":"$a"}},"a":"$@20","u":"$@21","b":"-067WK0_Qbs2yIsUlEeQl"}
+19:null
+21:true
+a:300
+a:C
+20:0
+8:"$undefined"
+1f:"$undefined"
+1a:"$undefined"

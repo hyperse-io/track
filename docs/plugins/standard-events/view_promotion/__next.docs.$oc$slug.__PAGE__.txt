@@ -1,0 +1,52 @@
+3:"$Sreact.fragment"
+4:"/track/_next/static/chunks/1j-6l9h3mg11r.js"
+5:"/track/_next/static/chunks/3mzrocmw_ysm5.js"
+6:I[339756,["$4","$5"],"default"]
+7:I[837457,["$4","$5"],"default"]
+c:"/track/_next/static/chunks/3ftfkgi1rhuk8.js"
+d:"/track/_next/static/chunks/1b-b0jfjw3cfa.js"
+e:"/track/_next/static/chunks/254vdtb_xxs17.js"
+f:"/track/_next/static/chunks/2416vy_hofusc.js"
+10:"/track/_next/static/chunks/3yg06nrxgrzm4.js"
+11:"/track/_next/static/chunks/1gb0i9-da82gt.js"
+12:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsPage"]
+13:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsTitle"]
+14:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsDescription"]
+15:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsBody"]
+16:I[494157,["$4","$5","$c","$d","$e","$f","$10","$11"],"Heading"]
+26:"ViewportBoundary"
+27:I[897367,["$4","$5"],"$26"]
+28:"MetadataBoundary"
+29:I[897367,["$4","$5"],"$28"]
+2a:"$Sreact.suspense"
+9:X
+9:C
+a:X
+b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[["$","$L12",null,{"toc":[{"depth":3,"url":"#currency","title":"currency"},{"depth":3,"url":"#value","title":"value"},{"depth":3,"url":"#creative_name","title":"creative_name"},{"depth":3,"url":"#creative_slot","title":"creative_slot"},{"depth":3,"url":"#promotion_id","title":"promotion_id"},{"depth":3,"url":"#promotion_name","title":"promotion_name"},{"depth":3,"url":"#location_id","title":"location_id"},{"depth":3,"url":"#items","title":"items"}],"children":[["$","$L13",null,{"children":"View Promotion"}],["$","$L14",null,{"children":"view_promotion"}],["$","$L15",null,{"children":[["$","a",null,{"href":"https://registry.hyperse.net/package/@hyperse-hub/track-plugin-common","target":"_blank","rel":"noreferrer","className":"mb-4 flex w-fit flex-row items-center justify-center gap-2 rounded-md border bg-[#ebedf0] px-2 py-0.5 no-underline hover:no-underline dark:bg-[#232323] mb-4","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":"540","height":"210","viewBox":"0 0 18 7","className":"h-[12px] w-[24px]","aria-hidden":true,"children":[["$","path",null,{"fill":"#888","d":"M0 0h18v6H9v1H5V6H0zm1 5h2V2h1v3h1V1H1zm5-4v5h2V5h2V1zm2 1h1v2H8zm3-1v4h2V2h1v3h1V3h1v3h1V1z"}],["$","path",null,{"fill":"#FFF","d":"M1 5h2V2h1v3h1V1zM6 1v5h2V5h2V1zm3 3H8V2h1zM11 1v4h2V2h1v3h1V2h1v3h1V1z"}]]}],["$","span",null,{"className":"text-[75%] font-bold","children":"@hyperse-hub/track-plugin-common"}]]}],"\n",["$","p",null,{"children":"This event signifies a promotion was viewed from a list."}],"\n",["$","$L16",null,{"as":"h3","id":"currency","children":"currency"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"string"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}],"\n",["$","p",null,{"children":"USD Currency of the items associated with the event, in 3-letter ISO 4217 format."}],"\n",["$","p",null,{"children":"If you set value then currency is required for revenue metrics to be computed accurately."}],"\n",["$","$L16",null,{"as":"h3","id":"value","children":"value"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"number"}]," ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}],"\n",["$","p",null,{"children":"The monetary value of the event."}],"\n",["$","ul",null,{"children":["\n",["$","li",null,{"children":"Set value to the sum of (price * quantity) for all items in items. Don't include shipping or tax."}],"\n",["$","li",null,{"children":"value is typically required for meaningful reporting. If you mark the event as a key event then it's recommended you set value."}],"\n",["$","li",null,{"children":"currency is required if you set value."}],"\n"]}],"\n",["$","$L16",null,{"as":"h3","id":"creative_name","children":"creative_name"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"string"}]]}],"\n",["$","p",null,{"children":"The name of the promotional creative."}],"\n",["$","$L16",null,{"as":"h3","id":"creative_slot","children":"creative_slot"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"string"}]]}],"\n",["$","p",null,{"children":"The name of the promotional creative slot associated with the event."}],"\n",["$","$L16",null,{"as":"h3","id":"promotion_id","children":"promotion_id"}],"\n",["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ","$L17"]}],"\n","$L18","\n","$L19","\n","$L1a","\n","$L1b","\n","$L1c","\n","$L1d","\n","$L1e","\n","$L1f","\n","$L20","\n","$L21"]}]]}],["$L22","$L23"],"$L24"]}],"p":"$@25","v":null,"s":"$a"}}]]
+2:[["children",{"s":{"n":"slug","t":"oc","k":"plugins/standard-events/view_promotion","s":[]},"h":64,"d":{"r":["$","$3","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@8","v":"$9","s":"$a"},"c":"$Qb"}]]
+1:[["children",{"s":"docs","h":32,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L27",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L29",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$2a",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"View Promotion | Track"}],["$","meta","1",{"name":"description","content":"view_promotion"}],["$","meta","2",{"name":"application-name","content":"Hyperse Track"}],["$","meta","3",{"name":"generator","content":"Hyperse"}],["$","meta","4",{"name":"keywords","content":"Hyperse,Track,Analytics,TypeScript,Google Analytics,Facebook,Klaviyo,Data collection"}],["$","link","5",{"rel":"canonical","href":"https://hyperse-io.github.io/docs/plugins/standard-events/view_promotion"}],["$","meta","6",{"name":"mobile-web-app-capable","content":"yes"}],["$","meta","7",{"name":"apple-mobile-web-app-title","content":"Track"}],["$","meta","8",{"name":"apple-mobile-web-app-status-bar-style","content":"default"}],["$","meta","9",{"property":"og:title","content":"View Promotion | Track"}],["$","meta","10",{"property":"og:description","content":"view_promotion"}],["$","meta","11",{"property":"og:url","content":"https://hyperse-io.github.io/docs/plugins/standard-events/view_promotion"}],["$","meta","12",{"property":"og:site_name","content":"Hyperse Track"}],["$","meta","13",{"property":"og:locale","content":"en_US"}],["$","meta","14",{"property":"og:type","content":"website"}],["$","meta","15",{"name":"twitter:card","content":"summary"}],["$","meta","16",{"name":"twitter:title","content":"View Promotion | Track"}],["$","meta","17",{"name":"twitter:description","content":"view_promotion"}]]}]}],null]}],null]}],"p":"$@2b","v":null,"s":"$a"}},"a":"$@2c","u":"$@2d","b":"-067WK0_Qbs2yIsUlEeQl"}
+2e:I[647873,["$4","$5","$c","$d","$e","$f","$10","$11"],"default"]
+2f:I[897367,["$4","$5"],"OutletBoundary"]
+17:["$","code",null,{"children":"string"}]
+18:["$","p",null,{"children":"The ID of the promotion associated with the event."}]
+19:["$","$L16",null,{"as":"h3","id":"promotion_name","children":"promotion_name"}]
+1a:["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"string"}]]}]
+1b:["$","p",null,{"children":"The name of the promotion associated with the event."}]
+1c:["$","$L16",null,{"as":"h3","id":"location_id","children":"location_id"}]
+1d:["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","code",null,{"children":"string"}]]}]
+1e:["$","p",null,{"children":"The ID of the location."}]
+1f:["$","$L16",null,{"as":"h3","id":"items","children":"items"}]
+20:["$","p",null,{"children":[["$","span",null,{"className":"mr-1 rounded-md border bg-[#17c1ff] px-2 py-1 text-[75%] font-bold text-gray-50","children":"Property"}]," ",["$","$L2e",null,{"href":"/plugins/types/standard-goods-item","children":"Item"}],"[] ",["$","span",null,{"className":"rounded-md border bg-orange-500 px-2 py-1 text-[75%] font-bold text-gray-50","children":"required"}]]}]
+21:["$","p",null,{"children":"The items for the event."}]
+22:["$","script","script-0",{"src":"/track/_next/static/chunks/3yg06nrxgrzm4.js","async":true}]
+23:["$","script","script-1",{"src":"/track/_next/static/chunks/1gb0i9-da82gt.js","async":true}]
+24:["$","$L2f",null,{"children":["$","$2a",null,{"name":"Next.MetadataOutlet","children":"$@30"}]}]
+2d:true
+a:300
+30:null
+a:C
+2c:0
+8:"$undefined"
+2b:"$undefined"
+25:"$undefined"

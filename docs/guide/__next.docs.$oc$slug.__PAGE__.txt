@@ -1,0 +1,37 @@
+3:"$Sreact.fragment"
+4:"/track/_next/static/chunks/1j-6l9h3mg11r.js"
+5:"/track/_next/static/chunks/3mzrocmw_ysm5.js"
+6:I[339756,["$4","$5"],"default"]
+7:I[837457,["$4","$5"],"default"]
+c:"/track/_next/static/chunks/3ftfkgi1rhuk8.js"
+d:"/track/_next/static/chunks/1b-b0jfjw3cfa.js"
+e:"/track/_next/static/chunks/254vdtb_xxs17.js"
+f:"/track/_next/static/chunks/2416vy_hofusc.js"
+10:"/track/_next/static/chunks/3yg06nrxgrzm4.js"
+11:"/track/_next/static/chunks/1gb0i9-da82gt.js"
+12:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsPage"]
+13:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsTitle"]
+14:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsDescription"]
+15:I[353266,["$4","$5","$c","$d","$e","$f","$10","$11"],"DocsBody"]
+16:I[647873,["$4","$5","$c","$d","$e","$f","$10","$11"],"default"]
+17:I[897367,["$4","$5"],"OutletBoundary"]
+18:"$Sreact.suspense"
+1b:"ViewportBoundary"
+1c:I[897367,["$4","$5"],"$1b"]
+1d:"MetadataBoundary"
+1e:I[897367,["$4","$5"],"$1d"]
+9:X
+9:C
+a:X
+b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[["$","$L12",null,{"toc":[],"children":[["$","$L13",null,{"children":"Guide"}],["$","$L14",null,{"children":"Getting started with Hyperse Track."}],["$","$L15",null,{"children":[["$","p",null,{"children":["New to Track? Start with ",["$","strong",null,{"children":"Introduction"}],", install the package, then try the\nsample and live examples."]}],"\n",["$","div",null,{"children":[["$","$L16",null,{"href":"/guide/introduction","data-card":true,"className":"block rounded-xl border bg-fd-card p-4 text-fd-card-foreground transition-colors @max-lg:col-span-full hover:bg-fd-accent/80","children":[null,["$","h3",null,{"className":"not-prose mb-1 text-sm font-medium","children":"Introduction"}],null,["$","div",null,{"className":"text-sm text-fd-muted-foreground prose-no-margin empty:hidden"}]]}],["$","$L16",null,{"href":"/guide/installation","data-card":true,"className":"block rounded-xl border bg-fd-card p-4 text-fd-card-foreground transition-colors @max-lg:col-span-full hover:bg-fd-accent/80","children":[null,["$","h3",null,{"className":"not-prose mb-1 text-sm font-medium","children":"Installation"}],null,["$","div",null,{"className":"text-sm text-fd-muted-foreground prose-no-margin empty:hidden"}]]}],["$","$L16",null,{"href":"/guide/sample-example","data-card":true,"className":"block rounded-xl border bg-fd-card p-4 text-fd-card-foreground transition-colors @max-lg:col-span-full hover:bg-fd-accent/80","children":[null,["$","h3",null,{"className":"not-prose mb-1 text-sm font-medium","children":"Sample Example"}],null,["$","div",null,{"className":"text-sm text-fd-muted-foreground prose-no-margin empty:hidden"}]]}],["$","$L16",null,{"href":"/guide/live-example","data-card":true,"className":"block rounded-xl border bg-fd-card p-4 text-fd-card-foreground transition-colors @max-lg:col-span-full hover:bg-fd-accent/80","children":[null,["$","h3",null,{"className":"not-prose mb-1 text-sm font-medium","children":"Live Example"}],null,["$","div",null,{"className":"text-sm text-fd-muted-foreground prose-no-margin empty:hidden"}]]}]],"className":"grid grid-cols-2 gap-3 @container"}]]}]]}],[["$","script","script-0",{"src":"/track/_next/static/chunks/3yg06nrxgrzm4.js","async":true}],["$","script","script-1",{"src":"/track/_next/static/chunks/1gb0i9-da82gt.js","async":true}]],["$","$L17",null,{"children":["$","$18",null,{"name":"Next.MetadataOutlet","children":"$@19"}]}]]}],"p":"$@1a","v":null,"s":"$a"}}]]
+2:[["children",{"s":{"n":"slug","t":"oc","k":"guide","s":[]},"h":64,"d":{"r":["$","$3","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@8","v":"$9","s":"$a"},"c":"$Qb"}]]
+1:[["children",{"s":"docs","h":32,"c":"$Q2"}]]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L1c",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1e",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$18",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Guide | Track"}],["$","meta","1",{"name":"description","content":"Getting started with Hyperse Track."}],["$","meta","2",{"name":"application-name","content":"Hyperse Track"}],["$","meta","3",{"name":"generator","content":"Hyperse"}],["$","meta","4",{"name":"keywords","content":"Hyperse,Track,Analytics,TypeScript,Google Analytics,Facebook,Klaviyo,Data collection"}],["$","link","5",{"rel":"canonical","href":"https://hyperse-io.github.io/docs/guide"}],["$","meta","6",{"name":"mobile-web-app-capable","content":"yes"}],["$","meta","7",{"name":"apple-mobile-web-app-title","content":"Track"}],["$","meta","8",{"name":"apple-mobile-web-app-status-bar-style","content":"default"}],["$","meta","9",{"property":"og:title","content":"Guide | Track"}],["$","meta","10",{"property":"og:description","content":"Getting started with Hyperse Track."}],["$","meta","11",{"property":"og:url","content":"https://hyperse-io.github.io/docs/guide"}],["$","meta","12",{"property":"og:site_name","content":"Hyperse Track"}],["$","meta","13",{"property":"og:locale","content":"en_US"}],["$","meta","14",{"property":"og:type","content":"website"}],["$","meta","15",{"name":"twitter:card","content":"summary"}],["$","meta","16",{"name":"twitter:title","content":"Guide | Track"}],["$","meta","17",{"name":"twitter:description","content":"Getting started with Hyperse Track."}]]}]}],null]}],null]}],"p":"$@1f","v":null,"s":"$a"}},"a":"$@20","u":"$@21","b":"-067WK0_Qbs2yIsUlEeQl"}
+19:null
+21:true
+a:300
+a:C
+20:0
+8:"$undefined"
+1f:"$undefined"
+1a:"$undefined"
