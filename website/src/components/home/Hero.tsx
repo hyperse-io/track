@@ -81,7 +81,7 @@ export const Hero = () => {
               <Button
                 size="lg"
                 className="group w-full sm:w-auto"
-                onClick={() => route.push('/guide/installation')}
+                onClick={() => route.push('/docs/guide/installation')}
               >
                 Get started
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -90,7 +90,7 @@ export const Hero = () => {
                 variant="secondary"
                 size="lg"
                 className="w-full sm:w-auto"
-                onClick={() => route.push('/guide/introduction')}
+                onClick={() => route.push('/docs/guide/introduction')}
               >
                 Read documentation
               </Button>

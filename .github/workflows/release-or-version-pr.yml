@@ -44,8 +44,11 @@ jobs:
         env:
           # See https://github.com/changesets/action/issues/147
           HOME: ${{ github.workspace }}
-          # Skip husky during `npm publish` prepare (no .git in pack context)
-          HUSKY: '0'
           # Allows to download / query / comment packages
           # Allows to publish packages
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Yarn (Berry) doesn't read NPM_TOKEN; it maps this variable onto
+          # `npmAuthToken`. Without it publishing fails with
+          # "YN0033: No authentication configured for request".
+          # @link https://yarnpkg.com/configuration/yarnrc#npmAuthToken
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

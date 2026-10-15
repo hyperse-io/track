@@ -4,7 +4,7 @@ export default definePrettierConfig({
   /**
    * Path to the CSS stylesheet used by Tailwind CSS (v4+)
    */
-  tailwindStylesheet: './src/app/globals.css',
+  tailwindStylesheet: './src/styles/globals.css',
   /**
    * List of custom function and tag names that contain classes.
    */

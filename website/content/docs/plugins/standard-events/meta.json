@@ -1,0 +1,17 @@
+{
+  "title": "Standard Events",
+  "pages": [
+    "add_payment_info",
+    "add_to_cart",
+    "add_to_wishlist",
+    "begin_checkout",
+    "page_view",
+    "purchase",
+    "search",
+    "sign_up",
+    "view_cart",
+    "view_item",
+    "view_item_list",
+    "view_promotion"
+  ]
+}

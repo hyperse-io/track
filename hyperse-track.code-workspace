@@ -78,8 +78,10 @@
         "mode": "auto"
       }
     ],
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "js/ts.tsdk.path": "root/node_modules/typescript/lib",
+    "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+    "js/ts.tsserver.maxMemory": 8192,
+    "json.schemaDownload.enable": true,
     "[jsonc]": {
       "editor.formatOnSave": false,
       "editor.defaultFormatter": "vscode.json-language-features"

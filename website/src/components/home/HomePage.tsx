@@ -27,7 +27,7 @@ export const HomePage = () => {
               <button
                 type="button"
                 className="cursor-pointer rounded-lg bg-white px-8 py-4 font-bold text-black transition-colors hover:bg-gray-200"
-                onClick={() => route.push('/guide/installation')}
+                onClick={() => route.push('/docs/guide/installation')}
               >
                 Get started now
               </button>

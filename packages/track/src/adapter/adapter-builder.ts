@@ -113,8 +113,7 @@ export class AdapterBuilder<
 
   private mountTransformHook = <
     Key extends
-      | keyof LeftEventData
-      | [keyof LeftEventData, keyof RealEventData],
+      keyof LeftEventData | [keyof LeftEventData, keyof RealEventData],
     LeftEventData = EventData,
   >(
     eventType: Key,
@@ -133,8 +132,7 @@ export class AdapterBuilder<
 
     const transform = <
       RightKey extends
-        | keyof RightEventData
-        | [keyof RightEventData, keyof RealEventData],
+        keyof RightEventData | [keyof RightEventData, keyof RealEventData],
       RightEventData = Key extends keyof LeftEventData
         ? Omit<LeftEventData, Key>
         : Key extends [keyof LeftEventData, keyof RealEventData]

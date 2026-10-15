@@ -1,11 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import type { Metadata } from 'next';
-import NextImage from 'next/image';
-import { Banner, Head } from 'nextra/components';
-import { getPageMap } from 'nextra/page-map';
-import { Footer, Layout, Link, Navbar } from 'nextra-theme-docs';
-import { SITE_BASE_PATH } from '@/config/site';
-import './globals.css';
+import { RootProvider } from 'fumadocs-ui/provider/next';
+import { basePath } from '@/lib/base-path';
+import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   description:
@@ -21,7 +18,7 @@ export const metadata: Metadata = {
     'Klaviyo',
     'Data collection',
   ],
-  generator: 'Next.js',
+  generator: 'Hyperse',
   applicationName: 'Hyperse Track',
   appleWebApp: {
     title: 'Track',
@@ -41,75 +38,36 @@ export const metadata: Metadata = {
   },
 };
 
-const banner = (
-  <Banner dismissible={false}>
-    📌 Documentation for{' '}
-    <Link
-      href="https://www.npmjs.com/package/@hyperse/track"
-      className="text-current!"
-    >
-      @hyperse/track
-    </Link>{' '}
-    and premium adapter plugins.
-  </Banner>
-);
-
-const navbar = (
-  <Navbar
-    logo={
-      <div className="flex items-center gap-2">
-        <NextImage
-          src={`${SITE_BASE_PATH}/logo.svg`}
-          alt="Hyperse Track"
-          width={24}
-          height={24}
-          className="h-6 w-6 shrink-0"
-        />
-        <span className="font-semibold text-white">Track</span>
-      </div>
-    }
-    projectLink="https://github.com/hyperse-io/track"
-  />
-);
-
-const footer = (
-  <Footer className="flex-col items-center md:items-start">
-    <p className="text-sm text-gray-500">
-      Part of the{' '}
-      <Link href="https://github.com/hyperse-io" className="text-current!">
-        Hyperse
-      </Link>{' '}
-      toolchain.
-    </p>
-    <p className="mt-4 text-xs text-gray-600">
-      © {new Date().getFullYear()} Hyperse Inc.
-    </p>
-  </Footer>
-);
-
 const RootLayout: FC<{
   children: ReactNode;
-}> = async ({ children }) => {
-  const pageMap = await getPageMap();
-
+}> = ({ children }) => {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Head />
-      <body>
-        <Layout
-          banner={banner}
-          navbar={navbar}
-          pageMap={pageMap}
-          docsRepositoryBase="https://github.com/hyperse-io/track/tree/main/website"
-          editLink="Edit this page on GitHub"
-          sidebar={{ defaultMenuCollapseLevel: 1 }}
-          footer={footer}
-          nextThemes={{
-            forcedTheme: 'dark',
+      <head>
+        <link
+          rel="icon"
+          href={`${basePath}/logo.svg`}
+          type="image/svg+xml"
+          sizes="32x32"
+        />
+      </head>
+      <body className="flex min-h-screen flex-col">
+        {/*
+          Fumadocs' static search client builds its URL as
+          `join(BASE_PATH, api)`, and `BASE_PATH` comes from Vite's
+          `import.meta.env.BASE_URL` — which does not exist in Next.js, so it is
+          always `'/'`. Next.js' `basePath` is therefore NOT applied
+          automatically, and omitting it makes the client request
+          `/api/search` (404) instead of `${basePath}/api/search`.
+        */}
+        <RootProvider
+          theme={{ defaultTheme: 'dark', enableSystem: false }}
+          search={{
+            options: { type: 'static', api: `${basePath}/api/search` },
           }}
         >
           {children}
-        </Layout>
+        </RootProvider>
       </body>
     </html>
   );

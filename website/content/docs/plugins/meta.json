@@ -1,0 +1,13 @@
+{
+  "title": "Plugins",
+  "pages": [
+    "google-adapter",
+    "facebook-adapter",
+    "klaviyo-adapter",
+    "standard-events",
+    "google-events",
+    "facebook-events",
+    "klaviyo-events",
+    "types"
+  ]
+}

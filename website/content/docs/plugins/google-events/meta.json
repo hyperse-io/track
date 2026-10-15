@@ -1,0 +1,15 @@
+{
+  "title": "Google Events",
+  "pages": [
+    "add_shipping_info",
+    "login",
+    "refund",
+    "remove_from_cart",
+    "select_content",
+    "select_item",
+    "select_promotion",
+    "share",
+    "tutorial_begin",
+    "tutorial_complete"
+  ]
+}

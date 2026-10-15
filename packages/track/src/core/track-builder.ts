@@ -33,8 +33,7 @@ export class TrackBuilder<
   private adapterMap: TrackAdapterMap<Context, EventData> = {};
 
   private createDataHook?:
-    | Context['data']
-    | TrackCreateDataFunction<Context, EventData>;
+    Context['data'] | TrackCreateDataFunction<Context, EventData>;
   private beforeHook?: TrackBeforeFunction<Context>;
   private afterHook?: TrackAfterFunction<Context>;
   private globalEventData?: Partial<EventData>;

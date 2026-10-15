@@ -1,0 +1,14 @@
+{
+  "title": "Klaviyo Events",
+  "pages": [
+    "clicked_banner",
+    "klaviyo_account",
+    "klaviyo_cookie_domain",
+    "klaviyo_identify",
+    "klaviyo_open_form",
+    "klaviyo_track_viewed_item",
+    "referred_friend",
+    "shared_article",
+    "viewed_category"
+  ]
+}

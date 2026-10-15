@@ -24,8 +24,7 @@ export type TransformHookReturns<
   RealEventData,
 > = <
   RightKey extends
-    | keyof RightEventData
-    | [keyof RightEventData, keyof RealEventData],
+    keyof RightEventData | [keyof RightEventData, keyof RealEventData],
   RightEventData = Key extends keyof LeftEventData
     ? Omit<LeftEventData, Key>
     : Key extends [keyof LeftEventData, keyof RealEventData]

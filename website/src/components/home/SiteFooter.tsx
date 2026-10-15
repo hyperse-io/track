@@ -57,7 +57,7 @@ export const SiteFooter = () => {
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
                 <a
-                  href={`${SITE_BASE_PATH}/guide/introduction`}
+                  href={`${SITE_BASE_PATH}/docs/guide/introduction`}
                   className="transition-colors hover:text-cyan-400"
                 >
                   Introduction
@@ -65,7 +65,7 @@ export const SiteFooter = () => {
               </li>
               <li>
                 <a
-                  href={`${SITE_BASE_PATH}/guide/installation`}
+                  href={`${SITE_BASE_PATH}/docs/guide/installation`}
                   className="transition-colors hover:text-cyan-400"
                 >
                   Installation
@@ -73,7 +73,7 @@ export const SiteFooter = () => {
               </li>
               <li>
                 <a
-                  href={`${SITE_BASE_PATH}/plugins/google-adapter`}
+                  href={`${SITE_BASE_PATH}/docs/plugins/google-adapter`}
                   className="transition-colors hover:text-cyan-400"
                 >
                   Premium plugins

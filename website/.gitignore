@@ -87,6 +87,9 @@ web_modules/
 .next
 out
 
+# fumadocs generated
+/.source/
+
 # Nuxt.js build / generate output
 .nuxt
 dist
