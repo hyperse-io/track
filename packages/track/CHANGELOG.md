@@ -1,5 +1,11 @@
 # @hyperse/track
 
+## 1.1.1
+
+### Patch Changes
+
+- [`03355d7`](https://github.com/hyperse-io/track/commit/03355d70efacdee270dffa1938106285aa5ba71a) Thanks [@tianyingchun](https://github.com/tianyingchun)! - Align the workspace TypeScript version with the monorepo baseline (`6.0.3`) so the shared ESLint toolchain (`typescript-eslint`) resolves correctly.
+
 ## 1.1.0
 
 ### Minor Changes
